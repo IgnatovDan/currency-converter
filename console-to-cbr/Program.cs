@@ -1,4 +1,4 @@
-﻿// dotnet add package System.Text.Encoding
+﻿// dotnet new console --framework net6.0
 // dotnet run
 
 try {
