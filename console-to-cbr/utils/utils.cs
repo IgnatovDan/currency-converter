@@ -27,15 +27,17 @@ namespace CRBUtils {
       return result;
     }
 
-    public static decimal Convert(string sourceCurrency, decimal amount, string targetCurrency, ExchangeRates rates) {
-      var source = rates.Items.FirstOrDefault(item => item.CharCode == sourceCurrency);
-      if (source == null) {
-        throw new Exception($"The '{sourceCurrency}' was not found in the list of exchange rates");
+    private static Currency GetCurrency(List<Currency> items, string charCode) {
+      Currency? result = items.FirstOrDefault(item => String.Equals(item.CharCode, charCode, StringComparison.OrdinalIgnoreCase));
+      if (result == null) {
+        throw new Exception($"The '{charCode}' was not found in the list of available exchange rates");
       }
-      var target = rates.Items.FirstOrDefault(item => item.CharCode == targetCurrency);
-      if (target == null) {
-        throw new Exception($"The '{targetCurrency}' was not found in the list of exchange rates");
-      }
+      return result;
+    }
+
+    public static decimal Convert(string sourceCurrencyCharCode, decimal amount, string targetCurrencyCharCode, ExchangeRates rates) {
+      var source = GetCurrency(rates.Items, sourceCurrencyCharCode);
+      var target = GetCurrency(rates.Items, targetCurrencyCharCode);
       return (amount * source.Value / target.Value);
     }
   }
