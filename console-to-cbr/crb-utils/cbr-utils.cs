@@ -2,11 +2,11 @@ using System.Net;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace ConsoleToCBR {
+namespace CRBUtils {
   internal class CRBUtils {
-    private static string ExchangesServiceUrl = "https://www.cbr.ru/scripts/XML_daily.asp";
+    private static string ExchangesServiceUrl { get; } = "https://www.cbr.ru/scripts/XML_daily.asp";
 
-    public static async Task<ExchangeRates?> GetExchangeRates() {
+    public static async Task<CBRExchangeRates> GetExchangeRates() {
       // https://stackoverflow.com/questions/32471058/windows-1252-is-not-supported-encoding-name/55434262#55434262
       // https://stackoverflow.com/questions/3967716/how-to-find-encoding-for-1251-codepage
       // dotnet add package System.Text.Encoding
@@ -21,7 +21,7 @@ namespace ConsoleToCBR {
         var response = await client.GetAsync(ExchangesServiceUrl);
         if (response.StatusCode == HttpStatusCode.NoContent) {
           // handle 'no content' as 'empty list'
-          return new ExchangeRates();
+          return new CBRExchangeRates();
         }
         else {
           if (response.IsSuccessStatusCode) {
@@ -31,9 +31,9 @@ namespace ConsoleToCBR {
             var bytes = await response.Content.ReadAsByteArrayAsync();
             var str = encoding.GetString(bytes);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(ExchangeRates));
+            XmlSerializer serializer = new XmlSerializer(typeof(CBRExchangeRates));
             using (StringReader reader = new StringReader(str)) {
-              var result = serializer.Deserialize(reader) as ExchangeRates;
+              var result = serializer.Deserialize(reader) as CBRExchangeRates ?? new CBRExchangeRates();
               return result;
             }
           }

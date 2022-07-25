@@ -1,7 +1,7 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace ConsoleToCBR {
+namespace CRBUtils {
   /*
   https://www.cbr.ru/scripts/XML_daily.asp
   
@@ -15,21 +15,26 @@ namespace ConsoleToCBR {
     </Valute>
   */
   [XmlRootAttribute("ValCurs")]
-  public class ExchangeRates {
+  public class CBRExchangeRates {
     [XmlAttribute]
     public string? name;
     [XmlAttribute]
     public string? Date; // TODO: parse as Date? 
-    [XmlElement(typeof(Currency), ElementName = "Valute")]
-    public List<Currency> Items { get; set; } = new List<Currency>();
+    [XmlElement(typeof(CBRCurrency), ElementName = "Valute")]
+    public List<CBRCurrency> Items { get; } = new List<CBRCurrency>();
   }
 
-  public class Currency {
+  public class CBRCurrency {
     [XmlAttribute]
     public string? ID;
     public string? Name;
+    // https://en.wikipedia.org/wiki/ISO_4217
     public string? NumCode;
     public string? CharCode;
     public string? Value;
+  }
+
+  public class CurrencyRUB {
+    public static CBRCurrency Instance { get; } = new CBRCurrency() { CharCode = "RUB", Value = "1" };
   }
 }
