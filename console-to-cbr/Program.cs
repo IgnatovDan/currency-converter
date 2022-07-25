@@ -2,6 +2,8 @@
 // dotnet run
 
 try {
+  // Enable UTF8 to show RU chars in console and VSCode terminal
+  // (it tooks a half a day to find out what is going wrong with that '????' in VSCode terminal)
   Console.OutputEncoding = System.Text.Encoding.UTF8;
   var exchangeRates = await ConsoleToCBR.CRBUtils.GetExchangeRates();
 
