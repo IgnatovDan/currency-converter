@@ -13,6 +13,11 @@ namespace CRBAdapter {
       // dotnet add package System.Text.Encoding.CodePages
       System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
+      // Aternative approach: work with xml elements directly
+      // using System.Xml.Linq;
+      // var xmlDoc = XDocument.Load(ExchangesServiceUrl);
+      // var valueUSD = Convert.ToDecimal(xmlDoc.Elements("ValCurs").Elements("Valute").FirstOrDefault(x => x.Element("NumCode").Value == "840").Elements("Value").FirstOrDefault().Value);
+
       HttpClient client = new HttpClient();
       try {
         client.DefaultRequestHeaders.Clear();
