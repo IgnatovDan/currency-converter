@@ -1,4 +1,4 @@
-namespace CRBUtils {
+namespace ExchangeConverter {
   public class ExchangeRates {
     public ExchangeRates(DateTime date) {
       Date = date;

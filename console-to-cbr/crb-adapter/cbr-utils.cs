@@ -2,8 +2,8 @@ using System.Net;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace CRBUtils {
-  internal class CRBUtils {
+namespace CRBAdapter {
+  internal class Adapter {
     private static string ExchangesServiceUrl { get; } = "https://www.cbr.ru/scripts/XML_daily.asp";
 
     public static async Task<CBRExchangeRates> GetExchangeRates() {

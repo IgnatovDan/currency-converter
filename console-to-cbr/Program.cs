@@ -8,14 +8,14 @@ try {
   // Enable UTF8 to show RU chars in console and VSCode terminal
   // (it tooks a half a day to find out what is going wrong with that '????' in VSCode terminal)
   Console.OutputEncoding = System.Text.Encoding.UTF8;
-  var cbrRates = await CRBUtils.CRBUtils.GetExchangeRates();
+  var cbrRates = await CRBAdapter.Adapter.GetExchangeRates();
+  var rates = Utils.Utils.ConvertToExchangeRates(cbrRates);
 
   if (args.Length == 3) {
     var sourceCurrency = args[0];
     var amount = decimal.Parse(args[1], new NumberFormatInfo() { NumberDecimalSeparator = "," }); /* сценарии с разными разделителями не проверял */
     var targetCurrency = args[2];
-    var newAmount = CRBUtils.Utils.Convert(
-      sourceCurrency, amount, targetCurrency, CRBUtils.Utils.GetExchangeRatesFromCBR(cbrRates));
+    var newAmount = ExchangeConverter.Converter.Convert(sourceCurrency, amount, targetCurrency, rates);
 
     Console.WriteLine($"{newAmount}");
   }
@@ -24,8 +24,8 @@ try {
     Console.WriteLine("Expected arguments: source_currency_code amount target_currency_code");
     Console.WriteLine("For example: RUB 1000 USD");
 
-    Console.WriteLine($"Total rates available: {cbrRates?.Items.Count}, rates date: {cbrRates?.Date}");
-    Console.WriteLine($"rates[0]: Code - {cbrRates?.Items[0].CharCode}, Name - {cbrRates?.Items[0].Name}");
+    Console.WriteLine($"Total rates available: {rates?.Items.Count}, rates date: {rates?.Date}");
+    Console.WriteLine($"rates[0]: Code - {rates?.Items[0].CharCode}, Name - {rates?.Items[0].Name}");
   }
 }
 catch (Exception e) {

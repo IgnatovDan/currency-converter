@@ -1,7 +1,7 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace CRBUtils {
+namespace CRBAdapter {
   /*
   https://www.cbr.ru/scripts/XML_daily.asp
   
