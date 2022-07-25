@@ -1,26 +1,6 @@
 using System.Globalization;
 
 namespace CRBUtils {
-  public class ExchangeRates {
-    public ExchangeRates(DateTime date) {
-      Date = date;
-    }
-    public DateTime Date { get; }
-    public List<Currency> Items { get; } = new List<Currency>();
-  }
-
-  public class Currency {
-    public static Currency RUB { get; } = new Currency("Российский рубль", "RUB", 1);
-    public Currency(string name, string charCode, decimal value) {
-      Name = name;
-      CharCode = charCode;
-      Value = value;
-    }
-    public string Name { get; }
-    public string CharCode { get; }
-    public decimal Value { get; }
-  }
-
   public class Utils {
     public static ExchangeRates GetExchangeRatesFromCBR(CBRExchangeRates rates) {
       var result = new ExchangeRates(
@@ -37,7 +17,7 @@ namespace CRBUtils {
             item => new Currency(
               item.Name!,
               item.CharCode!,
-              decimal.Parse(item.Value!, new NumberFormatInfo() { NumberDecimalSeparator = "," })
+              decimal.Parse(item.Value!, new NumberFormatInfo() { NumberDecimalSeparator = "," }) /* сценарии с разными разделителями не проверял */
             )
           ).Where(item => item.Value != 0 /* cannot use such rates to exchange */)
       );
