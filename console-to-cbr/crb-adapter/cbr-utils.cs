@@ -32,6 +32,8 @@ namespace CRBAdapter {
         else {
           if (response.IsSuccessStatusCode) {
             var charset = response.Content.Headers.ContentType?.CharSet;
+            // Or, get 'encoding' from xml internals: <?xml version=""1.0"" encoding=""UTF-8""?>
+            // https://stackoverflow.com/questions/34293196/obtaining-the-xml-encoding-from-an-xml-declaration-fragment-xmldeclaration-is-n
             var encoding = (charset != null) ? Encoding.GetEncoding(charset) : Encoding.UTF8;
 
             var bytes = await response.Content.ReadAsByteArrayAsync();
