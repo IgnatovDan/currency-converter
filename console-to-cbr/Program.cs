@@ -12,7 +12,7 @@ try {
 
   if (args.Length == 3) {
     var sourceCurrency = args[0];
-    var amount = Convert.ToDecimal(args[1], CultureInfo.InvariantCulture);
+    var amount = decimal.Parse(args[1], new NumberFormatInfo() { NumberDecimalSeparator = "," }); /* сценарии с разными разделителями не проверял */
     var targetCurrency = args[2];
     var newAmount = CRBUtils.Utils.Convert(
       sourceCurrency, amount, targetCurrency, CRBUtils.Utils.GetExchangeRatesFromCBR(cbrRates));
