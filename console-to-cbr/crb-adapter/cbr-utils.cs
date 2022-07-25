@@ -39,6 +39,9 @@ namespace CRBAdapter {
             var bytes = await response.Content.ReadAsByteArrayAsync();
             var str = encoding.GetString(bytes);
 
+            // Server returns data as an 'xml' string and I cannot use 'ReadFromJsonAsync':
+            // var result = await res.Content.ReadFromJsonAsync<IEnumerable<CBRCurrency>>();
+
             XmlSerializer serializer = new XmlSerializer(typeof(CBRExchangeRates));
             using (StringReader reader = new StringReader(str)) {
               var result = serializer.Deserialize(reader) as CBRExchangeRates ?? new CBRExchangeRates();
