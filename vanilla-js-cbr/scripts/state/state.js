@@ -4,6 +4,9 @@ class Currency {
     this.CharCode = charCode; // 'String', code
     this.Value = value; // 'Number' TODO: force convert to number
   }
+  static RUB() {
+    return new Currency("Российский рубль", "RUB", 1);
+  }
 }
 
 class ExchangeRates {
