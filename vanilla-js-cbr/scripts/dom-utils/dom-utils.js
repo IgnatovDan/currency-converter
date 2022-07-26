@@ -18,7 +18,7 @@ class DOMUtils {
     const inputEl = document.querySelector(selector);
     if (inputEl) {
       inputEl.value = value;
-      inputEl.onchange = (e) => onChange(Number(e.target.value));
+      inputEl.onchange = onChange;
     }
   }
 

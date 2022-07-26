@@ -22,7 +22,7 @@ class UIModel {
     DOMUtils.SetNumberInputElementState(
       '.converter__source-amount',
       state.amount,
-      newValue => state.setAmount(newValue));
+      e => state.setAmount(Number(e.target.value)));
   }
 
   static updateSourceCurrency(state) {
