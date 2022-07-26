@@ -42,7 +42,8 @@ async function LoadExchangeRates() {
       if (!currencies.find(item => item.CharCode === 'RUB')) {
         currencies.unshift(Currency.RUB());
       }
-      return new ExchangeRates(xmlDoc.getElementsByTagName("ValCurs")[0].getAttribute('Date'), currencies);
+      const exchangeDate = xmlDoc.getElementsByTagName("ValCurs")[0].getAttribute('Date'), // TODO: parse to 'Date'
+      return new ExchangeRates(exchangeDate, currencies);
     });
 
   /*
