@@ -8,3 +8,20 @@
   align-items: stretch;
   gap: 30px;
 }
+
+/*
+Alternative approachs to position 'toggle' button:
+
+1. Replace 'gap' with manual margins:
+.converter__source-amount {
+  margin-bottom: 30px;
+}
+.converter__values > .labeled-editor:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+2. Group 'toggler' with 'converter__target-amount' into a new div and use absolute:
+.converter__currency-toggler {
+  position: absolute;
+}
+*/
