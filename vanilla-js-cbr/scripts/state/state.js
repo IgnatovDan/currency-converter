@@ -53,7 +53,10 @@ class State {
   }
 
   refreshTargetAmount() {
-    let newValue = HandleValueNumberToZero(this.amount * this.sourceCurrency?.Value / this.targetCurrency?.Value);
+    let newValue =
+      Math.round(
+        (HandleValueNumberToZero(this.amount * this.sourceCurrency?.Value / this.targetCurrency?.Value) + Number.EPSILON)
+        * 100) / 100;
     if (newValue !== this.targetAmount) {
       this.targetAmount = newValue;
       this.targetAmountChanged?.();
