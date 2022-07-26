@@ -28,10 +28,14 @@ class State {
     this.amountChanged = null;
 
     this.sourceCurrency = null;
-    this.sourceCurrencyChanged = null;
+    
+    this.sourceCurrencyCharCode = null;
+    this.sourceCurrencyCharCodeChanged = null;
 
     this.targetCurrency = null;
-    this.targetCurrencyChanged = null;
+
+    this.targetCurrencyCharCode = null;
+    this.targetCurrencyCharCodeChanged = null;
 
     this.targetAmount = 0;
     this.targetAmountChanged = null;
