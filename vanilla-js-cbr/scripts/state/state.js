@@ -27,8 +27,8 @@ class State {
     this.targetCurrency = null;
     this.targetCurrencyChanged = null;
 
-    this.resultAmount = 0;
-    this.resultAmountChanged = null;
+    this.targetAmount = 0;
+    this.targetAmountChanged = null;
 
     this.targetCurrencyRate = 0;
     this.targetCurrencyRateChanged = null;
@@ -37,19 +37,19 @@ class State {
   refreshTargetCurrencyRate() {
     const newValue = this.targetCurrency?.Value;
     if (newValue !== this.targetCurrencyRate) {
-      this.resultAmountRate = newValue;
-      this.resultAmountRateChanged?.();
+      this.targetAmountRate = newValue;
+      this.targetAmountRateChanged?.();
     }
   }
 
-  refreshresultAmount() {
+  refreshtargetAmount() {
     let newValue = this.amount * this.sourceCurrency?.Value / this.targetCurrency?.Value;
     if (Number.isNaN(newValue) || newValue === Infinity|| newValue === undefined || newValue === null) {
       newValue = 0;
     }
-    if (newValue !== this.resultAmount) {
-      this.resultAmount = newValue;
-      this.resultAmountChanged?.();
+    if (newValue !== this.targetAmount) {
+      this.targetAmount = newValue;
+      this.targetAmountChanged?.();
     }
   }
 
@@ -59,7 +59,7 @@ class State {
       this.sourceCurrencyCharCode = newValue;
       this.sourceCurrency = newCurrency;
       this.sourceCurrencyCharCodeChanged?.();
-      this.refreshresultAmount();
+      this.refreshtargetAmount();
     }
   }
 
@@ -69,7 +69,7 @@ class State {
       this.targetCurrencyCharCode = newValue;
       this.targetCurrency = newCurrency;
       this.targetCurrencyCharCodeChanged?.();
-      this.refreshresultAmount();
+      this.refreshtargetAmount();
       this.refreshTargetCurrencyRate();
     }
   }
@@ -78,7 +78,7 @@ class State {
     if (this.amount !== amount) {
       this.amount = amount;
       this.amountChanged?.();
-      this.refreshresultAmount();
+      this.refreshtargetAmount();
     }
   }
 

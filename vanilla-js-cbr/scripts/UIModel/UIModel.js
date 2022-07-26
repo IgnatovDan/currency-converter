@@ -15,8 +15,8 @@ class UIModel {
       state.targetCurrencyCharCode
     );
 
-    DOMUtils.SetElementText('.conveter__result-amount', state.resultAmount);
+    DOMUtils.SetElementText('.conveter__target-amount', state.targetAmount);
 
-    DOMUtils.SetElementText('.converter__target-currency-rate', state.targetCurrencyRate);
+    DOMUtils.SetElementText('.converter__target-rate', state.targetCurrencyRate);
   }
 }
