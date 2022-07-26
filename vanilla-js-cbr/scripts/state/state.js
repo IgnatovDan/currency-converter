@@ -1,8 +1,8 @@
 class Currency {
   constructor(name, charCode, value) {
-    this.Name = name;
-    this.CharCode = charCode;
-    this.Value = value;
+    this.Name = name; // 'String', human readable name
+    this.CharCode = charCode; // 'String', code
+    this.Value = value; // 'Number' TODO: force convert to number
   }
 }
 
@@ -13,6 +13,12 @@ class ExchangeRates {
   }
 }
 
+function HandleValueNumberToZero(value) {
+  if (Number.isNaN(value) || value === Infinity|| value === undefined || value === null) {
+    return 0;
+  }
+  return value;
+}
 class State {
   constructor() {
     this.availableCurrencies = null;
@@ -30,23 +36,20 @@ class State {
     this.targetAmount = 0;
     this.targetAmountChanged = null;
 
-    this.targetCurrencyRate = 0;
-    this.targetCurrencyRateChanged = null;
+    this.targetRate = 0;
+    this.targetRateChanged = null;
   }
 
-  refreshTargetCurrencyRate() {
-    const newValue = this.targetCurrency?.Value;
-    if (newValue !== this.targetCurrencyRate) {
-      this.targetAmountRate = newValue;
-      this.targetAmountRateChanged?.();
+  refreshTargetRate() {
+    const newValue = HandleValueNumberToZero(this.targetCurrency?.Value);
+    if (newValue !== this.targetRate) {
+      this.targetRate = newValue;
+      this.targetRateChanged?.();
     }
   }
 
-  refreshtargetAmount() {
-    let newValue = this.amount * this.sourceCurrency?.Value / this.targetCurrency?.Value;
-    if (Number.isNaN(newValue) || newValue === Infinity|| newValue === undefined || newValue === null) {
-      newValue = 0;
-    }
+  refreshTargetAmount() {
+    let newValue = HandleValueNumberToZero(this.amount * this.sourceCurrency?.Value / this.targetCurrency?.Value);
     if (newValue !== this.targetAmount) {
       this.targetAmount = newValue;
       this.targetAmountChanged?.();
@@ -59,7 +62,7 @@ class State {
       this.sourceCurrencyCharCode = newValue;
       this.sourceCurrency = newCurrency;
       this.sourceCurrencyCharCodeChanged?.();
-      this.refreshtargetAmount();
+      this.refreshTargetAmount();
     }
   }
 
@@ -69,16 +72,17 @@ class State {
       this.targetCurrencyCharCode = newValue;
       this.targetCurrency = newCurrency;
       this.targetCurrencyCharCodeChanged?.();
-      this.refreshtargetAmount();
-      this.refreshTargetCurrencyRate();
+      this.refreshTargetAmount();
+      this.refreshTargetRate();
     }
   }
 
   setAmount(amount) {
-    if (this.amount !== amount) {
-      this.amount = amount;
+    const newValue = HandleValueNumberToZero(amount);
+    if (this.amount !== newValue) {
+      this.amount = newValue;
       this.amountChanged?.();
-      this.refreshtargetAmount();
+      this.refreshTargetAmount();
     }
   }
 

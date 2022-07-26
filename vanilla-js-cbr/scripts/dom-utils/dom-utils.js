@@ -14,10 +14,11 @@ class DOMUtils {
     }
   } 
 
-  static SetInputElementState(selector, value) {
+  static SetNumberInputElementState(selector, value, onChange) {
     const inputEl = document.querySelector(selector);
     if (inputEl) {
       inputEl.value = value;
+      inputEl.onchange = (e) => onChange(Number(e.target.value));
     }
   }
 
