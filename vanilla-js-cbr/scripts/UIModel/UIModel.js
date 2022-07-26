@@ -1,5 +1,7 @@
 class UIModel {
   static Bind(state) {
+    UIModel.updateForm();
+
     state.amountChanged = () => UIModel.updateSourceAmount(state);
     UIModel.updateSourceAmount(state);
 
@@ -18,6 +20,13 @@ class UIModel {
 
     state.targetRateChanged = () => UIModel.updateTargetRate(state);
     UIModel.updateTargetRate(state);
+  }
+
+  static updateForm() {
+    DOMUtils.SetFormState(
+      '.converter',
+      e => e.preventDefault()
+    );
   }
 
   static updateSourceAmount(state) {
@@ -59,7 +68,8 @@ class UIModel {
     DOMUtils.SetSelectElementState(
       '.converter__target-currency > select',
       convertCurrenciesToSelectElementOptions(state.availableCurrencies),
-      state.targetCurrencyCharCode
+      state.targetCurrencyCharCode,
+      e => state.setTargetCurrencyCharCode(e.target.value)
     );
   }
 

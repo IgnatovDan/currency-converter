@@ -15,11 +15,11 @@ class DOMUtils {
     }
   } 
 
-  static SetNumberInputElementState(selector, value, onChange) {
+  static SetNumberInputElementState(selector, value, onInput) {
     const element = document.querySelector(selector);
     if (element) {
       element.value = value;
-      element.onchange = onChange;
+      element.oninput = onInput;
     }
   }
 
@@ -34,6 +34,13 @@ class DOMUtils {
     const element = document.querySelector(selector);
     if (element) {
       element.onclick = onClick;
+    }
+  }
+
+  static SetFormState(selector, onSubmit) {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.onsubmit = onSubmit;
     }
   }
 }
