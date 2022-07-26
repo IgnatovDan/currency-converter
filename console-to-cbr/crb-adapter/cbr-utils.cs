@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 
 namespace CRBAdapter {
   internal class Adapter {
+    // https://www.cbr.ru/development/SXML/
     private static string ExchangesServiceUrl { get; } = "https://www.cbr.ru/scripts/XML_daily.asp";
 
     public static async Task<CBRExchangeRates> GetExchangeRates() {
@@ -23,7 +24,7 @@ namespace CRBAdapter {
       try {
         client.DefaultRequestHeaders.Clear();
 
-        // https://www.cbr.ru/development/SXML/
+        // CancellationToken?
         var response = await client.GetAsync(ExchangesServiceUrl);
         if (response.StatusCode == HttpStatusCode.NoContent) {
           // handle 'no content' as 'empty list'
@@ -47,6 +48,10 @@ namespace CRBAdapter {
               var result = serializer.Deserialize(reader) as CBRExchangeRates ?? new CBRExchangeRates();
               return result;
             }
+            /*
+              Also, there is 'https://www.cbr-xml-daily.ru/#json' that provides JSON string:
+              var result = await res.Content.ReadFromJsonAsync<IEnumerable<CBRCurrency>>();
+            */
           }
           else {
             var message = await response.Content.ReadAsStringAsync();
