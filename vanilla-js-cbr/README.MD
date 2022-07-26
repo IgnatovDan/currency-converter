@@ -3,3 +3,6 @@
 Application will connect to www.cbr.ru
 
 Used technologies: HTML, semantic, CSS flex/position/margin/padding/z-index, BEM.
+
+TODO:
+- проверить на разных размерах браузера + resposive: должны появляться скролы, должны быть минимальные/максимальные ширина/высота, тексты должны оставаться по центру

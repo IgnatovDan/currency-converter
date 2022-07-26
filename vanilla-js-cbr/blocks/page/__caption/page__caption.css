@@ -1,0 +1,13 @@
+.page__caption {
+  /* reset browser styles */
+  padding: 0;
+  margin: 0;
+
+  padding-bottom: 20px;
+  
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  text-transform: uppercase;
+}

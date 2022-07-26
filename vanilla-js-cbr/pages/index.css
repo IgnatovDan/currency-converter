@@ -1,1 +1,22 @@
+@import url(../vendor/normalize.css);
+
 @import url(../blocks/page/page.css);
+@import url(../blocks/page/__caption/page__caption.css);
+
+@import url(../blocks/button/button.css);
+@import url(../blocks/button/__image/button__image.css);
+@import url(../blocks/button/__text/button__text.css);
+
+@import url(../blocks/converter/converter.css);
+@import url(../blocks/converter/__currency/converter__currency.css);
+@import url(../blocks/converter/__currency-toggler/converter__currency-toggler.css);
+@import url(../blocks/converter/__label/converter__label.css);
+@import url(../blocks/converter/__result-amount/conveter__result-amount.css);
+@import url(../blocks/converter/__source-amount/converter__source-amount.css);
+@import url(../blocks/converter/__values/converter__values.css);
+
+@import url(../blocks/labeled-editor/labeled-editor.css);
+@import url(../blocks/editor/editor.css);
+
+@import url(../blocks/equal-expression/equal-expression.css);
+@import url(../blocks/equal-expression/__item/equal-expression__item.css);

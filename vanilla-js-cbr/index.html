@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset='utf-8'>
   <title>Currency converter</title>
@@ -7,25 +8,40 @@
   <link rel='stylesheet' type='text/css' media='screen' href='pages/index.css'>
   <!-- <script defer src='pages/index.js'></script> -->
 </head>
+
 <body>
   <main class="page">
+    <h1 class="page__caption">Currency converter</h1>
     <form class="converter">
-      <p class="converter__caption">TODO: caption</p>
       <fieldset class="converter__values">
-        <input class="converter__amount" type="number" placeholder="TODO" required>
-        <label>
+        <input class="converter__source-amount editor" type="number" placeholder="Enter amount" required value="42">
+        <label class="labeled-editor">
           From
-          <select class="converter__source-currency" placeholder="TODO" required></select>
+          <select class="editor" required value="USD">
+            <option>USD</option>
+            <option>RUB</option>
+          </select>
         </label>
-        <button class="converter__toggle-currencies" type="button">Toggle currencies</button>
-        <label>
+        <button class="converter__currency-toggler button" type="button">
+          <div class="button__image"></div>
+          <div class="button__text">Toggle currencies</div>
+        </button>
+        <label class="labeled-editor">
           Into
-          <select class="converter__target-currency" placeholder="TODO" required></select>
+          <select class="editor" required value="RUB">
+            <option>USD</option>
+            <option>RUB</option>
+          </select>
         </label>
       </fieldset>
-      <p class="conveter__result">TODO: result default text</p>
-      <p class="conveter__current-rate">TODO: current currency rate default text</p>
-    </div>
+      <p class="conveter__result-amount">3000</p>
+      <div class="equal-expression">
+        <p class="equal-expression__item">Current rate</p>
+        <p class="equal-expression__item">=</p>
+        <p class="equal-expression__item">42</p>
+      </div>
+      </div>
   </main>
 </body>
+
 </html>

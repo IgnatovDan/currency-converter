@@ -1,0 +1,12 @@
+.button__text {
+  display: none;
+}
+
+/*
+TODO
+@media(min-width: 768px) {
+  .button__text {
+    display: inline;
+  }
+}
+*/
