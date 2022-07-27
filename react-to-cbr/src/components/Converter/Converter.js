@@ -5,9 +5,8 @@ import LabeledEditor from '../LabeledEditor/LabeledEditor';
 import RateExpression from '../RateExpression/rate-expression';
 
 import './converter.css';
-import './__values/converter__values.css';
-import './__values/converter__values.css';
-import './__values/converter__values.css';
+import './__currency-toggler/converter__currency-toggler.css';
+import './__target-amount/converter__target-amount.css';
 import './__values/converter__values.css';
 
 function Converter(props) {
@@ -21,7 +20,7 @@ function Converter(props) {
           <LabeledEditor classes="converter__target-currency" caption="Into" />
         </fieldset>
       </form>
-      <p class="conveter__target-amount">0</p>
+      <p class="converter__target-amount">0</p>
       <RateExpression />
     </Fragment>
   );

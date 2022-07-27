@@ -1,4 +1,6 @@
 import './button.css';
+import './__image/button__image.css';
+import './__text/button__text.css';
 
 export default function Button(props) {
   // TODO: pass image and caption as markup
