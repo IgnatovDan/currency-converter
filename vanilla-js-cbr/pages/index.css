@@ -29,5 +29,5 @@
 @import url(../blocks/labeled-editor/labeled-editor.css);
 @import url(../blocks/editor/editor.css);
 
-@import url(../blocks/equal-expression/equal-expression.css);
-@import url(../blocks/equal-expression/__item/equal-expression__item.css);
+@import url(../blocks/rate-expression/rate-expression.css);
+@import url(../blocks/rate-expression/__item/rate-expression__item.css);

@@ -84,14 +84,14 @@ class ViewModel {
   }
 
   static updateSourceRateCharCode(state) {
-    DOMUtils.SetElementText('.converter__source-rate-char-code', state.sourceCurrencyCharCode);
+    DOMUtils.SetElementText('.rate-expression__item_source-rate-char-code', state.sourceCurrencyCharCode);
   }
 
   static updateTargetRateCharCode(state) {
-    DOMUtils.SetElementText('.converter__target-rate-char-code', state.targetCurrencyCharCode);
+    DOMUtils.SetElementText('.rate-expression__item_target-rate-char-code', state.targetCurrencyCharCode);
   }
 
   static updateTargetRate(state) {
-    DOMUtils.SetElementText('.converter__target-rate-value', state.targetRate);
+    DOMUtils.SetElementText('.rate-expression__item_target-rate-value', state.targetRate);
   }
 }
