@@ -17,16 +17,15 @@ class ExchangeRates {
 }
 
 class EventTarget {
-  constructor() {
-    this.listeners = [];
-  }
+  #listeners = [];
+
   addEventListener(listener) {
-    if (!this.listeners.some(item => item === listener)) {
-      this.listeners.push(listener);
+    if (!this.#listeners.some(item => item === listener)) {
+      this.#listeners.push(listener);
     }
   }
   dispatchEvent(args) {
-    this.listeners.forEach(listener => listener(args));
+    this.#listeners.forEach(listener => listener(args));
   }
 }
 
@@ -38,66 +37,80 @@ function HandleValueNumberToZero(value) {
 }
 
 class State {
-  constructor() {
-    this.availableCurrencies = null;
-    this.availableCurrenciesChanged = new EventTarget();
+  #availableCurrencies = null;
+  #availableCurrenciesChanged = new EventTarget();
 
-    this.amount = 42;
-    this.amountChanged = new EventTarget();
+  #amount = 42;
+  #amountChanged = new EventTarget();
 
-    this.sourceCurrencyValue = null;
-    
-    this.sourceCurrencyCharCode = null;
-    this.sourceCurrencyCharCodeChanged = new EventTarget();
+  #sourceCurrencyValue = null;
+  #sourceCurrencyCharCode = null;
+  #sourceCurrencyCharCodeChanged = new EventTarget();
 
-    this.targetCurrencyValue = null;
+  #targetCurrencyValue = null;
+  #targetCurrencyCharCode = null;
+  #targetCurrencyCharCodeChanged = new EventTarget();
 
-    this.targetCurrencyCharCode = null;
-    this.targetCurrencyCharCodeChanged = new EventTarget();
+  #targetAmount = 0;
+  #targetAmountChanged = new EventTarget();
 
-    this.targetAmount = 0;
-    this.targetAmountChanged = new EventTarget();
+  #targetRate = 0;
+  #targetRateChanged = new EventTarget();
 
-    this.targetRate = 0;
-    this.targetRateChanged = new EventTarget();
-  }
+  get availableCurrencies() { return this.#availableCurrencies; }
+  get availableCurrenciesChanged() { return this.#availableCurrenciesChanged; }
+
+  get amount() { return this.#amount; }
+  get amountChanged() { return this.#amountChanged; }
+
+  get sourceCurrencyCharCode() { return this.#sourceCurrencyCharCode; }
+  get sourceCurrencyCharCodeChanged() { return this.#sourceCurrencyCharCodeChanged; }
+
+  get targetCurrencyCharCode() { return this.#targetCurrencyCharCode; }
+  get targetCurrencyCharCodeChanged() { return this.#targetCurrencyCharCodeChanged; }
+  
+  get targetAmount() { return this.#targetAmount; }
+  get targetAmountChanged() { return this.#targetAmountChanged; }
+
+  get targetRate() { return this.#targetRate; }
+  get targetRateChanged() { return this.#targetRateChanged; }  
 
   refreshTargetRate() {
     const newValue =
-      Math.round((HandleValueNumberToZero(this.sourceCurrencyValue / this.targetCurrencyValue) + Number.EPSILON) * 10000) / 10000;
-    if (newValue !== this.targetRate) {
-      this.targetRate = newValue;
-      this.targetRateChanged.dispatchEvent();
+      Math.round((HandleValueNumberToZero(this.#sourceCurrencyValue / this.#targetCurrencyValue) + Number.EPSILON) * 10000) / 10000;
+    if (newValue !== this.#targetRate) {
+      this.#targetRate = newValue;
+      this.#targetRateChanged.dispatchEvent();
     }
   }
 
   refreshTargetAmount() {
     let newValue =
       Math.round(
-        (HandleValueNumberToZero(this.amount * this.sourceCurrencyValue / this.targetCurrencyValue) + Number.EPSILON)
+        (HandleValueNumberToZero(this.#amount * this.#sourceCurrencyValue / this.#targetCurrencyValue) + Number.EPSILON)
         * 100) / 100;
-    if (newValue !== this.targetAmount) {
-      this.targetAmount = newValue;
-      this.targetAmountChanged.dispatchEvent();
+    if (newValue !== this.#targetAmount) {
+      this.#targetAmount = newValue;
+      this.#targetAmountChanged.dispatchEvent();
     }
   }
 
   setSourceCurrencyCharCode(newValue) {
-    const newCurrency = this.availableCurrencies?.find(item => item.CharCode === newValue);
+    const newCurrency = this.#availableCurrencies?.find(item => item.CharCode === newValue);
     if (newCurrency && this.sourceCurrencyCharCode !== newValue) {
-      this.sourceCurrencyCharCode = newValue;
-      this.sourceCurrencyValue = newCurrency.Value;
-      this.sourceCurrencyCharCodeChanged.dispatchEvent();
+      this.#sourceCurrencyCharCode = newValue;
+      this.#sourceCurrencyValue = newCurrency.Value;
+      this.#sourceCurrencyCharCodeChanged.dispatchEvent();
       this.refreshTargetAmount();
     }
   }
 
   setTargetCurrencyCharCode(newValue) {
-    const newCurrency = this.availableCurrencies?.find(item => item.CharCode === newValue);
-    if (newCurrency && this.targetCurrencyCharCode !== newValue) {
-      this.targetCurrencyCharCode = newValue;
-      this.targetCurrencyValue = newCurrency.Value;
-      this.targetCurrencyCharCodeChanged.dispatchEvent();
+    const newCurrency = this.#availableCurrencies?.find(item => item.CharCode === newValue);
+    if (newCurrency && this.#targetCurrencyCharCode !== newValue) {
+      this.#targetCurrencyCharCode = newValue;
+      this.#targetCurrencyValue = newCurrency.Value;
+      this.#targetCurrencyCharCodeChanged.dispatchEvent();
       this.refreshTargetAmount();
       this.refreshTargetRate();
     }
@@ -105,17 +118,17 @@ class State {
 
   setAmount(amount) {
     const newValue = HandleValueNumberToZero(amount);
-    if (this.amount !== newValue) {
-      this.amount = newValue;
-      this.amountChanged.dispatchEvent();
+    if (this.#amount !== newValue) {
+      this.#amount = newValue;
+      this.#amountChanged.dispatchEvent();
       this.refreshTargetAmount();
     }
   }
 
   setAvailableCurrencies(currencies) {
-    if (this.availableCurrencies !== currencies) {
-      this.availableCurrencies = currencies;
-      this.availableCurrenciesChanged.dispatchEvent();
+    if (this.#availableCurrencies !== currencies) {
+      this.#availableCurrencies = currencies;
+      this.#availableCurrenciesChanged.dispatchEvent();
     }
   }
 };
