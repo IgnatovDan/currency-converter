@@ -1,10 +1,11 @@
-# "VanillaJS" application
+# Currency Converter application
 Select source currency, enter amount, select the target currency and the application will show the target amount and rate between source and target currencies.
 
 Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
 
 ## Used technologies
 HTML, semantic, CSS flex/position/margin/padding/z-index, BEM.
+This is a "VanillaJS" application
 
 ## How to avoid "Access to fetch at 'https://www.cbr.ru/scripts/XML_daily.asp' from origin 'null' has been blocked by CORS policy":
 
