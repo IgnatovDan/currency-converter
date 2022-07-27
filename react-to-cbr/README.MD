@@ -1,14 +1,21 @@
-# Currency converter
+# Currency Converter application
+Select source currency, enter amount, select the target currency and the application will show the target amount and rate between source and target currencies.
 
-React application: select your currency, enter your amount, select the target currency. The application will show the target amount.
+Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
 
-Application will connect to www.cbr.ru
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Used technologies
+React, HTML, semantic, CSS flex/position/margin/padding, BEM.
+This is a React application, project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Available Scripts
 - `npm start`
 - `npm test`
 
-TODO:
-- change css: switch to dynamic unique names
+## How to avoid "Access to fetch at 'https://www.cbr.ru/scripts/XML_daily.asp' from origin 'null' has been blocked by CORS policy":
+
+Close chrome and run it in this way: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --args --disable-web-security --user-data-dir="c:\temp"
+For more details, see https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
+
+#### TODO:
+- change css management: switch to dynamic unique names
+- review implementation with redux
