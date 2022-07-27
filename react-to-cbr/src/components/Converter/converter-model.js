@@ -1,4 +1,4 @@
-import LoadCurrencyExchangeRates from "../../api/cbr";
+import CBRAdapter from "../../api/cbr-adapter";
 
 export class Currency {
   #name;
@@ -58,7 +58,7 @@ export class ConverterModel {
   }
 
   static LoadFromCBRAsync() {
-    return LoadCurrencyExchangeRates()
+    return CBRAdapter.LoadCurrencyExchangeRates()
       .then(xmlString => {
         var parser = new DOMParser();
         var xmlDoc = parser.parseFromString(xmlString, "text/xml");
