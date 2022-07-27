@@ -9,3 +9,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Available Scripts
 - `npm start`
 - `npm test`
+
+TODO:
+- change css: switch to dynamic unique names
