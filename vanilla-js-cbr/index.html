@@ -14,12 +14,15 @@
   <script defer src='scripts/index.js'></script>
 </head>
 
-<body>
-  <main class="page">
-    <h1 class="page__caption">Currency converter</h1>
-    <form class="converter">
+<body class="page">
+  <header class="page__header header">
+    <h1 class="header__caption">Currency converter</h1>
+  </header>
+  <main class="main">
+    <form class="main__converter converter">
       <fieldset class="converter__values">
-        <input class="converter__source-amount editor" type="number" placeholder="Enter amount" required value="" step="0.01" >
+        <input class="converter__source-amount editor" type="number" placeholder="Enter amount" required value=""
+          step="0.01">
         <label class="converter__source-currency labeled-editor">
           From
           <select class="editor" required value="USD">
@@ -41,8 +44,9 @@
         <p class="equal-expression__item">=</p>
         <p class="converter__target-rate equal-expression__item">0</p>
       </div>
-      </div>
+    </form>
   </main>
+  <footer></footer>
 </body>
 
 </html>

@@ -1,11 +1,4 @@
 .converter {
-  /* reset browser styles */
-  padding: 0;
-  margin: 0;
-
-  max-width: 300px;
-
-  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
