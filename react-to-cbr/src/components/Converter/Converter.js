@@ -18,11 +18,11 @@ function Converter(props) {
       ConverterModel
         .LoadFromCBRAsync()
         .then(exchangeRates => {
-          setModel(ConverterModel.setAvailableCurrencies(model, exchangeRates?.Items));
+          setModel(ConverterModel.setAvailableCurrencies(new ConverterModel(), exchangeRates?.Items));
         })
         .catch(reason => { /* TODO: update model */ });
     },
-    []
+    [/* TODO: disable UI */]
   );
 
   const selectCurrencyOptions = convertCurrenciesToSelectElementOptions(model.availableCurrencies).map(item => {
@@ -52,7 +52,7 @@ function Converter(props) {
     <Fragment>
       <form className={ `${props.classes}` } onSubmit={ e => e.preventDefault() }>
         <fieldset className="converter__values">
-          <Editor classes="converter__source-amount" value={ model.amount } onInput={ handleAmountChange } type="number" required step="0.01"/>
+          <Editor classes="converter__source-amount" value={ model.amount } onInput={ handleAmountChange } type="number" required step="0.01" />
           <LabeledEditor classes="converter__source-currency" caption="From">
             <Editor tagName="select" required value={ model.sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } >
               { selectCurrencyOptions }
