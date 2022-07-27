@@ -8,3 +8,4 @@ TODO:
 - store selected values between sessions
 - add duedate for exchange rates and refresh it automatically (keep user data)
 - add tests
+- show country flag, currency symbol
