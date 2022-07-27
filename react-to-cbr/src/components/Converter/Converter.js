@@ -1,9 +1,10 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { ConverterModel } from './converter-model';
 import Button from '../button/button';
 import Editor from '../editor/editor';
 import LabeledEditor from '../labeled-editor/labeled-editor';
 import CurrencyRateExpression from '../currency-rate-expression/currency-rate-expression';
+import { convertCurrenciesToSelectElementOptions } from './utils';
 
 import './converter.css';
 import './__currency-toggler/converter__currency-toggler.css';
@@ -12,9 +13,20 @@ import './__values/converter__values.css';
 
 function Converter(props) {
   const [model, setModel] = useState(new ConverterModel());
+  useEffect(
+    () => {
+      ConverterModel
+        .LoadFromCBRAsync()
+        .then(exchangeRates => {
+          setModel(ConverterModel.setAvailableCurrencies(model, exchangeRates?.Items));
+        })
+        .catch(reason => { /* TODO: update model */ });
+    },
+    []
+  );
 
-  const selectCurrencyOptions = model.availableCurrencies.map(item => {
-    return (<option key={ item.CharCode } value={ item.CharCode }>{ item.Name }</option>);
+  const selectCurrencyOptions = convertCurrenciesToSelectElementOptions(model.availableCurrencies).map(item => {
+    return (<option key={ item.value } value={ item.value }>{ item.text }</option>);
   });
 
   const handleAmountChange = e => {
