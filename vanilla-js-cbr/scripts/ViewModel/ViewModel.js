@@ -49,9 +49,9 @@ class ViewModel {
       () => {
         const currentSourceCurrencyCharCode = state.sourceCurrencyCharCode;
         // TODO: curious optimisation
-        // 'targetAmount' is recalculated twice and 'conveter__target-amount' is update twice(one time for each call)
+        // 'targetAmount' is recalculated twice and 'converter__target-amount' is update twice(one time for each call)
         //
-        // 1. I can handle two repaints of 'conveter__target-amount' via 'requestAnimationFrame/setTimeout(0)':
+        // 1. I can handle two repaints of 'converter__target-amount' via 'requestAnimationFrame/setTimeout(0)':
         //     it will move 'XXXChange' calls from the current call tree to the future calls queue.
         //
         // 2. 'targetAmount' recalculations should to be fast enough (no repains/DOM changes) and it doesn't worth it to optimize these calls
@@ -80,7 +80,7 @@ class ViewModel {
   }
 
   static updateTargetAmount(state) {
-    DOMUtils.SetElementText('.conveter__target-amount', state.targetAmount);
+    DOMUtils.SetElementText('.converter__target-amount', state.targetAmount);
   }
 
   static updateSourceRateCharCode(state) {
