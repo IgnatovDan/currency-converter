@@ -1,4 +1,4 @@
-import Converter from "../Converter/Converter";
+import Converter from "../converter/converter";
 
 import './main.css';
 import './__converter/main__converter.css';

@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
-import Button from '../Button/Button';
-import Editor from '../Editor/Editor';
-import LabeledEditor from '../LabeledEditor/LabeledEditor';
-import RateExpression from '../RateExpression/rate-expression';
+import Button from '../button/button';
+import Editor from '../editor/editor';
+import LabeledEditor from '../labeled-editor/labeled-editor';
+import RateExpression from '../rate-expression/rate-expression';
 
 import './converter.css';
 import './__currency-toggler/converter__currency-toggler.css';
@@ -20,7 +20,7 @@ function Converter(props) {
           <LabeledEditor classes="converter__target-currency" caption="Into" />
         </fieldset>
       </form>
-      <p class="converter__target-amount">0</p>
+      <p className="converter__target-amount">0</p>
       <RateExpression />
     </Fragment>
   );

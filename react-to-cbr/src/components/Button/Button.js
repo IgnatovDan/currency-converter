@@ -2,7 +2,7 @@ import './button.css';
 import './__image/button__image.css';
 import './__text/button__text.css';
 
-export default function Button(props) {
+function Button(props) {
   // TODO: pass image and caption as markup
   return (
     <button className={ `${props.classes} button` } type="button">
@@ -11,3 +11,5 @@ export default function Button(props) {
     </button>
   );
 }
+
+export default Button;
