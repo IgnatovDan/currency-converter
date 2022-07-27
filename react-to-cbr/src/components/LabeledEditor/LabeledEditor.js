@@ -1,10 +1,10 @@
 import './labeled-editor.css';
 
-export default function LabeledEditor(props) {
+export default function LabeledEditor({ classes, caption }) {
   // TODO: pass caption as child markup
   return (
-    <label className={ `${props.classes} labeled-editor` }>
-      Into
+    <label className={ `${classes} labeled-editor` }>
+      { caption }
       <select className="editor" required />
     </label>
   );

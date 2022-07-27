@@ -1,0 +1,7 @@
+.rate-expression__item {
+  /* reset browser styles */
+  padding: 0;
+  margin: 0;
+
+  white-space: nowrap;
+}

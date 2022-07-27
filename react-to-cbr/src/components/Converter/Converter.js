@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import Button from '../Button/Button';
 import Editor from '../Editor/Editor';
 import LabeledEditor from '../LabeledEditor/LabeledEditor';
+import RateExpression from '../RateExpression/rate-expression';
 
 import './converter.css';
 import './__values/converter__values.css';
@@ -15,20 +16,13 @@ function Converter(props) {
       <form className={ `${props.classes}` }>
         <fieldset className="converter__values">
           <Editor classes="converter__source-amount" />
-          <LabeledEditor classes="converter__source-currency" />
+          <LabeledEditor classes="converter__source-currency" caption="From" />
           <Button classes="converter__currency-toggler" />
-          <LabeledEditor classes="converter__target-currency" />
-          {/* TODO: Add 'Into' caption */ }
+          <LabeledEditor classes="converter__target-currency" caption="Into" />
         </fieldset>
       </form>
       <p class="conveter__target-amount">0</p>
-      <div class="equal-expression">
-        <p class="equal-expression__item">1</p>
-        <p class="converter__source-rate-char-code equal-expression__item">USD</p>
-        <p class="equal-expression__item">=</p>
-        <p class="converter__target-rate-value equal-expression__item">1</p>
-        <p class="converter__target-rate-char-code equal-expression__item">USD</p>
-      </div>
+      <RateExpression />
     </Fragment>
   );
 }
