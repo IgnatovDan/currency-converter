@@ -1,10 +1,17 @@
-"VanillaJS" application: select your currency, enter your amount, select the target currency. The application will show the target amount.
+# "VanillaJS" application
+Select source currency, enter amount, select the target currency and the application will show the target amount and rate between source and target currencies.
 
-Application will connect to www.cbr.ru
+Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
 
-Used technologies: HTML, semantic, CSS flex/position/margin/padding/z-index, BEM.
+## Used technologies
+HTML, semantic, CSS flex/position/margin/padding/z-index, BEM.
 
-TODO:
+## How to avoid "Access to fetch at 'https://www.cbr.ru/scripts/XML_daily.asp' from origin 'null' has been blocked by CORS policy":
+
+Close chrome and run it in this way: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --args --disable-web-security --user-data-dir="c:\temp"
+For more details, see https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
+
+#### TODO:
 - store selected values between sessions
 - add duedate for exchange rates and refresh it automatically without loosing user data (add a new button 'Test refresh outdated rates')
 - add tests
