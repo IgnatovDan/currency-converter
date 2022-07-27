@@ -4,7 +4,7 @@ Select source currency, enter amount, select the target currency and the applica
 Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
 
 ## Used technologies
-HTML, semantic, CSS flex/position/margin/padding/z-index, BEM.
+HTML, semantic, CSS flex/position/margin/padding, BEM.
 This is a "VanillaJS" application
 
 ## How to avoid "Access to fetch at 'https://www.cbr.ru/scripts/XML_daily.asp' from origin 'null' has been blocked by CORS policy":
