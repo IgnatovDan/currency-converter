@@ -17,6 +17,6 @@ Close chrome and run it in this way: "C:\Program Files (x86)\Google\Chrome\Appli
 For more details, see https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
 
 #### TODO:
-- change css management: switch to dynamic unique names
+- change css management: switch to dynamic unique names (https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/)
 - disable converter UI until exchange rates are loaded
 - review implementation with redux
