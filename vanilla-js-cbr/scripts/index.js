@@ -11,6 +11,6 @@ LoadExchangeRates().then((exchangeRates) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   // handler is required because "script defer" content is executed before "DOMContentLoaded"
-  // while "UIModel.bind" requires a complete DOM tree
-  UIModel.Bind(state);
+  // while "ViewModel.bind" requires a complete DOM tree
+  ViewModel.Bind(state);
 });

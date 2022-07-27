@@ -1,25 +1,25 @@
-class UIModel {
+class ViewModel {
   static Bind(state) {
-    UIModel.updateForm();
+    ViewModel.updateForm();
 
-    state.amountChanged = () => UIModel.updateSourceAmount(state);
-    UIModel.updateSourceAmount(state);
+    state.amountChanged = () => ViewModel.updateSourceAmount(state);
+    ViewModel.updateSourceAmount(state);
 
-    state.availableCurrenciesChanged = () => UIModel.updateSourceCurrency(state);
-    state.sourceCurrencyCharCodeChanged = () => UIModel.updateSourceCurrency(state);
-    UIModel.updateSourceCurrency(state);
+    state.availableCurrenciesChanged = () => ViewModel.updateSourceCurrency(state);
+    state.sourceCurrencyCharCodeChanged = () => ViewModel.updateSourceCurrency(state);
+    ViewModel.updateSourceCurrency(state);
 
-    UIModel.UpdateCurrencyToggler(state);
+    ViewModel.UpdateCurrencyToggler(state);
     
-    state.availableCurrenciesChanged = () => UIModel.updateTargetCurrency(state);
-    state.targetCurrencyCharCodeChanged = () => UIModel.updateTargetCurrency(state);
-    UIModel.updateTargetCurrency(state);
+    state.availableCurrenciesChanged = () => ViewModel.updateTargetCurrency(state);
+    state.targetCurrencyCharCodeChanged = () => ViewModel.updateTargetCurrency(state);
+    ViewModel.updateTargetCurrency(state);
 
-    state.targetAmountChanged = () => UIModel.updateTargetAmount(state);
-    UIModel.updateTargetAmount(state);
+    state.targetAmountChanged = () => ViewModel.updateTargetAmount(state);
+    ViewModel.updateTargetAmount(state);
 
-    state.targetRateChanged = () => UIModel.updateTargetRate(state);
-    UIModel.updateTargetRate(state);
+    state.targetRateChanged = () => ViewModel.updateTargetRate(state);
+    ViewModel.updateTargetRate(state);
   }
 
   static updateForm() {
