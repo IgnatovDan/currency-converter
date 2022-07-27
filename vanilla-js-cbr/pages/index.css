@@ -1,5 +1,10 @@
 @import url(../vendor/normalize.css);
 
+/*
+  BEM Nested
+  https://ru.bem.info/methodology/filestructure/
+*/
+
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__caption/page__caption.css);
 
