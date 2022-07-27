@@ -18,4 +18,5 @@ For more details, see https://stackoverflow.com/questions/3102819/disable-same-o
 
 #### TODO:
 - change css management: switch to dynamic unique names
+- disable converter UI until exchange rates are loaded
 - review implementation with redux
