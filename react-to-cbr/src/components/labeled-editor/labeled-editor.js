@@ -1,7 +1,6 @@
 import './labeled-editor.css';
 
-function LabeledEditor({ classes, caption, children}) {
-  // TODO: pass caption as child markup
+function LabeledEditor({ classes, caption, children }) {
   return (
     <label className={ `${classes} labeled-editor` }>
       { caption }

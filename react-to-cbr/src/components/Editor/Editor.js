@@ -1,9 +1,10 @@
 import './editor.css';
 
-function Editor(props) {
+function Editor({ classes, tagName, ...rest }) {
+  const EditorTag = tagName ?? 'input';
   return (
-    <select className="editor" required={ props.required }>
-    </select>
+    <EditorTag className={ `${classes} editor` }  {...rest}>
+    </EditorTag>
   );
 }
 
