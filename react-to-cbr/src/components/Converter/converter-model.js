@@ -1,3 +1,5 @@
+import LoadCurrencyExchangeRates from "../../api/cbr";
+
 export class Currency {
   #name;
   #charCode;
@@ -56,14 +58,10 @@ export class ConverterModel {
   }
 
   static LoadFromCBRAsync() {
-    return fetch('https://www.cbr.ru/scripts/XML_daily.asp')
-      .then(response => response.arrayBuffer())
-      .then(buffer => {
-        const decoder = new TextDecoder('windows-1251'); // passed in xml, hope it will not be changed
-        const text = decoder.decode(buffer);
-
+    return LoadCurrencyExchangeRates()
+      .then(xmlString => {
         var parser = new DOMParser();
-        var xmlDoc = parser.parseFromString(text, "text/xml");
+        var xmlDoc = parser.parseFromString(xmlString, "text/xml");
         var valuteElements = xmlDoc.getElementsByTagName("Valute");
         const currencies = Array.from(valuteElements).map(valute =>
           new Currency(
@@ -77,7 +75,7 @@ export class ConverterModel {
           currencies.unshift(Currency.RUB());
         }
         const exchangeDate = xmlDoc.getElementsByTagName("ValCurs")[0].getAttribute('Date'); // TODO: parse to 'Date'
-        return new ExchangeRates(exchangeDate, currencies);
+        return Promise.resolve(new ExchangeRates(exchangeDate, currencies));
       });
   }
 
