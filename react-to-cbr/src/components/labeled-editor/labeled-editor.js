@@ -1,11 +1,11 @@
 import './labeled-editor.css';
 
-function LabeledEditor({ classes, caption }) {
+function LabeledEditor({ classes, caption, children}) {
   // TODO: pass caption as child markup
   return (
     <label className={ `${classes} labeled-editor` }>
       { caption }
-      <select className="editor" required />
+      { children }
     </label>
   );
 }
