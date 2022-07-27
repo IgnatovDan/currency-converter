@@ -10,3 +10,4 @@ TODO:
 - add tests
 - show country flag, currency symbol
 - store received rates and use it if the remove service is not available (add a new button 'Test CBR unavailable mode')
+- add @media to place combobox in line for desktop and in column for mobile resolutions
