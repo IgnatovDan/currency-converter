@@ -47,9 +47,7 @@ export class ConverterModel {
   targetCurrencyCharCode = null;
   targetAmount = null;
   targetRate = null;
-  isDemoData = false;
-  demoDataMessage = "При получении данных о курсе обмена валют возникла ошибка и доступны только демонстрационные курсы валют.";
-  demoDataReasonText = null;
+  demoDataMessage = null;
 
   constructor() {
     this.amount = 42;
@@ -155,9 +153,9 @@ export class ConverterModel {
   }
 
   static getDemoDataModel(demoDataReasonText) {
+    const demoDataMessageTemplate = "При получении данных о курсе обмена валют возникла ошибка и доступны только демонстрационные курсы валют";
     const result = new ConverterModel();
-    result.isDemoData = true;
-    result.demoDataReasonText = demoDataReasonText;
+    result.demoDataMessage = `${demoDataMessageTemplate} (${demoDataReasonText})`;
     result.amount = 42;
     result.availableCurrencies = [Currency.RUB(), Currency.USD(), Currency.GBP()];
     result.sourceCurrencyCharCode = result.availableCurrencies[0].CharCode;

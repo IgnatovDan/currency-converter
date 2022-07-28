@@ -78,7 +78,7 @@ function Converter(props) {
           sourceCurrencyCharCode={ model.sourceCurrencyCharCode }
           targetRate={ model.targetRate }
           targetCurrencyCharCode={ model.targetCurrencyCharCode } />
-        { model.isDemoData && <p className={ `${styles__demoDataMessage.s}` }>{ `${model.demoDataMessage} (${model.demoDataReasonText})` }</p> }
+        { model.demoDataMessage && <p className={ styles__demoDataMessage.s }>{ model.demoDataMessage }</p> }
       </div>
     </Fragment>
   );
