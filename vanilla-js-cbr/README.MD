@@ -13,6 +13,7 @@ Close chrome and run it in this way: "C:\Program Files (x86)\Google\Chrome\Appli
 For more details, see https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
 
 #### TODO:
+- show error message and disable editors if fetch error occurs
 - store selected values between sessions
 - add duedate for exchange rates and refresh it automatically without loosing user data (add a new button 'Test refresh outdated rates')
 - add tests
