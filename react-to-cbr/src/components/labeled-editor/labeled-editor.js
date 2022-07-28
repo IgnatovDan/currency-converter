@@ -1,8 +1,8 @@
-import './labeled-editor.css';
+import styles from './labeled-editor.module.css';
 
-function LabeledEditor({ classes, caption, children }) {
+function LabeledEditor({ caption, children }) {
   return (
-    <label className={ `${classes} labeled-editor` }>
+    <label className={ styles.s }>
       { caption }
       { children }
     </label>

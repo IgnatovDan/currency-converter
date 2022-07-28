@@ -1,11 +1,11 @@
-import './header.css';
-import './__caption/header__caption.css';
+import styles from './header.module.css';
+import styles__caption from './__caption/header__caption.module.css';
 
 function Header(props) {
 
   return (
-    <header className={ `${props.classes} header` }>
-      <h1 className="header__caption">Currency converter</h1>
+    <header className={ `${props.classes} ${styles.s}` }>
+      <h1 className={ styles__caption.s }>Currency converter</h1>
     </header>
   );
 }

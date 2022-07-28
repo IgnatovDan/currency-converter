@@ -1,9 +1,9 @@
-import './editor.css';
+import styles from './editor.module.css';
 
-function Editor({ classes, tagName, ...rest }) {
+function Editor({ tagName, ...rest }) {
   const EditorTag = tagName ?? 'input';
   return (
-    <EditorTag className={ `${classes} editor` }  {...rest}>
+    <EditorTag className={ styles.s }  {...rest}>
     </EditorTag>
   );
 }

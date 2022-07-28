@@ -1,14 +1,13 @@
-import './button.css';
-import './__image/button__image.css';
-import './__text/button__text.css';
+import styles__image from './__image/button__image.module.css';
+import styles__text from './__text/button__text.module.css';
 
 function Button({ classes, onClick, svgImage, text }) {
   const SvgImageTag = svgImage;
   return (
-    <button className={ `${classes} button` } type="button" onClick={ onClick }>
+    <button className={ `${classes}` } type="button" onClick={ onClick }>
       {/* https://create-react-app.dev/docs/adding-images-fonts-and-files */ }
-      <SvgImageTag className="button__image" />
-      <p className="button__text">text</p>
+      <SvgImageTag className={ styles__image.s } />
+      <p className={ styles__text.s }>text</p>
     </button>
   );
 }

@@ -1,4 +1,4 @@
-.editor {
+.s {
   /* reset browser styles */
   border: 0;
 
@@ -14,7 +14,7 @@
   font-weight: 400;
 }
 
-.editor:focus {
+.s:focus {
   outline: none;
   border-bottom: 4px solid rgba(0, 0, 0, .4);
   padding-bottom: 0px;

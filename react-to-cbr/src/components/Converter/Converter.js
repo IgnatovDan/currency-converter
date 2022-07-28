@@ -7,10 +7,10 @@ import CurrencyRateExpression from '../currency-rate-expression/currency-rate-ex
 import { convertCurrenciesToSelectElementOptions } from './utils';
 import { ReactComponent as UpDownArrowsSvg } from '../../images/up-down-arrows.svg'; /* from https://uxwing.com/up-down-arrows-icon/ */
 
-import './converter.css';
-import './__currency-toggler/converter__currency-toggler.css';
-import './__target-amount/converter__target-amount.css';
-import './__values/converter__values.css';
+import styles from './converter.module.css';
+import styles__currencyToggler from './__currency-toggler/converter__currency-toggler.module.css';
+import styles__targetAmount from './__target-amount/converter__target-amount.module.css';
+import styles__values from './__values/converter__values.module.css';
 
 function Converter(props) {
   const [model, setModel] = useState(new ConverterModel());
@@ -51,27 +51,29 @@ function Converter(props) {
 
   return (
     <Fragment>
-      <form className={ `${props.classes}` } onSubmit={ e => e.preventDefault() }>
-        <fieldset className="converter__values">
-          <Editor classes="converter__source-amount" value={ model.amount } onInput={ handleAmountChange } type="number" required step="0.01" />
-          <LabeledEditor classes="converter__source-currency" caption="From">
-            <Editor tagName="select" required value={ model.sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } >
-              { selectCurrencyOptions }
-            </Editor>
-          </LabeledEditor>
-          <Button classes="converter__currency-toggler" onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies"/>
-          <LabeledEditor classes="converter__target-currency" caption="Into">
-            <Editor tagName="select" required value={ model.targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } >
-              { selectCurrencyOptions }
-            </Editor>
-          </LabeledEditor>
-        </fieldset>
-      </form>
-      <p className="converter__target-amount">{ model.targetAmount }</p>
-      <CurrencyRateExpression
-        sourceCurrencyCharCode={ model.sourceCurrencyCharCode }
-        targetRate={ model.targetRate }
-        targetCurrencyCharCode={ model.targetCurrencyCharCode } />
+      <div className={ `${props.classes} ${styles.s}` }>
+        <form onSubmit={ e => e.preventDefault() }>
+          <fieldset className={ `${styles__values.s}` }>
+            <Editor value={ model.amount } onInput={ handleAmountChange } type="number" required step="0.01" />
+            <LabeledEditor caption="From">
+              <Editor tagName="select" required value={ model.sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } >
+                { selectCurrencyOptions }
+              </Editor>
+            </LabeledEditor>
+            <Button classes={ `${styles__currencyToggler.s}` } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
+            <LabeledEditor caption="Into">
+              <Editor tagName="select" required value={ model.targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } >
+                { selectCurrencyOptions }
+              </Editor>
+            </LabeledEditor>
+          </fieldset>
+        </form>
+        <p className={ `${styles__targetAmount.s}` }>{ model.targetAmount }</p>
+        <CurrencyRateExpression
+          sourceCurrencyCharCode={ model.sourceCurrencyCharCode }
+          targetRate={ model.targetRate }
+          targetCurrencyCharCode={ model.targetCurrencyCharCode } />
+      </div>
     </Fragment>
   );
 }

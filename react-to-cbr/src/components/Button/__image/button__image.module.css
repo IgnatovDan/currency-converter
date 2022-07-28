@@ -1,4 +1,4 @@
-.button__image {
+.s {
   width: 1rem;
   height: 1rem;
   display: block; /* image is 'inline' element and it is vertically centered as 'text' (baseline) that creates 'magic bottom margin'*/

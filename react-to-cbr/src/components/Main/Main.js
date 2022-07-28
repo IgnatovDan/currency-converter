@@ -1,12 +1,12 @@
 import Converter from "../converter/converter";
 
-import './main.css';
-import './__converter/main__converter.css';
+import styles from './main.module.css';
+import styles__converter from './__converter/main__converter.module.css';
 
 function Main() {
   return (
-    <main className="main">
-      <Converter classes="main__converter"></Converter>
+    <main className={ styles.s }>
+      <Converter classes={ styles__converter.s }></Converter>
     </main>
   );
 }
