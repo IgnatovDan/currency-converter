@@ -15,6 +15,9 @@ export class Currency {
   static RUB() {
     return new Currency("Российский рубль", "RUB", 1);
   }
+  static USD() {
+    return new Currency("Доллар США", "USD", 60.2198);
+  }
 }
 
 export class ExchangeRates {
@@ -48,11 +51,11 @@ export class ConverterModel {
   constructor() {
     this.amount = 42;
     this.targetAmount = this.amount;
-    this.availableCurrencies = [Currency.RUB()];
+    this.availableCurrencies = [Currency.RUB(), Currency.USD()];
     this.sourceCurrencyCharCode = this.availableCurrencies[0].CharCode;
     this.sourceCurrencyValue = this.availableCurrencies[0].Value;
-    this.targetCurrencyCharCode = this.availableCurrencies[0].CharCode;
-    this.targetCurrencyValue = this.availableCurrencies[0].Value;
+    this.targetCurrencyCharCode = this.availableCurrencies[1].CharCode;
+    this.targetCurrencyValue = this.availableCurrencies[1].Value;
     ConverterModel.#refreshTargetAmount(this);
     ConverterModel.#refreshTargetRate(this);
   }
@@ -103,7 +106,7 @@ export class ConverterModel {
     } else {
       return ConverterModel.Reduce(
         model,
-        { availableCurrencies: currencies },
+        { availableCurrencies: currencies /* TODO: set Source/Target to currencies[0] */},
         (model) => {
           ConverterModel.#refreshTargetAmount(model);
           ConverterModel.#refreshTargetRate(model);

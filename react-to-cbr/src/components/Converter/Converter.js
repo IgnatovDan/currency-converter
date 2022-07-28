@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { ConverterModel } from './converter-model';
+import { ConverterModel, Currency } from './converter-model';
 import Button from '../button/button';
 import Editor from '../editor/editor';
 import LabeledEditor from '../labeled-editor/labeled-editor';
@@ -19,7 +19,9 @@ function Converter(props) {
       ConverterModel
         .LoadFromCBRAsync()
         .then(exchangeRates => {
-          setModel(ConverterModel.setAvailableCurrencies(new ConverterModel(), exchangeRates?.Items));
+          const model1 = ConverterModel.setAvailableCurrencies(new ConverterModel(), exchangeRates?.Items);
+          const model2 = ConverterModel.setSourceCurrencyCharCode(model1, Currency.RUB().CharCode);
+          setModel(ConverterModel.setTargetCurrencyCharCode(model2, Currency.USD().CharCode));
         })
         .catch(reason => { /* TODO: update model */ });
     },
