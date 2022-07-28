@@ -58,7 +58,7 @@ export class ConverterModel {
   }
 
   static LoadFromCBRAsync() {
-    return CBRAdapter.LoadCurrencyExchangeRates()
+    return CBRAdapter.LoadCurrencyExchangeRatesXmlString()
       .then(xmlString => {
         var parser = new DOMParser();
         var xmlDoc = parser.parseFromString(xmlString, "text/xml");

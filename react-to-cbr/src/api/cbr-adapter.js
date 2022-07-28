@@ -1,5 +1,5 @@
 export default class CBRAdapter {
-  static LoadCurrencyExchangeRates() {
+  static LoadCurrencyExchangeRatesXmlString() {
     return fetch('https://www.cbr.ru/scripts/XML_daily.asp')
       .then(response => response.arrayBuffer())
       .then(buffer => {
