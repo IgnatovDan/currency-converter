@@ -1,7 +1,6 @@
 # Currency Converter application
-Application   
 
-Application:
+## Application:
  - uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
  - shows 'loading' spinner on initial data fetching
  - shows error message if fetch was not secceeded and switches to 'demo' exchange rates
