@@ -1,4 +1,11 @@
+/*
+  Or, use "npx install normalize" + "import 'normalize.css';" in index.js
+  See https://create-react-app.dev/docs/adding-css-reset/
+*/
+@import-normalize;
+
 body {
+  margin: 0; /* "@import-normalize;" doesn't include "body { margin: 0; }" (but normalize.css includes it) */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
