@@ -153,7 +153,7 @@ export class ConverterModel {
   }
 
   static getDemoDataModel(demoDataReasonText) {
-    const demoDataMessageTemplate = "При получении данных о курсе обмена валют возникла ошибка и доступны только демонстрационные курсы валют";
+    const demoDataMessageTemplate = "При получении данных о курсе обмена валют возникла ошибка и показаны демонстрационные данные";
     const result = new ConverterModel();
     result.demoDataMessage = `${demoDataMessageTemplate} (${demoDataReasonText})`;
     result.amount = 42;
