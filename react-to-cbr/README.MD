@@ -1,5 +1,5 @@
 # Currency Converter application
-Application allows to select source currency, enter amount, select the target currency and then it will show the target amount and rate between source and target currencies.
+Application   
 
 Application:
  - uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
