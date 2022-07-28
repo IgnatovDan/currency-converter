@@ -1,3 +1,7 @@
 .button__text {
+  /* reset browser styles */
+  padding: 0;
+  margin: 0;
+
   display: none;
 }

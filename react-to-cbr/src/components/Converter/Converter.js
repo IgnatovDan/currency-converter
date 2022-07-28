@@ -5,6 +5,7 @@ import Editor from '../editor/editor';
 import LabeledEditor from '../labeled-editor/labeled-editor';
 import CurrencyRateExpression from '../currency-rate-expression/currency-rate-expression';
 import { convertCurrenciesToSelectElementOptions } from './utils';
+import { ReactComponent as UpDownArrowsSvg } from '../../images/up-down-arrows.svg'; /* from https://uxwing.com/up-down-arrows-icon/ */
 
 import './converter.css';
 import './__currency-toggler/converter__currency-toggler.css';
@@ -22,7 +23,7 @@ function Converter(props) {
         })
         .catch(reason => { /* TODO: update model */ });
     },
-    [/* TODO: disable UI */]
+    [/* TODO: disable UI until loaded: add 'Loading...' indicator*/]
   );
 
   const selectCurrencyOptions = convertCurrenciesToSelectElementOptions(model.availableCurrencies).map(item => {
@@ -44,8 +45,8 @@ function Converter(props) {
     //   { method: ConverterModel.setSourceCurrencyCharCode, args: model.targetCurrencyCharCode },
     //   { method: ConverterModel.setTargetCurrencyCharCode, args: currentSourceCurrencyCharCode }
     // ]));
-    var intermediateModel = ConverterModel.setSourceCurrencyCharCode(model, model.targetCurrencyCharCode);
-    setModel(ConverterModel.setTargetCurrencyCharCode(intermediateModel, currentSourceCurrencyCharCode));
+    var model1 = ConverterModel.setSourceCurrencyCharCode(model, model.targetCurrencyCharCode);
+    setModel(ConverterModel.setTargetCurrencyCharCode(model1, currentSourceCurrencyCharCode));
   };
 
   return (
@@ -58,7 +59,7 @@ function Converter(props) {
               { selectCurrencyOptions }
             </Editor>
           </LabeledEditor>
-          <Button classes="converter__currency-toggler" onClick={ handleTogglerClick } />
+          <Button classes="converter__currency-toggler" onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies"/>
           <LabeledEditor classes="converter__target-currency" caption="Into">
             <Editor tagName="select" required value={ model.targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } >
               { selectCurrencyOptions }
