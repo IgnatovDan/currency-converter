@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-/*
-  Or, use '@import-normalize;' in index.css
-  See https://create-react-app.dev/docs/adding-css-reset/
-*/
-import 'normalize.css';
+//import 'normalize.css';
 
 import './index.css';
 import App from './components/app/app';
