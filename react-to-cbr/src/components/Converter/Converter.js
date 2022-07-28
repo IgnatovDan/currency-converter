@@ -11,6 +11,7 @@ import styles from './converter.module.css';
 import styles__currencyToggler from './__currency-toggler/converter__currency-toggler.module.css';
 import styles__targetAmount from './__target-amount/converter__target-amount.module.css';
 import styles__values from './__values/converter__values.module.css';
+import styles__demoDataMessage from './__values/converter__demo-data-message.module.css';
 
 function Converter(props) {
   const [model, setModel] = useState(new ConverterModel());
@@ -23,7 +24,9 @@ function Converter(props) {
           const model2 = ConverterModel.setSourceCurrencyCharCode(model1, Currency.RUB().CharCode);
           setModel(ConverterModel.setTargetCurrencyCharCode(model2, Currency.USD().CharCode));
         })
-        .catch(reason => { /* TODO: update model */ });
+        .catch(error => {
+          setModel(ConverterModel.getDemoDataModel(error.message));
+        });
     },
     [/* TODO: disable UI until loaded: add 'Loading...' indicator*/]
   );
@@ -75,6 +78,7 @@ function Converter(props) {
           sourceCurrencyCharCode={ model.sourceCurrencyCharCode }
           targetRate={ model.targetRate }
           targetCurrencyCharCode={ model.targetCurrencyCharCode } />
+        { model.isDemoData && <p className={ `${styles__demoDataMessage.s}` }>{ `${model.demoDataMessage} (${model.demoDataReasonText})` }</p> }
       </div>
     </Fragment>
   );

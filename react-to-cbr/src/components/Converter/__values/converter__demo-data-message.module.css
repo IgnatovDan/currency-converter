@@ -1,0 +1,13 @@
+.s {
+  /* reset browser styles */
+  padding: 0;
+  margin: 0;
+
+  margin-top: 30px;
+
+  text-align: center;
+  color: red;
+
+  font-size: 16px;
+  font-weight: 700;
+}

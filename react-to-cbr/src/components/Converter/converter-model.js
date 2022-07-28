@@ -47,6 +47,9 @@ export class ConverterModel {
   targetCurrencyCharCode = null;
   targetAmount = null;
   targetRate = null;
+  isDemoData = false;
+  demoDataMessage = "При получении данных о курсе обмена валют возникла ошибка и доступны только демонстрационные курсы валют.";
+  demoDataReasonText = null;
 
   constructor() {
     this.amount = 42;
@@ -149,5 +152,20 @@ export class ConverterModel {
         }
       );
     }
+  }
+
+  static getDemoDataModel(demoDataReasonText) {
+    const result = new ConverterModel();
+    result.isDemoData = true;
+    result.demoDataReasonText = demoDataReasonText;
+    result.amount = 42;
+    result.availableCurrencies = [Currency.RUB(), Currency.USD(), Currency.GBP()];
+    result.sourceCurrencyCharCode = result.availableCurrencies[0].CharCode;
+    result.sourceCurrencyValue = result.availableCurrencies[0].Value;
+    result.targetCurrencyCharCode = result.availableCurrencies[1].CharCode;
+    result.targetCurrencyValue = result.availableCurrencies[1].Value;
+    ConverterModel.#refreshTargetAmount(result);
+    ConverterModel.#refreshTargetRate(result);
+    return result;
   }
 }
