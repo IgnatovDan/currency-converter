@@ -5,7 +5,6 @@ import styles__item from './__item/currency-rate-expression__item.module.css';
 function CurrencyRateExpression({ sourceCurrencyCharCode, targetRate, targetCurrencyCharCode }) {
   return (
     <Fragment>
-      <p></p>
       <div className={ styles.s }>
         <p className={ styles__item.s }>1</p>
         <p className={ styles__item.s }>{ sourceCurrencyCharCode ?? 'USD' }</p>

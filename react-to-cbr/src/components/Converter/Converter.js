@@ -6,12 +6,13 @@ import LabeledEditor from '../labeled-editor/labeled-editor';
 import CurrencyRateExpression from '../currency-rate-expression/currency-rate-expression';
 import { convertCurrenciesToSelectElementOptions } from './utils';
 import { ReactComponent as UpDownArrowsSvg } from '../../images/up-down-arrows.svg'; /* from https://uxwing.com/up-down-arrows-icon/ */
+import LoadingPanel from '../loading-panel/loading-panel';
 
 import styles from './converter.module.css';
 import styles__currencyToggler from './__currency-toggler/converter__currency-toggler.module.css';
 import styles__targetAmount from './__target-amount/converter__target-amount.module.css';
 import styles__values from './__values/converter__values.module.css';
-import styles__demoDataMessage from './__values/converter__demo-data-message.module.css';
+import styles__demoDataMessage from './__demo-data-message/converter__demo-data-message.module.css';
 
 function Converter(props) {
   const [model, setModel] = useState(new ConverterModel());
@@ -22,13 +23,15 @@ function Converter(props) {
         .then(exchangeRates => {
           const model1 = ConverterModel.setAvailableCurrencies(new ConverterModel(), exchangeRates?.Items);
           const model2 = ConverterModel.setSourceCurrencyCharCode(model1, Currency.RUB().CharCode);
-          setModel(ConverterModel.setTargetCurrencyCharCode(model2, Currency.USD().CharCode));
+          const model3 = ConverterModel.setIsLoading(model2, false);
+          setModel(ConverterModel.setTargetCurrencyCharCode(model3, Currency.USD().CharCode));
         })
         .catch(error => {
-          setModel(ConverterModel.getDemoDataModel(error.message));
+          const model = ConverterModel.getDemoDataModel(error.message);
+          setModel(ConverterModel.setIsLoading(model, false));
         });
     },
-    [/* TODO: disable UI until loaded: add 'Loading...' indicator*/]
+    []
   );
 
   const selectCurrencyOptions = convertCurrenciesToSelectElementOptions(model.availableCurrencies).map(item => {
@@ -58,14 +61,14 @@ function Converter(props) {
     <Fragment>
       <div className={ `${props.classes} ${styles.s}` }>
         <form onSubmit={ e => e.preventDefault() }>
-          <fieldset className={ `${styles__values.s}` }>
+          <fieldset className={ styles__values.s }>
             <Editor value={ model.amount } onInput={ handleAmountChange } type="number" required step="0.01" />
             <LabeledEditor caption="From">
               <Editor tagName="select" required value={ model.sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } >
                 { selectCurrencyOptions }
               </Editor>
             </LabeledEditor>
-            <Button classes={ `${styles__currencyToggler.s}` } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
+            <Button classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
             <LabeledEditor caption="Into">
               <Editor tagName="select" required value={ model.targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } >
                 { selectCurrencyOptions }
@@ -73,12 +76,13 @@ function Converter(props) {
             </LabeledEditor>
           </fieldset>
         </form>
-        <p className={ `${styles__targetAmount.s}` }>{ model.targetAmount }</p>
+        <p className={ styles__targetAmount.s }>{ model.targetAmount }</p>
         <CurrencyRateExpression
           sourceCurrencyCharCode={ model.sourceCurrencyCharCode }
           targetRate={ model.targetRate }
           targetCurrencyCharCode={ model.targetCurrencyCharCode } />
         { model.demoDataMessage && <p className={ styles__demoDataMessage.s }>{ model.demoDataMessage }</p> }
+        { model.isLoading && <LoadingPanel /> }
       </div>
     </Fragment>
   );

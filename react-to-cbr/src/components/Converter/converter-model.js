@@ -48,14 +48,15 @@ export class ConverterModel {
   targetAmount = null;
   targetRate = null;
   demoDataMessage = null;
+  isLoading = true;
 
   constructor() {
-    this.amount = 42;
-    this.availableCurrencies = [Currency.RUB(), Currency.USD(), Currency.GBP()];
+    this.amount = 0;
+    this.availableCurrencies = [Currency.RUB()];
     this.sourceCurrencyCharCode = this.availableCurrencies[0].CharCode;
     this.sourceCurrencyValue = this.availableCurrencies[0].Value;
-    this.targetCurrencyCharCode = this.availableCurrencies[1].CharCode;
-    this.targetCurrencyValue = this.availableCurrencies[1].Value;
+    this.targetCurrencyCharCode = this.availableCurrencies[0].CharCode;
+    this.targetCurrencyValue = this.availableCurrencies[0].Value;
     ConverterModel.#refreshTargetAmount(this);
     ConverterModel.#refreshTargetRate(this);
   }
@@ -113,6 +114,10 @@ export class ConverterModel {
         }
       );
     }
+  }
+
+  static setIsLoading(model, newValue) {
+    return (model.isLoading === newValue) ? model : ConverterModel.Reduce(model, { isLoading: newValue });
   }
 
   static setAmount(model, amount) {
