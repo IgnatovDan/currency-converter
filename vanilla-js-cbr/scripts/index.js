@@ -5,9 +5,10 @@ LoadExchangeRates().then((exchangeRates) => {
   state.setAmount(42);
   state.setSourceCurrencyCharCode('RUB');
   state.setTargetCurrencyCharCode('USD');
-}).catch((reason) => {
+}).catch((error) => {
+  console.log("Exchange rates loading was rejected: " + error);
+  state.fillDemoData(error.message);
   /* TODO: show error message and disable editors */
-  console.log("Exchange rates loading was rejected: " + reason);
 });
 
 document.addEventListener("DOMContentLoaded", () => {

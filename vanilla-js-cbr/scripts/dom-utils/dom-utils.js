@@ -29,7 +29,14 @@ class DOMUtils {
       element.innerText = value;
     }
   }
-  
+
+  static ToggleElementClass(selector, className, toggler) {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.classList.toggle(className, toggler);
+    }
+  }
+
   static SetButtonElementState(selector, onClick) {
     const element = document.querySelector(selector);
     if (element) {

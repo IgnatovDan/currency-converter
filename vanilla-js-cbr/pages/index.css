@@ -21,6 +21,7 @@
 @import url(../blocks/converter/converter.css);
 @import url(../blocks/converter/__currency/converter__currency.css);
 @import url(../blocks/converter/__currency-toggler/converter__currency-toggler.css);
+@import url(../blocks/converter/__demo-data-message/converter__demo-data-message.css);
 @import url(../blocks/converter/__label/converter__label.css);
 @import url(../blocks/converter/__target-amount/converter__target-amount.css);
 @import url(../blocks/converter/__source-amount/converter__source-amount.css);

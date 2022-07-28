@@ -26,6 +26,9 @@ class ViewModel {
 
     state.targetCurrencyCharCodeChanged.addEventListener(() => ViewModel.updateTargetRateCharCode(state));
     ViewModel.updateTargetRateCharCode(state);
+
+    state.demoDataMessageChanged.addEventListener(() => ViewModel.updateDemoDataMessage(state));
+    ViewModel.updateDemoDataMessage(state);
   }
 
   static updateForm() {
@@ -93,5 +96,11 @@ class ViewModel {
 
   static updateTargetRate(state) {
     DOMUtils.SetElementText('.rate-expression__item_target-rate-value', state.targetRate);
+  }
+
+  static updateDemoDataMessage(state) {
+    DOMUtils.SetElementText('.converter__demo-data-message', state.demoDataMessage);
+    DOMUtils.ToggleElementClass('.converter__demo-data-message',
+      'converter__demo-data-message_hidden', state.demoDataMessage && (state.demoDataMessage.length > 0));
   }
 }

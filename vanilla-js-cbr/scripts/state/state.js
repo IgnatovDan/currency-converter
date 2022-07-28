@@ -43,7 +43,7 @@ class EventTarget {
 }
 
 function HandleValueNumberToZero(value) {
-  if (Number.isNaN(value) || value === Infinity|| value === undefined || value === null) {
+  if (Number.isNaN(value) || value === Infinity || value === undefined || value === null) {
     return 0;
   }
   return value;
@@ -70,6 +70,9 @@ class State {
   #targetRate = 0;
   #targetRateChanged = new EventTarget();
 
+  #demoDataMessage = null;
+  #demoDataMessageChanged = new EventTarget();
+
   constructor() {
     this.#amount = 42;
     this.#availableCurrencies = [Currency.RUB(), Currency.USD(), Currency.GBP()];
@@ -92,12 +95,15 @@ class State {
 
   get targetCurrencyCharCode() { return this.#targetCurrencyCharCode; }
   get targetCurrencyCharCodeChanged() { return this.#targetCurrencyCharCodeChanged; }
-  
+
   get targetAmount() { return this.#targetAmount; }
   get targetAmountChanged() { return this.#targetAmountChanged; }
 
   get targetRate() { return this.#targetRate; }
-  get targetRateChanged() { return this.#targetRateChanged; }  
+  get targetRateChanged() { return this.#targetRateChanged; }
+
+  get demoDataMessage() { return this.#demoDataMessage; }
+  get demoDataMessageChanged() { return this.#demoDataMessageChanged; }
 
   refreshTargetRate() {
     const newValue =
@@ -154,5 +160,22 @@ class State {
       this.#availableCurrencies = currencies;
       this.#availableCurrenciesChanged.dispatchEvent();
     }
+  }
+
+  setDemoDataMessage(newValue) {
+    if (this.#demoDataMessage !== newValue) {
+      this.#demoDataMessage = newValue;
+      this.#demoDataMessageChanged.dispatchEvent();
+    }
+  }
+
+  fillDemoData(demoDataReasonText) {
+    const demoDataMessageTemplate = "При получении данных о курсе обмена валют возникла ошибка и показаны демонстрационные данные";
+    state.setDemoDataMessage(`${demoDataMessageTemplate} (${demoDataReasonText})`);
+    state.setAvailableCurrencies([Currency.RUB(), Currency.USD(), Currency.GBP()]);
+    state.setAmount(42);
+    state.setSourceCurrencyCharCode(state.availableCurrencies[0].CharCode);
+    state.setTargetCurrencyCharCode(state.availableCurrencies[1].CharCode);
+    return state;
   }
 };
