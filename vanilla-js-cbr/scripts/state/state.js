@@ -73,13 +73,16 @@ class State {
   #demoDataMessage = null;
   #demoDataMessageChanged = new EventTarget();
 
+  #isLoading = true;
+  #isLoadingChanged = new EventTarget();
+
   constructor() {
-    this.#amount = 42;
-    this.#availableCurrencies = [Currency.RUB(), Currency.USD(), Currency.GBP()];
+    this.#amount = 0;
+    this.#availableCurrencies = [Currency.RUB()];
     this.#sourceCurrencyCharCode = this.#availableCurrencies[0].CharCode;
     this.#sourceCurrencyValue = this.#availableCurrencies[0].Value;
-    this.#targetCurrencyCharCode = this.#availableCurrencies[1].CharCode;
-    this.#targetCurrencyValue = this.#availableCurrencies[1].Value;
+    this.#targetCurrencyCharCode = this.#availableCurrencies[0].CharCode;
+    this.#targetCurrencyValue = this.#availableCurrencies[0].Value;
     this.refreshTargetAmount(this);
     this.refreshTargetRate(this);
   }
@@ -104,6 +107,9 @@ class State {
 
   get demoDataMessage() { return this.#demoDataMessage; }
   get demoDataMessageChanged() { return this.#demoDataMessageChanged; }
+
+  get isLoading() { return this.#isLoading; }
+  get isLoadingChanged() { return this.#isLoadingChanged; }
 
   refreshTargetRate() {
     const newValue =
@@ -166,6 +172,13 @@ class State {
     if (this.#demoDataMessage !== newValue) {
       this.#demoDataMessage = newValue;
       this.#demoDataMessageChanged.dispatchEvent();
+    }
+  }
+
+  setIsLoading(newValue) {
+    if (this.#isLoading !== newValue) {
+      this.#isLoading = newValue;
+      this.#isLoadingChanged.dispatchEvent();
     }
   }
 

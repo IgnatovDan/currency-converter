@@ -2,6 +2,9 @@ class ViewModel {
   static Bind(state) {
     ViewModel.updateForm();
 
+    state.isLoadingChanged.addEventListener(() => ViewModel.updateLoadingPanel(state));
+    ViewModel.updateLoadingPanel(state);
+
     state.amountChanged.addEventListener(() => ViewModel.updateSourceAmount(state));
     ViewModel.updateSourceAmount(state);
 
@@ -101,6 +104,12 @@ class ViewModel {
   static updateDemoDataMessage(state) {
     DOMUtils.SetElementText('.converter__demo-data-message', state.demoDataMessage);
     DOMUtils.ToggleElementClass('.converter__demo-data-message',
-      'converter__demo-data-message_hidden', state.demoDataMessage && (state.demoDataMessage.length > 0));
+      'converter__demo-data-message_hidden', !state.demoDataMessage);
   }
+
+  static updateLoadingPanel(state) {
+    DOMUtils.ToggleElementClass('.converter__loading-panel',
+      'loading-panel_hidden', !state.isLoading);
+  }
+  
 }

@@ -22,12 +22,18 @@
 @import url(../blocks/converter/__currency/converter__currency.css);
 @import url(../blocks/converter/__currency-toggler/converter__currency-toggler.css);
 @import url(../blocks/converter/__demo-data-message/converter__demo-data-message.css);
+@import url(../blocks/converter/__demo-data-message/_hidden/converter__demo-data-message_hidden.css);
 @import url(../blocks/converter/__label/converter__label.css);
 @import url(../blocks/converter/__target-amount/converter__target-amount.css);
 @import url(../blocks/converter/__source-amount/converter__source-amount.css);
 @import url(../blocks/converter/__values/converter__values.css);
 
 @import url(../blocks/labeled-editor/labeled-editor.css);
+
+@import url(../blocks/loading-panel/loading-panel.css);
+@import url(../blocks/loading-panel/_hidden/loading-panel_hidden.css);
+@import url(../blocks/loading-panel/__spinner/loading-panel__spinner.css);
+
 @import url(../blocks/editor/editor.css);
 
 @import url(../blocks/rate-expression/rate-expression.css);
