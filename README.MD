@@ -1,6 +1,8 @@
 # Currency Converter application
 Application allows to select source currency, enter amount, select the target currency and then it will show the target amount.
 
+![image](https://user-images.githubusercontent.com/2094015/181903563-7182016a-4958-4ea2-8338-4628eaa54497.png)
+
 There are two series of application:
 
 1. Applications that perform a request directly to www.cbr.ru
