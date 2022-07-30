@@ -25,7 +25,7 @@ namespace Utils {
           ).Where(item => item.Value != 0 /* cannot use such rates to exchange */)
       );
       if (!result.Items.Any(item => item.CharCode == Currency.RUB.CharCode)) {
-        result.Items.Add(new Currency(Currency.RUB.Name, Currency.RUB.CharCode, Currency.RUB.Value));
+        result.Items.Add(Currency.RUB);
       }
       return result;
     }

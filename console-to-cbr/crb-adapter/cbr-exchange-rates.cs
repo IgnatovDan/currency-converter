@@ -33,8 +33,4 @@ namespace CRBAdapter {
     public string? CharCode;
     public string? Value;
   }
-
-  public class CurrencyRUB {
-    public static CBRCurrency Instance { get; } = new CBRCurrency() { CharCode = "RUB", Value = "1" };
-  }
 }
