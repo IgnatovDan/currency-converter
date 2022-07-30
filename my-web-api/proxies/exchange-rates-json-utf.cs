@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace ExchangeRatesJsonUtf {
 
   //
-  // Translate result from https://www.cbr-xml-daily.ru/daily.xml into JSON
+  // Convert result from https://www.cbr-xml-daily.ru/daily.xml into JSON
   //
   public class Main {
     private static async Task<CBRExchangeRates> ReadCbrExchangeRates(string cbrXmlDailyUrl) {

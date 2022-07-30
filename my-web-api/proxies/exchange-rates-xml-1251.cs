@@ -6,13 +6,13 @@ namespace ExchangeRatesXml1251 {
   // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/ASPNETCore/cbr-currencies-proxy/proxies/transparent-proxy-return-stream-body.cs
   //
   public class Main {
-    public async static Task ProcessRequest(HttpContext context) {
+    public async static Task ProcessRequest(HttpContext context, string cbrXmlDailyUrl) {
       using (HttpClient client = new HttpClient()) {
         client.DefaultRequestHeaders.Clear();
 
         var requestMessage = new HttpRequestMessage();
 
-        requestMessage.RequestUri = new Uri(Config.Main.CBR_XML_daily_url);
+        requestMessage.RequestUri = new Uri(cbrXmlDailyUrl);
         requestMessage.Method = new HttpMethod(context.Request.Method);
 
         using (var responseMessage = await client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted)) {
