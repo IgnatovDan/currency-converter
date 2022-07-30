@@ -28,4 +28,8 @@ app.MapGet("/exchange-rates-xml-1251.xml", async (HttpContext context) => {
   await ExchangeRatesXml1251.Main.ProcessRequest(context);
 });
 
+app.MapGet("/exchange-rates-json-utf.json", async (HttpContext context) => {
+  await ExchangeRatesJsonUtf.Main.ProcessRequest(context, Config.Main.CBR_XML_daily_url);
+});
+
 app.Run();
