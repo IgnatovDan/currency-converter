@@ -7,18 +7,20 @@ try {
   Console.OutputEncoding = System.Text.Encoding.UTF8; // Enable UTF8 to show RU chars in console and VSCode terminal
 
   RateSources.RegisterRatesSource("cbr", CbrRatesSource.Instance);
+  RateSources.RegisterRatesSource("web-api-proxy", new CbrRatesSource("https://localhost:7271/exchange-rates-1251.xml"));
   // TODO: add new sources
-  // RateSources.RegisterRatesSource(WebApiXmlRatesSource.Instance);
   // RateSources.RegisterRatesSource(WebApiJsonRatesSource.Instance);
 
-  if (args.Length == 4) {
-    var rates = await RateSources.GetRates(args[3]);
+  if (args.Length >= 3) {
     var sourceCurrency = args[0];
     var amount = decimal.Parse(
       args[1],
       new NumberFormatInfo() { NumberDecimalSeparator = "," }  /* fix delimiter to ',' independing on the current culture*/
     );
     var targetCurrency = args[2];
+    var exchangeSourceName = (args.Length == 3) ? "cbr" : args[3];
+
+    var rates = await RateSources.GetRates(exchangeSourceName);
     var newAmount = ExchangeConverter.Converter.Convert(sourceCurrency, amount, targetCurrency, rates);
 
     Console.WriteLine($"{newAmount}");

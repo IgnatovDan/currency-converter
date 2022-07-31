@@ -3,13 +3,13 @@ using System.Text;
 using System.Xml.Serialization;
 
 namespace CbrAdapter {
+  //
+  // https://www.cbr.ru/development/SXML/
+  // This class is designed to work with the "https://www.cbr.ru/scripts/XML_daily.asp" service
   // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/ASPNETCore/cbr-currencies-console/GetCurrencies_HttpClient_XmlSerializer_v3.cs
+  //
   internal class Adapter {
-    // https://www.cbr.ru/development/SXML/
-    // This class is designed to work with this service only
-    private static string ExchangesServiceUrl { get; } = "https://www.cbr.ru/scripts/XML_daily.asp";
-
-    public static async Task<CbrExchangeRates> GetExchangeRates() {
+    public static async Task<CbrExchangeRates> GetExchangeRates(string url) {
       System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
       HttpClient client = new HttpClient();
@@ -17,7 +17,7 @@ namespace CbrAdapter {
         client.DefaultRequestHeaders.Clear();
 
         // CancellationToken?
-        var response = await client.GetAsync(ExchangesServiceUrl);
+        var response = await client.GetAsync(url);
         if (response.StatusCode == HttpStatusCode.NoContent) {
           // handle 'no content' as 'empty list'
           return new CbrExchangeRates();

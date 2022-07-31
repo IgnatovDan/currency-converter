@@ -5,10 +5,6 @@ namespace ExchangeConverter {
 
   public class RateSources {
     static Dictionary<string, IRatesSource> ratesSources { get; } = new Dictionary<string, IRatesSource>();
-    
-    public static IEnumerable<string> GetRateSourcesKeys() {
-      return ratesSources.Keys;
-    }
 
     public static void RegisterRatesSource(string key, IRatesSource ratesSource) {
       if (string.IsNullOrEmpty(key)) {
@@ -25,7 +21,7 @@ namespace ExchangeConverter {
     public static async Task<ExchangeRates> GetRates(string ratesSourceName) {
       IRatesSource? ratesSource;
       if (!RateSources.ratesSources.TryGetValue(ratesSourceName, out ratesSource) || (ratesSource == null)) {
-        throw new Exception($"Cannot find '{ratesSourceName}' rates source.");
+        throw new Exception($"Cannot find '{ratesSourceName}' rates source. Available sources: {String.Join(", ", RateSources.ratesSources.Keys)}.");
       }
       if (ratesSource == null) {
         throw new Exception($"A 'null' value is received by the '{ratesSourceName}' rates source name.");
