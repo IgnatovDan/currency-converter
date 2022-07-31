@@ -6,8 +6,6 @@ namespace ExchangeSources.Cbr {
   public class CbrRatesSource : IRatesSource {
     private const string DefaultUrl = "https://www.cbr.ru/scripts/XML_daily.asp";
 
-    public static CbrRatesSource Instance { get; } = new CbrRatesSource();
-
     private string url { get; }
 
     private static ExchangeRates ConvertToCurrencyConverterDTO(CbrExchangeRates rates) {
