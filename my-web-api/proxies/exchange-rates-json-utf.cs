@@ -9,16 +9,17 @@ namespace ExchangeRatesJsonUtf {
 
   //
   // Convert result from https://www.cbr-xml-daily.ru/daily.xml into JSON
-  //
+  // Code is based on https://github.com/IgnatovDan/currency-converter/blob/master/console-to-cbr/crb-adapter/cbr-adapter.cs
+  // 
   public class Main {
-    private static async Task<CBRExchangeRates> ReadCbrExchangeRates(string cbrXmlDailyUrl) {
+    private static async Task<CbrExchangeRates> ReadCbrExchangeRates(string cbrXmlDailyUrl) {
       using (HttpClient client = new HttpClient()) {
         client.DefaultRequestHeaders.Clear();
 
         // CancellationToken?
         var response = await client.GetAsync(cbrXmlDailyUrl);
         if (response.StatusCode == HttpStatusCode.NoContent) {
-          return new CBRExchangeRates();
+          return new CbrExchangeRates();
         }
         else {
           if (response.IsSuccessStatusCode) {
@@ -31,9 +32,9 @@ namespace ExchangeRatesJsonUtf {
             var bytes = await response.Content.ReadAsByteArrayAsync();
             var str = encoding.GetString(bytes);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(CBRExchangeRates));
+            XmlSerializer serializer = new XmlSerializer(typeof(CbrExchangeRates));
             using (StringReader reader = new StringReader(str)) {
-              var result = serializer.Deserialize(reader) as CBRExchangeRates ?? new CBRExchangeRates();
+              var result = serializer.Deserialize(reader) as CbrExchangeRates ?? new CbrExchangeRates();
               return result;
             }
           }
@@ -46,7 +47,7 @@ namespace ExchangeRatesJsonUtf {
 
     }
     public async static Task ProcessRequest(HttpContext context, string cbrXmlDailyUrl) {
-      CBRExchangeRates cbrRates = await ReadCbrExchangeRates(cbrXmlDailyUrl);
+      CbrExchangeRates cbrRates = await ReadCbrExchangeRates(cbrXmlDailyUrl);
       await context.Response.WriteAsJsonAsync(
         cbrRates,
         new JsonSerializerOptions {
@@ -72,16 +73,16 @@ namespace ExchangeRatesJsonUtf {
   */
 
   [XmlRootAttribute("ValCurs")]
-  public class CBRExchangeRates {
+  public class CbrExchangeRates {
     [XmlAttribute]
     public string? name;
     [XmlAttribute]
     public string? Date; // TODO: parse/serialize as Date? 
-    [XmlElement(typeof(CBRCurrency), ElementName = "Valute")]
-    public List<CBRCurrency> Items { get; } = new List<CBRCurrency>();
+    [XmlElement(typeof(CbrCurrency), ElementName = "Valute")]
+    public List<CbrCurrency> Items { get; } = new List<CbrCurrency>();
   }
 
-  public class CBRCurrency {
+  public class CbrCurrency {
     [XmlAttribute]
     public string? ID;
     public string? Name;
