@@ -7,9 +7,8 @@ try {
   Console.OutputEncoding = System.Text.Encoding.UTF8; // Enable UTF8 to show RU chars in console and VSCode terminal
 
   RateSources.RegisterRatesSource("cbr", CbrRatesSource.Instance);
-  RateSources.RegisterRatesSource("web-api-proxy", new CbrRatesSource("https://localhost:7271/exchange-rates-1251.xml"));
-  // TODO: add new sources
-  // RateSources.RegisterRatesSource(WebApiJsonRatesSource.Instance);
+  RateSources.RegisterRatesSource("web-api-proxy", new CbrRatesSource());
+  RateSources.RegisterRatesSource("web-api-json", new WebApiJson.WebApiJsonRatesSource());
 
   if (args.Length >= 3) {
     var sourceCurrency = args[0];

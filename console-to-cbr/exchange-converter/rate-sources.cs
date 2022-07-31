@@ -1,6 +1,6 @@
 namespace ExchangeConverter {
   public interface IRatesSource {
-    Task<ExchangeRates> getRates();
+    Task<IExchangeRates> getRates();
   }
 
   public class RateSources {
@@ -18,7 +18,7 @@ namespace ExchangeConverter {
       RateSources.ratesSources.Add(key, ratesSource);
     }
 
-    public static async Task<ExchangeRates> GetRates(string ratesSourceName) {
+    public static async Task<IExchangeRates> GetRates(string ratesSourceName) {
       IRatesSource? ratesSource;
       if (!RateSources.ratesSources.TryGetValue(ratesSourceName, out ratesSource) || (ratesSource == null)) {
         throw new Exception($"Cannot find '{ratesSourceName}' rates source. Available sources: {String.Join(", ", RateSources.ratesSources.Keys)}.");
