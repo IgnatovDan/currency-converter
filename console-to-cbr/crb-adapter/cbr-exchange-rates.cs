@@ -1,7 +1,7 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace CRBAdapter {
+namespace CbrAdapter {
   /*
   https://www.cbr.ru/scripts/XML_daily.asp
   
@@ -15,16 +15,16 @@ namespace CRBAdapter {
     </Valute>
   */
   [XmlRootAttribute("ValCurs")]
-  public class CBRExchangeRates {
+  public class CbrExchangeRates {
     [XmlAttribute]
     public string? name;
     [XmlAttribute]
     public string? Date; // TODO: parse as Date? 
-    [XmlElement(typeof(CBRCurrency), ElementName = "Valute")]
-    public List<CBRCurrency> Items { get; } = new List<CBRCurrency>();
+    [XmlElement(typeof(CbrCurrency), ElementName = "Valute")]
+    public List<CbrCurrency> Items { get; } = new List<CbrCurrency>();
   }
 
-  public class CBRCurrency {
+  public class CbrCurrency {
     [XmlAttribute]
     public string? ID;
     public string? Name;

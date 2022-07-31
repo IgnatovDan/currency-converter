@@ -2,12 +2,12 @@ using System.Net;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace CRBAdapter {
+namespace CbrAdapter {
   internal class Adapter {
     // https://www.cbr.ru/development/SXML/
     private static string ExchangesServiceUrl { get; } = "https://www.cbr.ru/scripts/XML_daily.asp";
 
-    public static async Task<CBRExchangeRates> GetExchangeRates() {
+    public static async Task<CbrExchangeRates> GetExchangeRates() {
       // https://stackoverflow.com/questions/32471058/windows-1252-is-not-supported-encoding-name/55434262#55434262
       // https://stackoverflow.com/questions/3967716/how-to-find-encoding-for-1251-codepage
       // dotnet add package System.Text.Encoding
@@ -28,7 +28,7 @@ namespace CRBAdapter {
         var response = await client.GetAsync(ExchangesServiceUrl);
         if (response.StatusCode == HttpStatusCode.NoContent) {
           // handle 'no content' as 'empty list'
-          return new CBRExchangeRates();
+          return new CbrExchangeRates();
         }
         else {
           if (response.IsSuccessStatusCode) {
@@ -43,9 +43,9 @@ namespace CRBAdapter {
             // Server returns data as an 'xml' string and I cannot use 'ReadFromJsonAsync':
             // var result = await res.Content.ReadFromJsonAsync<IEnumerable<CBRCurrency>>();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(CBRExchangeRates));
+            XmlSerializer serializer = new XmlSerializer(typeof(CbrExchangeRates));
             using (StringReader reader = new StringReader(str)) {
-              var result = serializer.Deserialize(reader) as CBRExchangeRates ?? new CBRExchangeRates();
+              var result = serializer.Deserialize(reader) as CbrExchangeRates ?? new CbrExchangeRates();
               return result;
             }
             /*

@@ -1,13 +1,9 @@
-﻿// dotnet new console --framework net6.0
-// https://docs.microsoft.com/ru-ru/dotnet/core/tools/dotnet-new-sdk-templates
-// dotnet run
-
-using System.Globalization;
+﻿using System.Globalization;
 
 try {
   // Enable UTF8 to show RU chars in console and VSCode terminal
   Console.OutputEncoding = System.Text.Encoding.UTF8;
-  var cbrRates = await CRBAdapter.Adapter.GetExchangeRates();
+  var cbrRates = await CbrAdapter.Adapter.GetExchangeRates();
   var rates = Utils.Utils.ConvertToExchangeRates(cbrRates);
 
   if (args.Length == 3) {

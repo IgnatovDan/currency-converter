@@ -11,3 +11,4 @@ This is a .NET Core application, project was bootstrapped with [Create a .NET co
 
 #### TODO:
 - add unit tests
+- remove comments, add link to spike

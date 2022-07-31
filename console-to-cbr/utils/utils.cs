@@ -1,16 +1,16 @@
 using System.Globalization;
 
 using ExchangeConverter;
-using CRBAdapter;
+using CbrAdapter;
 
 namespace Utils {
   public class Utils {
-    public static ExchangeRates ConvertToExchangeRates(CBRExchangeRates rates) {
+    public static ExchangeRates ConvertToExchangeRates(CbrExchangeRates rates) {
       var result = new ExchangeRates(
         DateTime.ParseExact(rates?.Date ?? "", "d.m.yyyy", CultureInfo.InvariantCulture)
       );
       result.Items.AddRange(
-        (rates ?? new CBRExchangeRates()).Items
+        (rates ?? new CbrExchangeRates()).Items
           .Where(item =>
             // filter objects without required value (incorrect objects from an external resource)
             !string.IsNullOrWhiteSpace(item.Name)
