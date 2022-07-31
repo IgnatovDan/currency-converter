@@ -1,34 +1,3 @@
-class Currency {
-  #name;
-  #charCode;
-  #value;
-
-  constructor(name, charCode, value) {
-    this.#name = name; // 'String', human readable name
-    this.#charCode = charCode; // 'String', code
-    this.#value = value; // 'Number' TODO: force convert to number
-  }
-
-  get Name() { return this.#name; }
-  get CharCode() { return this.#charCode; }
-  get Value() { return this.#value; }
-
-  static RUB() { return new Currency("Российский рубль", "RUB", 1); }
-  static USD() { return new Currency("Доллар США", "USD", 60.2198); }
-  static GBP() { return new Currency("Фунт стерлингов Соединенного королевства", "GBP", 72.5287); }
-}
-
-class ExchangeRates {
-  #date;
-  #items;
-  constructor(date, items) {
-    this.#date = date;
-    this.#items = items;
-  }
-  get Date() { return this.#date; }
-  get Items() { return this.#items; }
-}
-
 class EventTarget {
   #listeners = [];
 
@@ -76,13 +45,27 @@ class State {
   #isLoading = true;
   #isLoadingChanged = new EventTarget();
 
+  #exchangeRatesSource = "";
+  #exchangeRatesSourceChanged = new EventTarget();
+  #availableExchangeRateSources;
+
   constructor() {
+    this.#availableExchangeRateSources = [
+      { value: "demo", caption: "Демо данные" },
+      { value: "cbr", caption: "Сайт Банка России" },
+      { value: "web-api-proxy", caption: "Локальный сайт, прозрачный proxy на сайт Банка России" },
+      { value: "web-api-json", caption: "Локальный сайт, данные с сайта Банка России в формате json" }
+    ];
+
     this.#amount = 0;
     this.#availableCurrencies = [Currency.RUB()];
     this.#sourceCurrencyCharCode = this.#availableCurrencies[0].CharCode;
     this.#sourceCurrencyValue = this.#availableCurrencies[0].Value;
     this.#targetCurrencyCharCode = this.#availableCurrencies[0].CharCode;
     this.#targetCurrencyValue = this.#availableCurrencies[0].Value;
+    this.setDemoDataMessage(`Демо данные`);
+    this.setExchangeRatesSource("cbr");
+
     this.refreshTargetAmount(this);
     this.refreshTargetRate(this);
   }
@@ -111,9 +94,12 @@ class State {
   get isLoading() { return this.#isLoading; }
   get isLoadingChanged() { return this.#isLoadingChanged; }
 
+  get exchangeRatesSource() { return this.#exchangeRatesSource; }
+  get exchangeRatesSourceChanged() { return this.#exchangeRatesSourceChanged; }
+  get availableExchangeRateSources() { return this.#availableExchangeRateSources; }
+
   refreshTargetRate() {
-    const newValue =
-      Math.round((HandleValueNumberToZero(this.#sourceCurrencyValue / this.#targetCurrencyValue) + Number.EPSILON) * 10000) / 10000;
+    const newValue = currencyConverter.getTargetRate(this.#sourceCurrencyValue, this.#targetCurrencyValue);
     if (newValue !== this.#targetRate) {
       this.#targetRate = newValue;
       this.#targetRateChanged.dispatchEvent();
@@ -121,10 +107,7 @@ class State {
   }
 
   refreshTargetAmount() {
-    let newValue =
-      Math.round(
-        (HandleValueNumberToZero(this.#amount * this.#sourceCurrencyValue / this.#targetCurrencyValue) + Number.EPSILON)
-        * 100) / 100;
+    const newValue = currencyConverter.getTargetAmount(this.#amount, this.#sourceCurrencyValue, this.#targetCurrencyValue);
     if (newValue !== this.#targetAmount) {
       this.#targetAmount = newValue;
       this.#targetAmountChanged.dispatchEvent();
@@ -133,19 +116,20 @@ class State {
 
   setSourceCurrencyCharCode(newValue) {
     const newCurrency = this.#availableCurrencies?.find(item => item.CharCode === newValue);
-    if (newCurrency && this.sourceCurrencyCharCode !== newValue) {
+    if (this.#sourceCurrencyCharCode !== newValue || this.#sourceCurrencyValue != newCurrency?.Value) {
       this.#sourceCurrencyCharCode = newValue;
-      this.#sourceCurrencyValue = newCurrency.Value;
+      this.#sourceCurrencyValue = newCurrency?.Value;
       this.#sourceCurrencyCharCodeChanged.dispatchEvent();
       this.refreshTargetAmount();
+      this.refreshTargetRate();
     }
   }
 
   setTargetCurrencyCharCode(newValue) {
     const newCurrency = this.#availableCurrencies?.find(item => item.CharCode === newValue);
-    if (newCurrency && this.#targetCurrencyCharCode !== newValue) {
+    if (this.#targetCurrencyCharCode !== newValue || this.#targetCurrencyValue !== newCurrency?.Value) {
       this.#targetCurrencyCharCode = newValue;
-      this.#targetCurrencyValue = newCurrency.Value;
+      this.#targetCurrencyValue = newCurrency?.Value;
       this.#targetCurrencyCharCodeChanged.dispatchEvent();
       this.refreshTargetAmount();
       this.refreshTargetRate();
@@ -168,6 +152,41 @@ class State {
     }
   }
 
+  setExchangeRatesSource(newValue) {
+    if (this.#exchangeRatesSource !== newValue) {
+      this.#exchangeRatesSource = newValue;
+      this.#exchangeRatesSourceChanged.dispatchEvent();
+
+      this.setIsLoading(true);
+      rateSourcesManager.getRates(this.#exchangeRatesSource).then((exchangeRates) => {
+        /* TODO: signal: this.#abortLoadExchangeRatesController.signal */
+        if (!exchangeRates.Items.find(item => item.CharCode === 'RUB')) {
+          exchangeRates.Items.unshift(Currency.RUB());
+        }
+
+        if (this.#exchangeRatesSource === "demo") {
+          this.setDemoDataMessage("Демо данные");
+        } else {
+          this.setDemoDataMessage(null);
+        }
+        this.setAvailableCurrencies(exchangeRates?.Items);
+        this.setAmount(this.#amount || 42);
+        this.setSourceCurrencyCharCode(this.#sourceCurrencyCharCode || 'RUB');
+        if (state.forceChangeTargetCharCode) {
+          this.setTargetCurrencyCharCode(state.forceChangeTargetCharCode);
+          state.forceChangeTargetCharCode = null;
+        } else {
+          this.setTargetCurrencyCharCode(this.#targetCurrencyCharCode || 'USD');
+        }
+        this.setIsLoading(false);
+      }).catch((error) => {
+        console.log("Exchange rates loading was rejected: " + error);
+        this.fillDemoData(error.message);
+        this.setIsLoading(false);
+      });
+    }
+  }
+
   setDemoDataMessage(newValue) {
     if (this.#demoDataMessage !== newValue) {
       this.#demoDataMessage = newValue;
@@ -184,11 +203,13 @@ class State {
 
   fillDemoData(demoDataReasonText) {
     const demoDataMessageTemplate = "При получении данных о курсе обмена валют возникла ошибка и показаны демонстрационные данные";
-    state.setDemoDataMessage(`${demoDataMessageTemplate} (${demoDataReasonText})`);
-    state.setAvailableCurrencies([Currency.RUB(), Currency.USD(), Currency.GBP()]);
-    state.setAmount(42);
-    state.setSourceCurrencyCharCode(state.availableCurrencies[0].CharCode);
-    state.setTargetCurrencyCharCode(state.availableCurrencies[1].CharCode);
-    return state;
+
+    rateSourcesManager.getRates("demo").then((exchangeRates) => {
+      this.setAvailableCurrencies(exchangeRates.Items);
+      this.setDemoDataMessage(`${demoDataMessageTemplate} (${demoDataReasonText})`);
+      this.setAmount(this.#amount || 42);
+      this.setSourceCurrencyCharCode(this.availableCurrencies[0].CharCode);
+      this.setTargetCurrencyCharCode(this.availableCurrencies[1].CharCode);
+    });
   }
 };

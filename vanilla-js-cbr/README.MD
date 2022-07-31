@@ -16,9 +16,6 @@ Close chrome and run it in this way: "C:\Program Files (x86)\Google\Chrome\Appli
 For more details, see https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
 
 #### TODO:
-- store selected values between sessions
-- add duedate for exchange rates and refresh it automatically without loosing user data (add a new button 'Test refresh outdated rates')
+- use modules
 - add tests
-- show country flag, currency symbol
-- store received rates and use it if the remove service is not available (add a new button 'Test CBR unavailable mode')
 - add @media to place combobox in line for desktop and in column for mobile resolutions

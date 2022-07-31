@@ -6,11 +6,23 @@
   <title>Currency converter</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' type='text/css' media='screen' href='pages/index.css'>
-  <script defer src='scripts/state/state.js'></script>
+
   <script defer src='scripts/dom-utils/dom-utils.js'></script>
-  <script defer src='scripts/cbr-adapter/cbr-adapter.js'></script>
-  <script defer src='scripts/ViewModel/helpers.js'></script>
-  <script defer src='scripts/ViewModel/ViewModel.js'></script>
+
+  <script defer src='scripts/currency-converter/currency-converter.js'></script>
+
+  <script defer src='scripts/model/model.js'></script>
+  <script defer src='scripts/model/model-data-objects.js'></script>
+
+  <script defer src='scripts/view-model/helpers.js'></script>
+  <script defer src='scripts/view-model/view-model.js'></script>
+
+  <script defer src='scripts/exchange-sources/cbr/cbr-adapter.js'></script>
+  <script defer src='scripts/exchange-sources/cbr/cbr-rates-source.js'></script>
+  <script defer src='scripts/exchange-sources/demo/demo-rates-source.js'></script>
+  <script defer src='scripts/exchange-sources/web-api-proxy/web-api-proxy-rates-source.js'></script>
+  <script defer src='scripts/exchange-sources/exchange-sources-manager.js'></script>
+
   <script defer src='scripts/index.js'></script>
 </head>
 
@@ -38,7 +50,12 @@
             <select class="editor" required value="RUB">
             </select>
           </label>
-        </fieldset>
+          <label class="converter__target-currency labeled-editor">
+            Exchange rates source
+            <select class="converter__rates_source editor" required value="demo">
+            </select>
+          </label>
+          </fieldset>
       </form>
       <p class="converter__target-amount">0</p>
       <div class="rate-expression">
@@ -53,6 +70,8 @@
         <div class="loading-panel__spinner"></div>
       </div>
     </div>
+
+    </select>
   </main>
   <footer></footer>
 </body>

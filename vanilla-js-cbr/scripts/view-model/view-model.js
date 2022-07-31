@@ -32,6 +32,9 @@ class ViewModel {
 
     state.demoDataMessageChanged.addEventListener(() => ViewModel.updateDemoDataMessage(state));
     ViewModel.updateDemoDataMessage(state);
+
+    state.exchangeRatesSourceChanged.addEventListener(() => ViewModel.updateExchangeRatesSource(state));
+    ViewModel.updateExchangeRatesSource(state);
   }
 
   static updateForm() {
@@ -54,13 +57,6 @@ class ViewModel {
       '.converter__currency-toggler',
       () => {
         const currentSourceCurrencyCharCode = state.sourceCurrencyCharCode;
-        // TODO: curious optimisation
-        // 'targetAmount' is recalculated twice and 'converter__target-amount' is update twice(one time for each call)
-        //
-        // 1. I can handle two repaints of 'converter__target-amount' via 'requestAnimationFrame/setTimeout(0)':
-        //     it will move 'XXXChange' calls from the current call tree to the future calls queue.
-        //
-        // 2. 'targetAmount' recalculations should to be fast enough (no repains/DOM changes) and it doesn't worth it to optimize these calls
         state.setSourceCurrencyCharCode(state.targetCurrencyCharCode);
         state.setTargetCurrencyCharCode(currentSourceCurrencyCharCode);
       }
@@ -111,5 +107,13 @@ class ViewModel {
     DOMUtils.ToggleElementClass('.converter__loading-panel',
       'loading-panel_hidden', !state.isLoading);
   }
-  
+
+  static updateExchangeRatesSource(state) {
+    DOMUtils.SetSelectElementState(
+      '.converter__rates_source',
+      state.availableExchangeRateSources?.map(item => ({ value: item.value, text: item.caption })),
+      state.exchangeRatesSource,
+      e => state.setExchangeRatesSource(e.target.value)
+    );
+  }
 }
