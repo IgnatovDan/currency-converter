@@ -12,4 +12,5 @@ Application uses exchange ratesfrom www.cbr.ru (https://www.cbr.ru/scripts/XML_d
 This is a .NET Core application, project was bootstrapped with [Create a .NET console application using Visual Studio Code](https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code?pivots=dotnet-6-0): 'dotnet new console --framework net6.0'
 
 #### TODO:
+- add [Connect to: CBR | My web apy XML | My web apy JSON] toggler to console, vanillajs and react implementations
 - add unit tests
