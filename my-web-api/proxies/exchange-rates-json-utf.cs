@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -12,6 +13,31 @@ namespace ExchangeRatesJsonUtf {
   // Code is based on https://github.com/IgnatovDan/currency-converter/blob/master/console-to-cbr/crb-adapter/cbr-adapter.cs
   // 
   public class Main {
+    private static ExchangeRates ConvertToExchangeRates(CbrExchangeRates rates) {
+      var result = new ExchangeRates(
+        DateTime.ParseExact(rates?.Date ?? "", "d.m.yyyy", CultureInfo.InvariantCulture)
+      );
+      result.Items.AddRange(
+        (rates ?? new CbrExchangeRates()).Items
+          .Where(item =>
+            // filter objects without required values (incorrect objects from an external resource)
+            !string.IsNullOrWhiteSpace(item.Name)
+            && !string.IsNullOrWhiteSpace(item.CharCode)
+            && !string.IsNullOrWhiteSpace(item.Value))
+          .Select(
+            item => new Currency(
+              item.Name!,
+              item.CharCode!,
+              decimal.Parse(item.Value!, new NumberFormatInfo() { NumberDecimalSeparator = "," }) /* XML_daily.asp uses this delimiter */
+            )
+          ).Where(item => item.Value > 0 /* remove currencies without values */)
+      );
+      if (!result.Items.Any(item => item.CharCode == Currency.RUB.CharCode)) {
+        result.Items.Add(Currency.RUB);
+      }
+      return result;
+    }
+
     private static async Task<CbrExchangeRates> ReadCbrExchangeRates(string cbrXmlDailyUrl) {
       using (HttpClient client = new HttpClient()) {
         client.DefaultRequestHeaders.Clear();
@@ -48,8 +74,9 @@ namespace ExchangeRatesJsonUtf {
     }
     public async static Task ProcessRequest(HttpContext context, string cbrXmlDailyUrl) {
       CbrExchangeRates cbrRates = await ReadCbrExchangeRates(cbrXmlDailyUrl);
+      ExchangeRates exchangeRates = ConvertToExchangeRates(cbrRates);
       await context.Response.WriteAsJsonAsync(
-        cbrRates,
+        exchangeRates,
         new JsonSerializerOptions {
           WriteIndented = true,
           IncludeFields = true,
@@ -90,5 +117,25 @@ namespace ExchangeRatesJsonUtf {
     public string? NumCode;
     public string? CharCode;
     public string? Value;
+  }
+
+  public class ExchangeRates {
+    public ExchangeRates(DateTime date) {
+      Date = date;
+    }
+    public DateTime Date { get; } // TODO: convert to date
+    public List<Currency> Items { get; } = new List<Currency>();
+  }
+
+  public class Currency {
+    public static Currency RUB { get; } = new Currency("Российский рубль", "RUB", 1);
+    public Currency(string name, string charCode, decimal value) {
+      Name = name;
+      CharCode = charCode;
+      Value = value;
+    }
+    public string Name { get; }
+    public string CharCode { get; }
+    public decimal Value { get; }
   }
 }
