@@ -1,14 +1,16 @@
 ﻿using System.Globalization;
 
-using ExchangeConverter;
-using CbrAdapter;
+using ExchangeSources;
+using ExchangeSources.Cbr;
+using ExchangeSources.WebApiXml;
+using ExchangeSources.WebApiJson;
 
 try {
   Console.OutputEncoding = System.Text.Encoding.UTF8; // Enable UTF8 to show RU chars in console and VSCode terminal
 
-  RateSources.RegisterRatesSource("cbr", CbrRatesSource.Instance);
-  RateSources.RegisterRatesSource("web-api-proxy", new CbrRatesSource());
-  RateSources.RegisterRatesSource("web-api-json", new WebApiJson.WebApiJsonRatesSource());
+  RateSourcesManager.RegisterRatesSource("cbr", CbrRatesSource.Instance);
+  RateSourcesManager.RegisterRatesSource("web-api-proxy", new CbrRatesSource(WebApiXmlRatesSource.DefaultUrl));
+  RateSourcesManager.RegisterRatesSource("web-api-json", new WebApiJsonRatesSource());
 
   if (args.Length >= 3) {
     var sourceCurrency = args[0];
@@ -19,8 +21,9 @@ try {
     var targetCurrency = args[2];
     var exchangeSourceName = (args.Length == 3) ? "cbr" : args[3];
 
-    var rates = await RateSources.GetRates(exchangeSourceName);
-    var newAmount = ExchangeConverter.Converter.Convert(sourceCurrency, amount, targetCurrency, rates);
+    var rates = await RateSourcesManager.GetRates(exchangeSourceName);
+    rates.EnsureRUB();
+    var newAmount = CurrencyConverter.Converter.Convert(sourceCurrency, amount, targetCurrency, rates.Items);
 
     Console.WriteLine($"{newAmount}");
   }

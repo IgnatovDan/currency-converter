@@ -1,11 +1,16 @@
 using System.Globalization;
 
-using ExchangeConverter;
-using CbrAdapter;
+using CurrencyConverter;
 
-namespace Utils {
-  public class Utils {
-    public static ExchangeRates ConvertToExchangeRates(CbrExchangeRates rates) {
+namespace ExchangeSources.Cbr {
+  public class CbrRatesSource : IRatesSource {
+    private const string DefaultUrl = "https://www.cbr.ru/scripts/XML_daily.asp";
+
+    public static CbrRatesSource Instance { get; } = new CbrRatesSource();
+
+    private string url { get; }
+
+    private static ExchangeRates ConvertToCurrencyConverterDTO(CbrExchangeRates rates) {
       var result = new ExchangeRates(
         DateTime.ParseExact(rates?.Date ?? "", "d.m.yyyy", CultureInfo.InvariantCulture)
       );
@@ -24,10 +29,15 @@ namespace Utils {
             )
           ).Where(item => item.Value > 0 /* remove currencies without values */)
       );
-      if (!result.Items.Any(item => item.CharCode == Currency.RUB.CharCode)) {
-        result.Items.Add(Currency.RUB);
-      }
       return result;
+    }
+
+    public CbrRatesSource(string url = DefaultUrl) {
+      this.url = url;
+    }
+    public async Task<ExchangeRates> getRates() {
+      var cbrRates = await ExchangeSources.Cbr.Adapter.GetExchangeRates(url);
+      return ConvertToCurrencyConverterDTO(cbrRates);
     }
   }
 }

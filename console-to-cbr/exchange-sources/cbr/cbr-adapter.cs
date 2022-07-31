@@ -2,7 +2,7 @@ using System.Net;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace CbrAdapter {
+namespace ExchangeSources.Cbr {
   //
   // https://www.cbr.ru/development/SXML/
   // This class is designed to work with the "https://www.cbr.ru/scripts/XML_daily.asp" service
