@@ -7,7 +7,7 @@ API urls:
 - 'https://localhost:7271/swagger' (it doesn't show 'exchange-rates-xml-1251.xml')
 - 'https://localhost:7271/exchange-rates-1251.xml'
 - 'https://localhost:7271/exchange-rates-utf.json'
-(Preferred format and encoding can be passed in request headers and service can return different values from single 'api' method)
+(Or,  format and encoding can be requested in headers and service can return different values from single 'api' method)
 
  
 ## Used technologies
