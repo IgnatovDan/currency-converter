@@ -3,7 +3,7 @@ namespace ExchangeConverter {
     private static Currency GetCurrency(List<Currency> items, string charCode) {
       Currency? result = items.FirstOrDefault(item => String.Equals(item.CharCode, charCode, StringComparison.OrdinalIgnoreCase));
       if (result == null) {
-        throw new Exception($"The '{charCode}' was not found in the list of available exchange rates");
+        throw new Exception($"The '{charCode}' currency was not found in the list of available exchange rates");
       }
       return result;
     }

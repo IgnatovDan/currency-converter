@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace CbrAdapter {
   /*
-  https://www.cbr.ru/scripts/XML_daily.asp
+  https://www.cbr.ru/scripts/XML_daily.asp returns the following XML:
   
   <ValCurs Date="23.07.2022" name="Foreign Currency Market">
     <Valute ID="R01010">

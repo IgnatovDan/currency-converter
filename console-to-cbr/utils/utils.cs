@@ -12,7 +12,7 @@ namespace Utils {
       result.Items.AddRange(
         (rates ?? new CbrExchangeRates()).Items
           .Where(item =>
-            // filter objects without required value (incorrect objects from an external resource)
+            // filter objects without required values (incorrect objects from an external resource)
             !string.IsNullOrWhiteSpace(item.Name)
             && !string.IsNullOrWhiteSpace(item.CharCode)
             && !string.IsNullOrWhiteSpace(item.Value))
@@ -20,9 +20,9 @@ namespace Utils {
             item => new Currency(
               item.Name!,
               item.CharCode!,
-              decimal.Parse(item.Value!, new NumberFormatInfo() { NumberDecimalSeparator = "," }) /* сценарии с разными разделителями не проверял */
+              decimal.Parse(item.Value!, new NumberFormatInfo() { NumberDecimalSeparator = "," }) /* XML_daily.asp uses this delimiter */
             )
-          ).Where(item => item.Value != 0 /* cannot use such rates to exchange */)
+          ).Where(item => item.Value > 0 /* remove currencies without values */)
       );
       if (!result.Items.Any(item => item.CharCode == Currency.RUB.CharCode)) {
         result.Items.Add(Currency.RUB);
