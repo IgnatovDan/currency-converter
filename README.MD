@@ -21,3 +21,6 @@ There are **3 browser applications** with the same look&feel:
 1. vanilla-js app
 1. react app
 1. vue app - I am working on it
+
+#### TODO:
+- add [Connect to: CBR | My web apy XML | My web apy JSON] toggler to console, vanillajs and react implementations
