@@ -14,8 +14,8 @@ import WebApiJsonRatesSource from './api/exchange-sources/web-api-json/web-api-j
 
 rateSourcesManager.registerSource('demo', new DemoRatesSource(), 'Демо данные');
 rateSourcesManager.registerSource('cbr', new CbrRatesSource(), 'Сайт Банка России');
-rateSourcesManager.registerSource('web-api-proxy', new CbrRatesSource(WebApiProxyRatesSource.Url), 'Локальный сайт, данные с сайта Банка России без изменений');
-rateSourcesManager.registerSource('web-api-json', new WebApiJsonRatesSource(), 'Локальный сайт, данные с сайта Банка России в формате json');
+rateSourcesManager.registerSource('web-api-proxy', new CbrRatesSource(WebApiProxyRatesSource.Url), 'Proxy - Локальный сайт, данные с сайта Банка России без изменений');
+rateSourcesManager.registerSource('web-api-json', new WebApiJsonRatesSource(), 'JSON - Локальный сайт, данные с сайта Банка России в формате json');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
