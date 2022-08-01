@@ -7,7 +7,7 @@ Application:
  - shows error message if fetch was not secceeded and switches to 'demo' exchange rates
 
 ## Used technologies
-HTML, semantic, CSS flex/position/margin/padding, BEM, fetch.
+HTML, JS, semantic, CSS flex/position/margin/padding, BEM, fetch, XML, JSON.
 This is a "VanillaJS" application.
 
 ## How to avoid "Access to fetch at 'https://www.cbr.ru/scripts/XML_daily.asp' from origin 'null' has been blocked by CORS policy":
@@ -19,3 +19,5 @@ For more details, see https://stackoverflow.com/questions/3102819/disable-same-o
 - use modules
 - add tests
 - add @media to place combobox in line for desktop and in column for mobile resolutions
+- add duedate for exchange rates and refresh it automatically without loosing amount/source/target-currency (add a new button 'Test refresh outdated rates')
+- show country flag, currency symbol
