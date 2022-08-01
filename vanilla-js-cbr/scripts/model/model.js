@@ -53,7 +53,7 @@ class State {
     this.#availableExchangeRateSources = [
       { value: "demo", caption: "Демо данные" },
       { value: "cbr", caption: "Сайт Банка России" },
-      { value: "web-api-proxy", caption: "Локальный сайт, прозрачный proxy на сайт Банка России" },
+      { value: "web-api-proxy", caption: "Локальный сайт, данные с сайта Банка России без изменений" },
       { value: "web-api-json", caption: "Локальный сайт, данные с сайта Банка России в формате json" }
     ];
 
