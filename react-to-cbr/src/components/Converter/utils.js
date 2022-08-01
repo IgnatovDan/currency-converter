@@ -1,9 +1,9 @@
-import { Currency } from "./converter-model";
+import { Currency } from "./converter-model-data-objects";
 
 export function convertCurrenciesToSelectElementOptions(currencies) {
   const RUB = Currency.RUB().CharCode;
-  return currencies
-    ?.map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` }))
+  return (currencies || [])
+    .map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` }))
     .sort((a, b) => {
       if (a.value === RUB) {
         return -1;
