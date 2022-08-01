@@ -19,6 +19,11 @@ There are **3 browser applications** with the same look&feel:
 1. react app
 1. vue app - I am working on it
 
+#### Schedule:
+- start date: 24.07.2022
+- total spent time: 7 days * 7h = 49h
+- finish date: todo
+
 #### TODO:
 - add [Connect to: CBR | My web apy XML | My web apy JSON] toggler to console, vanillajs and react implementations
 - add vue app
