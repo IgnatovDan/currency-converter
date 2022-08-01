@@ -10,11 +10,12 @@ import rateSourcesManager from './api/exchange-sources/exchange-sources-manager'
 import DemoRatesSource from './api/exchange-sources/demo/demo-rates-source.js';
 import CbrRatesSource from './api/exchange-sources/cbr/cbr-rates-source.js';
 import WebApiProxyRatesSource from './api/exchange-sources/web-api-proxy/web-api-proxy-rates-source.js';
+import WebApiJsonRatesSource from './api/exchange-sources/web-api-json/web-api-json-rates-source.js';
 
 rateSourcesManager.registerSource('demo', new DemoRatesSource(), 'Демо данные');
 rateSourcesManager.registerSource('cbr', new CbrRatesSource(), 'Сайт Банка России');
 rateSourcesManager.registerSource('web-api-proxy', new CbrRatesSource(WebApiProxyRatesSource.Url), 'Локальный сайт, данные с сайта Банка России без изменений');
-
+rateSourcesManager.registerSource('web-api-json', new WebApiJsonRatesSource(), 'Локальный сайт, данные с сайта Банка России в формате json');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
