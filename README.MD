@@ -19,9 +19,11 @@ There are **3 browser applications** with the same look&feel:
 1. react app
 1. vue app - I am working on it
 
-#### Schedule:
+#### Timeline:
 - start date: 24.07.2022
-- total spent time: 7 days * 7h = 49h
+- total working days: 7
+- total hours: 50
+- average hours per day: 7
 - finish date: todo
 
 #### TODO:
