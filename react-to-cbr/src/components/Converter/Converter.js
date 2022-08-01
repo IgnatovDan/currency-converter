@@ -118,7 +118,7 @@ function ConverterWrapper(props) {
             return;
           }
           setAvailableCurrencies(exchangeRates?.Items);
-          setDemoDataMessage(null);
+          setDemoDataMessage(exchangeRatesSourceKey === 'demo' ? 'Демо данные' : null);
           setIsLoading(false);
         })
         .catch(error => {
