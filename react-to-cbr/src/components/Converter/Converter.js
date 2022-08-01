@@ -118,6 +118,7 @@ function ConverterWrapper(props) {
             return;
           }
           setAvailableCurrencies(exchangeRates?.Items);
+          setDemoDataMessage(null);
           setIsLoading(false);
         })
         .catch(error => {
