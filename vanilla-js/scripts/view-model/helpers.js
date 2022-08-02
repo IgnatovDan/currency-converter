@@ -1,3 +1,5 @@
+import { Currency } from '../model/model-data-objects.js';
+
 function convertCurrenciesToSelectElementOptions(currencies) {
   const RUB = Currency.RUB().CharCode;
   return currencies?.
@@ -13,3 +15,5 @@ function convertCurrenciesToSelectElementOptions(currencies) {
       return ((a.text > b.text) ? 1 : -1);
     });
 }
+
+export { convertCurrenciesToSelectElementOptions }

@@ -28,3 +28,5 @@ class ExchangeRates {
   get Date() { return this.#date; }
   get Items() { return this.#items; }
 }
+
+export { ExchangeRates, Currency }

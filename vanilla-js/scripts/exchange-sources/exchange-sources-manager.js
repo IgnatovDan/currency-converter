@@ -18,3 +18,5 @@ class RateSourcesManager {
 }
 
 const rateSourcesManager = new RateSourcesManager();
+
+export { rateSourcesManager }

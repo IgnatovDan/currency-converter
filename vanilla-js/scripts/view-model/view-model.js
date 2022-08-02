@@ -1,3 +1,6 @@
+import { DOMUtils } from '../dom-utils/dom-utils.js';
+import { convertCurrenciesToSelectElementOptions } from './helpers.js';
+
 class ViewModel {
   static Bind(state) {
     ViewModel.updateForm();
@@ -117,3 +120,5 @@ class ViewModel {
     );
   }
 }
+
+export { ViewModel }

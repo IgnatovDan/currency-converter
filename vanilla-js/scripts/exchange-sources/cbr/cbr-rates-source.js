@@ -1,3 +1,5 @@
+import { CbrAdapterLoadExchangeRates} from './cbr-adapter.js';
+  
 class CbrRatesSource {
   #url;
   constructor(url) {
@@ -7,3 +9,5 @@ class CbrRatesSource {
     return CbrAdapterLoadExchangeRates(this.#url);
   }
 }
+
+export { CbrRatesSource }

@@ -1,3 +1,5 @@
+import { ExchangeRates, Currency } from '../../model/model-data-objects.js';
+
 //
 // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/VanillaJS/cbr-currency-converter/cbr-adapter.js
 //
@@ -25,3 +27,5 @@ async function CbrAdapterLoadExchangeRates(url) {
       return new ExchangeRates(exchangeDate, currencies);
     });
 }
+
+export { CbrAdapterLoadExchangeRates }

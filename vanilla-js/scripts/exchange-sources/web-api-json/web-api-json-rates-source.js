@@ -1,3 +1,5 @@
+import { WebApiJsonAdapterLoadExchangeRates } from './web-api-json-adapter.js';
+
 class WebApiJsonRatesSource {
   #url;
   constructor(url) {
@@ -7,3 +9,5 @@ class WebApiJsonRatesSource {
     return WebApiJsonAdapterLoadExchangeRates(this.#url);
   }
 }
+
+export { WebApiJsonRatesSource }

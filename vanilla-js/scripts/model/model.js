@@ -1,3 +1,8 @@
+import { Currency } from './model-data-objects.js';
+import { rateSourcesManager } from '../exchange-sources/exchange-sources-manager.js';
+import { CurrencyConverter } from '../currency-converter/currency-converter.js';
+import { handleValueNumberToZero } from '../utils/utils.js';
+
 class EventTarget {
   #listeners = [];
 
@@ -9,13 +14,6 @@ class EventTarget {
   dispatchEvent(args) {
     this.#listeners.forEach(listener => listener(args));
   }
-}
-
-function HandleValueNumberToZero(value) {
-  if (Number.isNaN(value) || value === Infinity || value === undefined || value === null) {
-    return 0;
-  }
-  return value;
 }
 
 class State {
@@ -99,7 +97,7 @@ class State {
   get availableExchangeRateSources() { return this.#availableExchangeRateSources; }
 
   refreshTargetRate() {
-    const newValue = currencyConverter.getTargetRate(this.#sourceCurrencyValue, this.#targetCurrencyValue);
+    const newValue = CurrencyConverter.getTargetRate(this.#sourceCurrencyValue, this.#targetCurrencyValue);
     if (newValue !== this.#targetRate) {
       this.#targetRate = newValue;
       this.#targetRateChanged.dispatchEvent();
@@ -107,7 +105,7 @@ class State {
   }
 
   refreshTargetAmount() {
-    const newValue = currencyConverter.getTargetAmount(this.#amount, this.#sourceCurrencyValue, this.#targetCurrencyValue);
+    const newValue = CurrencyConverter.getTargetAmount(this.#amount, this.#sourceCurrencyValue, this.#targetCurrencyValue);
     if (newValue !== this.#targetAmount) {
       this.#targetAmount = newValue;
       this.#targetAmountChanged.dispatchEvent();
@@ -137,7 +135,7 @@ class State {
   }
 
   setAmount(amount) {
-    const newValue = HandleValueNumberToZero(amount);
+    const newValue = handleValueNumberToZero(amount);
     if (this.#amount !== newValue) {
       this.#amount = newValue;
       this.#amountChanged.dispatchEvent();
@@ -172,9 +170,9 @@ class State {
         this.setAvailableCurrencies(exchangeRates?.Items);
         this.setAmount(this.#amount || 42);
         this.setSourceCurrencyCharCode(this.#sourceCurrencyCharCode || 'RUB');
-        if (state.forceChangeTargetCharCode) {
-          this.setTargetCurrencyCharCode(state.forceChangeTargetCharCode);
-          state.forceChangeTargetCharCode = null;
+        if (this.forceChangeTargetCharCode) {
+          this.setTargetCurrencyCharCode(this.forceChangeTargetCharCode);
+          this.forceChangeTargetCharCode = null;
         } else {
           this.setTargetCurrencyCharCode(this.#targetCurrencyCharCode || 'USD');
         }
@@ -213,3 +211,5 @@ class State {
     });
   }
 };
+
+export { State }

@@ -51,3 +51,5 @@ class DOMUtils {
     }
   }
 }
+
+export { DOMUtils }

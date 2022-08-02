@@ -1,3 +1,5 @@
+import { ExchangeRates, Currency } from '../../model/model-data-objects.js';
+
 async function WebApiJsonAdapterLoadExchangeRates(url) {
   return fetch(url)
     .then(response => {
@@ -17,3 +19,5 @@ async function WebApiJsonAdapterLoadExchangeRates(url) {
       );
     });
 }
+
+export { WebApiJsonAdapterLoadExchangeRates }
