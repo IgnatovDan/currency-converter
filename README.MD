@@ -1,7 +1,7 @@
 # Currency Converter application
 Application allows to select source currency, enter amount, select the target currency and then it will show the target amount.
 
-![image](https://user-images.githubusercontent.com/2094015/181904188-3b9d21e4-552b-41cd-80d9-be7bf7898fac.png)
+![image](https://user-images.githubusercontent.com/2094015/182308596-46497acc-ed3d-42a2-be04-b643d389ddf9.png)
 
 Applications:
 
