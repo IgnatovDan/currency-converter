@@ -6,8 +6,10 @@ Application:
  - shows 'loading' spinner on initial data fetching
  - shows error message if fetch was not secceeded and switches to 'demo' exchange rates
 
+![image](https://user-images.githubusercontent.com/2094015/182308596-46497acc-ed3d-42a2-be04-b643d389ddf9.png)
+
 ## Used technologies
-HTML, JS, semantic, CSS flex/position/margin/padding, BEM, fetch, XML, JSON.
+HTML, JS, CSS, BEM, fetch, XML, JSON.
 This is a "VanillaJS" application.
 
 ## How to avoid "Access to fetch at 'https://www.cbr.ru/scripts/XML_daily.asp' from origin 'null' has been blocked by CORS policy":

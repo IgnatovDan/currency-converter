@@ -5,8 +5,10 @@
  - shows 'loading' spinner on initial data fetching
  - shows error message if fetch was not secceeded and switches to 'demo' exchange rates
 
+![image](https://user-images.githubusercontent.com/2094015/182308596-46497acc-ed3d-42a2-be04-b643d389ddf9.png)
+
 ## Used technologies
-React, HTML, semantic, CSS flex/position/margin/padding, BEM, fetch.
+React, HTML, JS, CSS, BEM, fetch, XML, JSON.
 This is a React application, project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Available Scripts
