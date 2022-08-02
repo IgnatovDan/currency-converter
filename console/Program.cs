@@ -4,6 +4,7 @@ using ExchangeSources;
 using ExchangeSources.Cbr;
 using ExchangeSources.WebApiXml;
 using ExchangeSources.WebApiJson;
+using CurrencyConverter;
 
 try {
   Console.OutputEncoding = System.Text.Encoding.UTF8; // Enable UTF8 to show RU chars in console and VSCode terminal
@@ -23,7 +24,7 @@ try {
 
     var rates = await RateSourcesManager.GetRates(exchangeSourceName);
     rates.EnsureRUB();
-    var newAmount = CurrencyConverter.Converter.Convert(sourceCurrency, amount, targetCurrency, rates.Items);
+    var newAmount = Converter.Convert(amount, rates.GetCurrency(sourceCurrency).Value, rates.GetCurrency(targetCurrency).Value);
 
     Console.WriteLine($"{newAmount}");
   }
