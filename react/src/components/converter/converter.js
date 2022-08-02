@@ -37,15 +37,15 @@ function Converter({
     return (<option key={ item.value } value={ item.value }>{ item.text }</option>);
   });
 
-  const handleAmountChange = e => amountChanged(Number(e.target.value));
-  const handleSourceCurrencyChange = e => sourceCurrencyCharCodeChanged(e.target.value);
-  const handleTargetCurrencyChange = e => targetCurrencyCharCodeChanged(e.target.value);
+  const handleAmountChange = useCallback(e => amountChanged(Number(e.target.value)), [amountChanged]);
+  const handleSourceCurrencyChange = useCallback(e => sourceCurrencyCharCodeChanged(e.target.value), [sourceCurrencyCharCodeChanged]);
+  const handleTargetCurrencyChange = useCallback(e => targetCurrencyCharCodeChanged(e.target.value), [targetCurrencyCharCodeChanged]);
 
-  const handleTogglerClick = () => {
+  const handleTogglerClick = useCallback(() => {
     const currentSourceCurrencyCharCode = sourceCurrencyCharCode;
     sourceCurrencyCharCodeChanged(targetCurrencyCharCode);
     targetCurrencyCharCodeChanged(currentSourceCurrencyCharCode);
-  };
+  }, [sourceCurrencyCharCode, sourceCurrencyCharCodeChanged, targetCurrencyCharCode, targetCurrencyCharCodeChanged]);
 
   const selectExchangeRatesSourceOptions = availableExchangeRateSources?.map(item => {
     return (<option key={ item.key } value={ item.key }>{ item.caption }</option>);
@@ -111,6 +111,7 @@ function ConverterWrapper(props) {
 
   useEffect(
     () => {
+      setIsLoading(true);
       const currentAbortController = {};
       rateSourcesManager.getRates(exchangeRatesSourceKey)
         .then(exchangeRates => {
@@ -159,10 +160,10 @@ function ConverterWrapper(props) {
     setTargetRate(Math.round((safeValue + Number.EPSILON) * 10000) / 10000);
   }, [sourceCurrencyValue, targetCurrencyValue]);
 
-  const amountChanged = useCallback(value => setAmount(HandleValueNumberToZero(value)));
-  const sourceCurrencyCharCodeChanged = useCallback(value => setSourceCurrencyCharCode(value));
-  const targetCurrencyCharCodeChanged = useCallback(value => setTargetCurrencyCharCode(value));
-  const exchangeRatesSourceKeyChanged = useCallback(value => setExchangeRatesSourceKey(value));
+  const amountChanged = useCallback(value => setAmount(HandleValueNumberToZero(value)), []);
+  const sourceCurrencyCharCodeChanged = useCallback(value => setSourceCurrencyCharCode(value), []);
+  const targetCurrencyCharCodeChanged = useCallback(value => setTargetCurrencyCharCode(value), []);
+  const exchangeRatesSourceKeyChanged = useCallback(value => setExchangeRatesSourceKey(value), []);
 
   const availableExchangeRateSources = rateSourcesManager.getRegisteredSources().map(item => ({ key: item.key, caption: item.caption }))
 
