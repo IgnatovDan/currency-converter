@@ -17,6 +17,8 @@ This is a "VanillaJS" application.
 Close chrome and run it in this way: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --args --disable-web-security --user-data-dir="c:\temp"
 For more details, see https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
 
+For "Access to script at 'file:///C:/Work/GitHub/currency-converter/vanilla-js/scripts/index.js' from origin 'null' has been blocked by CORS policy" use 'Live Server (Five Server)' extension or similar approach: application is build with ES modules and browser blocks module loading when opening an html file.
+
 #### TODO:
 - use modules
 - add tests
