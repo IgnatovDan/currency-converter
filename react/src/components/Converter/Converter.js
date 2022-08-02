@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import Button from '../button/button';
 import Editor from '../editor/editor';
 import LabeledEditor from '../labeled-editor/labeled-editor';
@@ -159,19 +159,10 @@ function ConverterWrapper(props) {
     setTargetRate(Math.round((safeValue + Number.EPSILON) * 10000) / 10000);
   }, [sourceCurrencyValue, targetCurrencyValue]);
 
-  const amountChanged = (value) => setAmount(HandleValueNumberToZero(value));
-
-  const sourceCurrencyCharCodeChanged = (value) => {
-    setSourceCurrencyCharCode(value);
-  };
-
-  const targetCurrencyCharCodeChanged = (value) => {
-    setTargetCurrencyCharCode(value);
-  };
-
-  const exchangeRatesSourceKeyChanged = (value) => {
-    setExchangeRatesSourceKey(value);
-  }
+  const amountChanged = useCallback(value => setAmount(HandleValueNumberToZero(value)));
+  const sourceCurrencyCharCodeChanged = useCallback(value => setSourceCurrencyCharCode(value));
+  const targetCurrencyCharCodeChanged = useCallback(value => setTargetCurrencyCharCode(value));
+  const exchangeRatesSourceKeyChanged = useCallback(value => setExchangeRatesSourceKey(value));
 
   const availableExchangeRateSources = rateSourcesManager.getRegisteredSources().map(item => ({ key: item.key, caption: item.caption }))
 
