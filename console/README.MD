@@ -9,7 +9,7 @@ For example, 'dotnet run USD 4000 RUB web-api-proxy'.
 Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
 
 ## Used technologies
-.NET Core 6, http, xml, serialization
+.NET Core 6, webapi, http, xml, json, serialization
 
 This is a .NET Core application, project was bootstrapped with [Create a .NET console application using Visual Studio Code](https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code?pivots=dotnet-6-0): 'dotnet new console --framework net6.0'
 
