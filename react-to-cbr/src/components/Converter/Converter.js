@@ -8,7 +8,7 @@ import { ReactComponent as UpDownArrowsSvg } from '../../images/up-down-arrows.s
 import LoadingPanel from '../loading-panel/loading-panel';
 import rateSourcesManager from '../../api/exchange-sources/exchange-sources-manager.js';
 
-import { Currency } from './converter-model-data-objects';
+import { Currency } from '../../api/exchange-sources/exchange-rates-data-objects';
 
 import styles from './converter.module.css';
 import styles__currencyToggler from './__currency-toggler/converter__currency-toggler.module.css';

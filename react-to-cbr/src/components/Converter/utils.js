@@ -1,4 +1,4 @@
-import { Currency } from "./converter-model-data-objects";
+import { Currency } from "../../api/exchange-sources/exchange-rates-data-objects";
 
 export function convertCurrenciesToSelectElementOptions(currencies) {
   const RUB = Currency.RUB().CharCode;

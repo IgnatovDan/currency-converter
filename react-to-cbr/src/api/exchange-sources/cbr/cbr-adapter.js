@@ -1,4 +1,4 @@
-import { Currency, ExchangeRates } from "../../../components/converter/converter-model-data-objects.js"; // TODO: move to src\api\exchange-sources\exchange-source-data-objects.js ?
+import { Currency, ExchangeRates } from '../exchange-rates-data-objects.js';
 
 export default async function LoadCurrencyExchangeRates(url) {
   return fetch(url || "https://www.cbr.ru/scripts/XML_daily.asp")

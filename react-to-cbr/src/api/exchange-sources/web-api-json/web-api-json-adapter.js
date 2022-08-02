@@ -1,4 +1,4 @@
-import { Currency, ExchangeRates } from "../../../components/converter/converter-model-data-objects.js"; // TODO: move to src\api\exchange-sources\exchange-source-data-objects.js ?
+import { Currency, ExchangeRates } from '../exchange-rates-data-objects.js';
 
 export default async function WebApiJsonAdapterLoadExchangeRates(url) {
   return fetch(url)
@@ -10,7 +10,7 @@ export default async function WebApiJsonAdapterLoadExchangeRates(url) {
         new Currency(
           valute.Name,
           valute.CharCode,
-          Number(valute.Value)
+          parseFloat(valute.Value)
         )
       );
       return new ExchangeRates(
