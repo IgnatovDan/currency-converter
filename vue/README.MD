@@ -1,3 +1,19 @@
-VUE application: select your currency, enter your amount, select the target currency. The application will show the target amount.
+# vue
 
-Application will connect to www.cbr.ru
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
