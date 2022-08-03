@@ -46,6 +46,7 @@ class Model {
   #exchangeRatesSource = "";
   #exchangeRatesSourceChanged = new EventTarget();
   #availableExchangeRateSources;
+  #lastAbortController = {};
 
   constructor() {
     this.#availableExchangeRateSources = [
@@ -156,7 +157,15 @@ class Model {
       this.#exchangeRatesSourceChanged.dispatchEvent();
 
       this.setIsLoading(true);
+      if (this.#lastAbortController) {
+        this.#lastAbortController.aborted = true;
+      }
+      const currentAbortController = { aborted: false };
+      this.#lastAbortController = currentAbortController;
       rateSourcesManager.getRates(this.#exchangeRatesSource).then((exchangeRates) => {
+        if (currentAbortController.aborted) {
+          return;
+        }
         /* TODO: signal: this.#abortLoadExchangeRatesController.signal */
         if (!exchangeRates.Items.find(item => item.CharCode === 'RUB')) {
           exchangeRates.Items.unshift(Currency.RUB());
@@ -178,7 +187,11 @@ class Model {
         }
         this.setIsLoading(false);
       }).catch((error) => {
-        console.log("Exchange rates loading was rejected: " + error);
+        if (currentAbortController.aborted) {
+          return;
+        }
+        console.log("Exchange rates loading was rejected");
+        console.log(error);
         this.fillDemoData(error.message);
         this.setIsLoading(false);
       });

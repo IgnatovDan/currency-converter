@@ -11,8 +11,6 @@ rateSourcesManager.registerSource('cbr', new CbrRatesSource());
 rateSourcesManager.registerSource('web-api-proxy', new CbrRatesSource(WebApiProxyRatesSource.Url));
 rateSourcesManager.registerSource('web-api-json', new WebApiJsonRatesSource());
 
-// TODO: rateSourcesManager.registerSource('web-api-json');
-
 const model = new Model();
 model.forceChangeTargetCharCode = 'USD';
 model.setExchangeRatesSource('cbr');
