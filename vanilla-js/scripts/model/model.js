@@ -16,7 +16,7 @@ class EventTarget {
   }
 }
 
-class State {
+class Model {
   #availableCurrencies = null;
   #availableCurrenciesChanged = new EventTarget();
 
@@ -212,4 +212,4 @@ class State {
   }
 };
 
-export { State }
+export { Model }
