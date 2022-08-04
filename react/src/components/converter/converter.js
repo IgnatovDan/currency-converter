@@ -96,6 +96,7 @@ function ConverterWrapper(props) {
   const [targetCurrencyCharCode, setTargetCurrencyCharCode] = useState(Currency.RUB().CharCode);
   const [exchangeRatesSourceKey, setExchangeRatesSourceKey] = useState('cbr');
   const [demoDataMessage, setDemoDataMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(
     () => {
@@ -108,25 +109,32 @@ function ConverterWrapper(props) {
           }
           setAvailableCurrencies(exchangeRates?.Items);
           setDemoDataMessage(exchangeRatesSourceKey === 'demo' ? 'Демо данные' : null);
+          setErrorMessage(null);
           setIsLoading(false);
         })
         .catch(error => {
           if (currentAbortController.aborted) {
             return;
           }
-          const demoDataMessageTemplate = "При получении данных о курсе обмена валют возникла ошибка и показаны демонстрационные данные";
+          setErrorMessage(error);
           setIsLoading(false);
-          setDemoDataMessage(`${demoDataMessageTemplate} (${error})`);
-          setAvailableCurrencies([Currency.RUB(), Currency.USD(), Currency.GBP()]);
-          setSourceCurrencyCharCode(Currency.USD().CharCode);
-          setSourceCurrencyValue(Currency.USD().Value);
-          setTargetCurrencyCharCode(Currency.RUB().CharCode);
-          setTargetCurrencyValue(Currency.RUB().Value);
         });
       return () => currentAbortController.aborted = true; /* cancellationToken */
     },
     [exchangeRatesSourceKey]
   );
+
+  useEffect(() => {
+    if (errorMessage) {
+      const demoDataMessageTemplate = "При получении данных о курсе обмена валют возникла ошибка и показаны демонстрационные данные";
+      setDemoDataMessage(`${demoDataMessageTemplate} (${errorMessage})`);
+      setAvailableCurrencies([Currency.RUB(), Currency.USD(), Currency.GBP()]);
+      setSourceCurrencyCharCode(Currency.USD().CharCode);
+      setSourceCurrencyValue(Currency.USD().Value);
+      setTargetCurrencyCharCode(Currency.RUB().CharCode);
+      setTargetCurrencyValue(Currency.RUB().Value);
+    }
+  }, [errorMessage]);
 
   useEffect(() => {
     const newCurrency = availableCurrencies?.find(item => item.CharCode === sourceCurrencyCharCode);
