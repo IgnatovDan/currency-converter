@@ -13,7 +13,7 @@ class DOMUtils {
       element.value = value;
       element.onchange = onChange;
     }
-  } 
+  }
 
   static SetNumberInputElementState(selector, value, onInput) {
     const element = document.querySelector(selector);

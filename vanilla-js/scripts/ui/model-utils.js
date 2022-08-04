@@ -1,4 +1,4 @@
-import { Currency } from '../model/model-data-objects.js';
+import { Currency } from '../api/data-objects.js';
 
 function convertCurrenciesToSelectElementOptions(currencies) {
   const RUB = Currency.RUB().CharCode;

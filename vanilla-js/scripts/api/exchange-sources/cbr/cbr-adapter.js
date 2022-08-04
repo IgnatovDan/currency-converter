@@ -1,4 +1,4 @@
-import { ExchangeRates, Currency } from '../../model/model-data-objects.js';
+import { ExchangeRates, Currency } from '../../data-objects.js';
 
 //
 // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/VanillaJS/cbr-currency-converter/cbr-adapter.js

@@ -1,5 +1,5 @@
-import { DOMUtils } from '../dom-utils/dom-utils.js';
-import { convertCurrenciesToSelectElementOptions } from './helpers.js';
+import { DOMUtils } from './dom-utils.js';
+import { convertCurrenciesToSelectElementOptions } from './model-utils.js';
 
 class ViewBinding {
   static Bind(model) {

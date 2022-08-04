@@ -1,4 +1,4 @@
-import { ExchangeRates, Currency } from '../../model/model-data-objects.js';
+import { ExchangeRates, Currency } from '../../data-objects.js';
 
 class DemoRatesSource {
   static Rates = new ExchangeRates(Date.now, [Currency.RUB(), Currency.USD(), Currency.GBP()]);

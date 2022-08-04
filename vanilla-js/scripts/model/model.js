@@ -1,6 +1,6 @@
-import { Currency } from './model-data-objects.js';
-import { rateSourcesManager } from '../exchange-sources/exchange-sources-manager.js';
-import { CurrencyConverter } from '../currency-converter/currency-converter.js';
+import { Currency } from '../api/data-objects.js';
+import { rateSourcesManager } from '../api/exchange-sources/exchange-sources-manager.js';
+import { CurrencyConverter } from '../api/currency-converter.js';
 import { handleValueNumberToZero } from '../utils/utils.js';
 
 class EventTarget {

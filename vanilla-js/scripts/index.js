@@ -1,10 +1,10 @@
-import { rateSourcesManager } from './exchange-sources/exchange-sources-manager.js';
-import { DemoRatesSource } from './exchange-sources/demo/demo-rates-source.js';
-import { CbrRatesSource } from './exchange-sources/cbr/cbr-rates-source.js';
-import { WebApiProxyRatesSource } from './exchange-sources/web-api-proxy/web-api-proxy-rates-source.js';
-import { WebApiJsonRatesSource } from './exchange-sources/web-api-json/web-api-json-rates-source.js';
+import { rateSourcesManager } from './api/exchange-sources/exchange-sources-manager.js';
+import { DemoRatesSource } from './api/exchange-sources/demo/demo-rates-source.js';
+import { CbrRatesSource } from './api/exchange-sources/cbr/cbr-rates-source.js';
+import { WebApiProxyRatesSource } from './api/exchange-sources/web-api-proxy/web-api-proxy-rates-source.js';
+import { WebApiJsonRatesSource } from './api/exchange-sources/web-api-json/web-api-json-rates-source.js';
 import { Model } from './model/model.js';
-import { ViewBinding } from './view-binding/view-binding.js';
+import { ViewBinding } from './ui/view-binding.js';
   
 rateSourcesManager.registerSource('demo', new DemoRatesSource());
 rateSourcesManager.registerSource('cbr', new CbrRatesSource());

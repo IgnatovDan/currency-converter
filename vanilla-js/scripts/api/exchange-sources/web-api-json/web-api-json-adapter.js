@@ -1,4 +1,4 @@
-import { ExchangeRates, Currency } from '../../model/model-data-objects.js';
+import { ExchangeRates, Currency } from '../../data-objects.js';
 
 async function WebApiJsonAdapterLoadExchangeRates(url) {
   return fetch(url)
