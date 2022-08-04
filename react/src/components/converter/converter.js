@@ -1,9 +1,9 @@
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Button from '../button/button';
 import Editor from '../editor/editor';
 import LabeledEditor from '../labeled-editor/labeled-editor';
 import CurrencyRateExpression from '../currency-rate-expression/currency-rate-expression';
-import { convertCurrenciesToSelectElementOptions } from './utils';
+import { convertCurrenciesToSelectListItems } from './utils';
 import { ReactComponent as UpDownArrowsSvg } from '../../images/up-down-arrows.svg'; /* from https://uxwing.com/up-down-arrows-icon/ */
 import LoadingPanel from '../loading-panel/loading-panel';
 import rateSourcesManager from '../../api/exchange-sources/exchange-sources-manager.js';
@@ -33,9 +33,7 @@ function Converter({
   exchangeRatesSourceKeyChanged,
   availableExchangeRateSources }) {
 
-  const selectCurrencyOptions = convertCurrenciesToSelectElementOptions(availableCurrencies).map(item => {
-    return (<option key={ item.value } value={ item.value }>{ item.text }</option>);
-  });
+  const selectCurrencyListItems = convertCurrenciesToSelectListItems(availableCurrencies);
 
   const handleAmountChange = useCallback(e => amountChanged(Number(e.target.value)), [amountChanged]);
   const handleSourceCurrencyChange = useCallback(e => sourceCurrencyCharCodeChanged(e.target.value), [sourceCurrencyCharCodeChanged]);
@@ -47,45 +45,35 @@ function Converter({
     targetCurrencyCharCodeChanged(currentSourceCurrencyCharCode);
   }, [sourceCurrencyCharCode, sourceCurrencyCharCodeChanged, targetCurrencyCharCode, targetCurrencyCharCodeChanged]);
 
-  const selectExchangeRatesSourceOptions = availableExchangeRateSources?.map(item => {
-    return (<option key={ item.key } value={ item.key }>{ item.caption }</option>);
-  });
-  
+  const selectRatesSourceCurrencyListItems = availableExchangeRateSources?.map(item => ({ value: item.key, text: item.caption }));
+
   const handleExchangeRatesSourceChange = e => exchangeRatesSourceKeyChanged(e.target.value);
 
   return (
-    <Fragment>
-      <div className={ `${classes} ${styles.s}` }>
-        <form onSubmit={ e => e.preventDefault() }>
-          <fieldset className={ styles__values.s }>
-            <Editor value={ amount } onInput={ handleAmountChange } type="number" required step="0.01" />
-            <LabeledEditor caption="From">
-              <Editor tagName="select" required value={ sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } >
-                { selectCurrencyOptions }
-              </Editor>
-            </LabeledEditor>
-            <Button classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
-            <LabeledEditor caption="Into">
-              <Editor tagName="select" required value={ targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } >
-                { selectCurrencyOptions }
-              </Editor>
-            </LabeledEditor>
-            <LabeledEditor caption="Exchange rates source">
-              <Editor tagName="select" required value={ exchangeRatesSourceKey } onChange={ handleExchangeRatesSourceChange } >
-                { selectExchangeRatesSourceOptions }
-              </Editor>
-            </LabeledEditor>
-          </fieldset>
-        </form>
-        <p className={ styles__targetAmount.s }>{ targetAmount }</p>
-        <CurrencyRateExpression
-          sourceCurrencyCharCode={ sourceCurrencyCharCode }
-          targetRate={ targetRate }
-          targetCurrencyCharCode={ targetCurrencyCharCode } />
-        { demoDataMessage && <p className={ styles__demoDataMessage.s }>{ demoDataMessage }</p> }
-        { isLoading && <LoadingPanel /> }
-      </div>
-    </Fragment>
+    <div className={ `${classes} ${styles.s}` }>
+      <form onSubmit={ e => e.preventDefault() }>
+        <fieldset className={ styles__values.s }>
+          <Editor value={ amount } onInput={ handleAmountChange } type="number" required step="0.01" />
+          <LabeledEditor caption="From">
+            <Editor tagName="select" required value={ sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } listItems={ selectCurrencyListItems } />
+          </LabeledEditor>
+          <Button classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
+          <LabeledEditor caption="Into">
+            <Editor tagName="select" required value={ targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } listItems={ selectCurrencyListItems } />
+          </LabeledEditor>
+          <LabeledEditor caption="Exchange rates source">
+            <Editor tagName="select" required value={ exchangeRatesSourceKey } onChange={ handleExchangeRatesSourceChange } listItems={ selectRatesSourceCurrencyListItems } />
+          </LabeledEditor>
+        </fieldset>
+      </form>
+      <p className={ styles__targetAmount.s }>{ targetAmount }</p>
+      <CurrencyRateExpression
+        sourceCurrencyCharCode={ sourceCurrencyCharCode }
+        targetRate={ targetRate }
+        targetCurrencyCharCode={ targetCurrencyCharCode } />
+      { demoDataMessage && <p className={ styles__demoDataMessage.s }>{ demoDataMessage }</p> }
+      { isLoading && <LoadingPanel /> }
+    </div>
   );
 }
 

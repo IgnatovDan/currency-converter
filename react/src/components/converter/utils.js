@@ -1,6 +1,6 @@
 import { Currency } from "../../api/exchange-sources/exchange-rates-data-objects";
 
-export function convertCurrenciesToSelectElementOptions(currencies) {
+export function convertCurrenciesToSelectListItems(currencies) {
   const RUB = Currency.RUB().CharCode;
   return (currencies || [])
     .map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` }))
