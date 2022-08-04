@@ -1,6 +1,6 @@
 import { ExchangeRates, Currency } from '../../data-objects.js';
 
-async function WebApiJsonAdapterLoadExchangeRates(url) {
+async function LoadExchangeRates(url) {
   return fetch(url)
     .then(response => {
       return response.json();
@@ -20,4 +20,4 @@ async function WebApiJsonAdapterLoadExchangeRates(url) {
     });
 }
 
-export { WebApiJsonAdapterLoadExchangeRates }
+export { LoadExchangeRates }
