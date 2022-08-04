@@ -1,4 +1,4 @@
-import WebApiJsonAdapterLoadExchangeRates from './web-api-json-adapter.js';
+import { LoadCurrencyExchangeRates } from './web-api-json-adapter.js';
 
 export default class WebApiJsonRatesSource {
   #url;
@@ -6,6 +6,6 @@ export default class WebApiJsonRatesSource {
     this.#url = url || "https://localhost:7271/exchange-rates-utf.json";
   }
   async getRates() {
-    return WebApiJsonAdapterLoadExchangeRates(this.#url);
+    return LoadCurrencyExchangeRates(this.#url);
   }
 }

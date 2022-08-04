@@ -1,6 +1,6 @@
 import { Currency, ExchangeRates } from '../exchange-rates-data-objects.js';
 
-export default async function LoadCurrencyExchangeRates(url) {
+async function LoadCurrencyExchangeRates(url) {
   return fetch(url || "https://www.cbr.ru/scripts/XML_daily.asp")
     .then(response => response.arrayBuffer())
     .then(buffer => {
@@ -24,4 +24,8 @@ export default async function LoadCurrencyExchangeRates(url) {
       const exchangeDate = xmlDoc.getElementsByTagName("ValCurs")[0].getAttribute('Date'); // TODO: parse to 'Date'
       return Promise.resolve(new ExchangeRates(exchangeDate, currencies));
     });
+}
+
+export {
+  LoadCurrencyExchangeRates
 }

@@ -1,4 +1,4 @@
-import CbrAdapterLoadExchangeRates from './cbr-adapter.js';
+import { LoadCurrencyExchangeRates } from './cbr-adapter.js';
 
 export default class CbrRatesSource {
   #url;
@@ -6,6 +6,6 @@ export default class CbrRatesSource {
     this.#url = url || "https://www.cbr.ru/scripts/XML_daily.asp";
   }
   async getRates() {
-    return CbrAdapterLoadExchangeRates(this.#url);
+    return LoadCurrencyExchangeRates(this.#url);
   }
 }
