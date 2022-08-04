@@ -3,7 +3,7 @@ import { ExchangeRates, Currency } from '../../data-objects.js';
 //
 // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/VanillaJS/cbr-currency-converter/cbr-adapter.js
 //
-async function CbrAdapterLoadExchangeRates(url) {
+async function LoadExchangeRates(url) {
   return fetch(url)
     .then(response => {
       return response.arrayBuffer();
@@ -28,4 +28,4 @@ async function CbrAdapterLoadExchangeRates(url) {
     });
 }
 
-export { CbrAdapterLoadExchangeRates }
+export { LoadExchangeRates }
