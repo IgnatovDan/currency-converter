@@ -6,7 +6,10 @@ Applications allow to select source currency, enter amount, select the target cu
 Applications:
 
 1. **[Console c# application (ASP.NET Core)](https://github.com/IgnatovDan/currency-converter/tree/master/console)**: pass your currency name (USD/EUR/RUB - https://en.wikipedia.org/wiki/ISO_4217), your amount and the target currency name as command line arguments and run it. The application will show a new amount (or an error message). See its [README.MD](https://github.com/IgnatovDan/currency-converter/tree/master/console#readme) for more details.
-1. **3 browser applications** with the same look&feel: **[Vanilla-JS application](https://github.com/IgnatovDan/currency-converter/tree/master/vanilla-js)**, **[React application](https://github.com/IgnatovDan/currency-converter/tree/master/react)** and **[Vue application](https://github.com/IgnatovDan/currency-converter/tree/master/vue)**
+1. **3 browser applications** with the same look&feel:
+   - **[Vanilla-JS application](https://github.com/IgnatovDan/currency-converter/tree/master/vanilla-js)**
+   - **[React application](https://github.com/IgnatovDan/currency-converter/tree/master/react)**
+   - **[Vue application](https://github.com/IgnatovDan/currency-converter/tree/master/vue)**
    - uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
    - shows 'loading' spinner on initial data fetching
    - shows error message if fetch was not secceeded and switches to 'demo' exchange rates
