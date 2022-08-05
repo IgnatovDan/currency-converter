@@ -1,5 +1,5 @@
-# Currency Converter application
-Application allows to select source currency, enter amount, select the target currency and then it will show the target amount.
+# Currency Converter applications
+Applications allow to select source currency, enter amount, select the target currency and then it will show the target amount.
 
 ![image](https://user-images.githubusercontent.com/2094015/182308596-46497acc-ed3d-42a2-be04-b643d389ddf9.png)
 
