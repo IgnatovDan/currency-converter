@@ -22,9 +22,9 @@ There are **3 browser applications** with the same look&feel:
 #### Timeline:
 - start date: 24.07.2022
 - total hours: 58h
-- finish date: 05.08.2022
+- planned main finish date: 06.08.2022
 - initial estimation: 64h
-- initial finish date: 01.08.2022
+- initial planned main finish date: 01.08.2022
 
 #### TODO:
 - add [Connect to: CBR | My web apy XML | My web apy JSON] toggler to console, vanillajs and react implementations
