@@ -20,8 +20,6 @@ For more details, see https://stackoverflow.com/questions/3102819/disable-same-o
 For "Access to script at 'file:///C:/Work/GitHub/currency-converter/vanilla-js/scripts/index.js' from origin 'null' has been blocked by CORS policy" use 'Live Server (Five Server)' extension or similar approach: application is build with ES modules and browser blocks module loading when opening an html file.
 
 #### TODO:
-- use modules
 - add tests
-- add @media to place combobox in line for desktop and in column for mobile resolutions
-- add duedate for exchange rates and refresh it automatically without loosing amount/source/target-currency (add a new button 'Test refresh outdated rates')
-- show country flag, currency symbol
+- add @media to place combobox in line for desktop and in column for mobile screens
+- use local server proxy to avoid "blocked by CORS policy" errors
