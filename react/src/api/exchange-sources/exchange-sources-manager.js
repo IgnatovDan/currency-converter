@@ -25,4 +25,4 @@ class RateSourcesManager {
 
 const rateSourcesManager = new RateSourcesManager();
 
-export default rateSourcesManager;
+export default rateSourcesManager; // TODO: change 'export **default**' to 'export { name }'
