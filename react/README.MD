@@ -21,5 +21,6 @@ Close chrome and run it in this way: "C:\Program Files (x86)\Google\Chrome\Appli
 For more details, see https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
 
 #### TODO:
-- change 'components/xx-xx-xx/xx-xx-xx.js' to 'components/xx-xx-xx/index.js', import api from index.js only
+- use local server proxy to avoid "blocked by CORS policy" error
 - add new implementation based on redux
+- add tests
