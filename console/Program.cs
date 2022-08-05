@@ -9,9 +9,10 @@ using CurrencyConverter;
 try {
   Console.OutputEncoding = System.Text.Encoding.UTF8; // Enable UTF8 to show RU chars in console and VSCode terminal
 
-  RateSourcesManager.RegisterRatesSource("cbr", new CbrRatesSource());
-  RateSourcesManager.RegisterRatesSource("web-api-proxy", new CbrRatesSource(WebApiXmlRatesSource.DefaultUrl));
-  RateSourcesManager.RegisterRatesSource("web-api-json", new WebApiJsonRatesSource());
+  RateSourcesManager rateSourcesManager = new RateSourcesManager();
+  rateSourcesManager.RegisterRatesSource("cbr", new CbrRatesSource());
+  rateSourcesManager.RegisterRatesSource("web-api-proxy", new CbrRatesSource(WebApiXmlRatesSource.DefaultUrl));
+  rateSourcesManager.RegisterRatesSource("web-api-json", new WebApiJsonRatesSource());
 
   if (args.Length >= 3) {
     var sourceCurrency = args[0];
@@ -22,7 +23,7 @@ try {
     var targetCurrency = args[2];
     var exchangeSourceName = (args.Length == 3) ? "cbr" : args[3];
 
-    var rates = await RateSourcesManager.GetRates(exchangeSourceName);
+    var rates = await rateSourcesManager.GetRates(exchangeSourceName);
     rates.EnsureRUB();
     var newAmount = Converter.Convert(amount, rates.GetCurrency(sourceCurrency).Value, rates.GetCurrency(targetCurrency).Value);
 

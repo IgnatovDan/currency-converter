@@ -6,9 +6,9 @@ namespace ExchangeSources {
   }
 
   public class RateSourcesManager {
-    static Dictionary<string, IRatesSource> rateSources { get; } = new Dictionary<string, IRatesSource>();
+    Dictionary<string, IRatesSource> rateSources { get; } = new Dictionary<string, IRatesSource>();
 
-    public static void RegisterRatesSource(string key, IRatesSource ratesSource) {
+    public void RegisterRatesSource(string key, IRatesSource ratesSource) {
       if (string.IsNullOrEmpty(key)) {
         throw new ArgumentException($"'{nameof(key)}' cannot be null or empty.", nameof(key));
       }
@@ -17,13 +17,13 @@ namespace ExchangeSources {
         throw new ArgumentNullException(nameof(ratesSource));
       }
 
-      RateSourcesManager.rateSources.Add(key, ratesSource);
+      rateSources.Add(key, ratesSource);
     }
 
-    public static async Task<ExchangeRates> GetRates(string ratesSourceName) {
+    public async Task<ExchangeRates> GetRates(string ratesSourceName) {
       IRatesSource? ratesSource;
-      if (!RateSourcesManager.rateSources.TryGetValue(ratesSourceName, out ratesSource) || (ratesSource == null)) {
-        throw new Exception($"Cannot find '{ratesSourceName}' rates source. Available sources: {String.Join(", ", RateSourcesManager.rateSources.Keys)}.");
+      if (!rateSources.TryGetValue(ratesSourceName, out ratesSource) || (ratesSource == null)) {
+        throw new Exception($"Cannot find '{ratesSourceName}' rates source. Available sources: {String.Join(", ", rateSources.Keys)}.");
       }
       if (ratesSource == null) {
         throw new Exception($"A 'null' value is received by the '{ratesSourceName}' rates source name.");
