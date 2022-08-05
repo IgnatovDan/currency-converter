@@ -9,8 +9,8 @@
 export default {
   props: {
     caption: { type: String, required: true },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

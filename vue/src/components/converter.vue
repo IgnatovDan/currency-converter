@@ -11,7 +11,6 @@
             :listItems="availableCurrenciesListItems"
           />
         </LabeledEditor>
-        <!-- TODO: image -->
         <UiButton
           class="converter__currency-toggler"
           :image="toggleIconSrc"

@@ -15,7 +15,6 @@ export default {
   name: 'App',
   components: { AppHeader, AppMain, AppFooter },
 };
-
 </script>
 
 <style scoped>

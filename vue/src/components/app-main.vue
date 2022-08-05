@@ -5,12 +5,11 @@
 </template>
 
 <script>
-import Converter from "./converter.vue";
+import Converter from './converter.vue';
 
 export default {
-  components: { Converter }
-}
-
+  components: { Converter },
+};
 </script>
 
 <style scoped>

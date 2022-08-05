@@ -14,8 +14,8 @@ export default {
     sourceCurrencyCharCode: { type: String, required: true },
     targetRate: { type: Number, required: true },
     targetCurrencyCharCode: { type: String, required: true },
-  }
-}
+  },
+};
 </script>
 
 <style>

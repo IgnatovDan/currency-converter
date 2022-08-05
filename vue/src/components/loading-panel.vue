@@ -19,22 +19,25 @@
 }
 
 .loading-panel__spinner {
-   /* from https://stackoverflow.com/questions/6091253/overlay-with-spinner */
-  height:60px;
-  width:60px;
+  /* from https://stackoverflow.com/questions/6091253/overlay-with-spinner */
+  height: 60px;
+  width: 60px;
   border: 1px solid red;
-  margin:0px auto;
+  margin: 0px auto;
   animation: rotation 1.6s infinite linear;
-  border-left:6px solid rgba(0,174,239,.15);
-  border-right:6px solid rgba(0,174,239,.15);
-  border-bottom:6px solid rgba(0,174,239,.15);
-  border-top:6px solid rgba(0,174,239,.8);
-  border-radius:100%;
+  border-left: 6px solid rgba(0, 174, 239, 0.15);
+  border-right: 6px solid rgba(0, 174, 239, 0.15);
+  border-bottom: 6px solid rgba(0, 174, 239, 0.15);
+  border-top: 6px solid rgba(0, 174, 239, 0.8);
+  border-radius: 100%;
 }
 
 @keyframes rotation {
-  from {transform: rotate(0deg);}
-  to {transform: rotate(359deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
-
 </style>
