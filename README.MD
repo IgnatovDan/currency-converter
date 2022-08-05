@@ -12,7 +12,7 @@ Applications:
    - shows error message if fetch was not secceeded and switches to 'demo' exchange rates
    - allows to select source currency, enter amount, select the target currency and then it will show the target amount and rate between source and target currencies.
    - allows to select exchange rates source: www.cbr.ru, XML from my web api (transparent proxy to www.cbr.ru) or JSON from my web api (it reads XML from www.cbr.ru and converts it to JSON).
-   - see the README.MD in the corresponding folder for more details.
+   - see the README.MD in each folder for more details.
 
 There are **3 browser applications** with the same look&feel:
 1. vanilla-js app
