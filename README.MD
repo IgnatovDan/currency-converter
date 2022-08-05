@@ -17,15 +17,18 @@ Applications:
 There are **3 browser applications** with the same look&feel:
 1. vanilla-js app
 1. react app
-1. vue app - I am working on it
+1. vue app
 
-#### Timeline:
+#### Planned Timeline:
 - start date: 24.07.2022
-- total hours: 58h
-- planned main finish date: 06.08.2022
-- initial estimation: 64h
-- initial planned main finish date: 01.08.2022
+- estimation: 64h
+- RC1 finish date: 01.08.2022
+
+#### Actual Timeline:
+- start date: 24.07.2022
+- total hours: 76h
+- RC1 finish date: 05.08.2022
 
 #### TODO:
-- add [Connect to: CBR | My web apy XML | My web apy JSON] toggler to console, vanillajs and react implementations
-- add vue app
+- add tests
+- other todos in README.MD files in each project
