@@ -5,8 +5,8 @@ name: 'Run console tests'
 # Event for the workflow
 on:
   push:
-    paths:
-      - ./console_tests/**
+    # paths:
+    #   - ./console_tests/**
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
