@@ -4,7 +4,7 @@ name: 'Run console tests'
 
 # Event for the workflow
 on:
-  push:
+  # push:
   pull_request:
   
   # Allows you to run this workflow manually from the Actions tab
