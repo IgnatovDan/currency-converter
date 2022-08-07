@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!--
+      dotnet test -l liquid.md
+      https://dev.to/kurtmkurtm/testing-net-core-apps-with-github-actions-3i76
+      https://docs.microsoft.com/en-us/dotnet/devops/dotnet-test-github-action
+    -->
+    <PackageReference Include="LiquidTestReports.Markdown" Version="1.0.9" />
+    
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
