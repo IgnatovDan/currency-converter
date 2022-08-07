@@ -1,6 +1,6 @@
 using CurrencyConverter;
 
-namespace currency_converter_tests;
+namespace CurrencyConverterTests;
 
 public class CurrencyConverterTests {
   [Theory]

@@ -6,7 +6,7 @@ namespace CurrencyConverter.ExchangeRateSources {
   public class ExchangeSourcesManager {
     Dictionary<string, IExchangeSource> sources { get; } = new Dictionary<string, IExchangeSource>();
 
-    public void RegisterSource(string sourceName, IExchangeSource exchangeSource) {
+    public void RegisterSource(string sourceName!!, IExchangeSource exchangeSource) {
       if (string.IsNullOrEmpty(sourceName)) {
         throw new ArgumentException($"'{nameof(sourceName)}' cannot be null or empty.", nameof(sourceName));
       }
