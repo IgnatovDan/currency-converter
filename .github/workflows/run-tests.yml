@@ -43,9 +43,12 @@ jobs:
       - name: Test
         run: dotnet test --logger trx --results-directory "TestResults"
 
+      - name: TesList folders
+        run: ls
+
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
         with:
           name: dotnet-results
-          path: TestResults
+          path: ./TestResults
         if: ${{ always() }}
