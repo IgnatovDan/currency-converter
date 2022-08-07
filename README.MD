@@ -1,3 +1,5 @@
+[![Run console tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml/badge.svg)](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml)
+
 # Currency Converter applications
 Applications allow to select source currency, enter amount, select the target currency and then it will show the target amount.
 
