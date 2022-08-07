@@ -32,7 +32,7 @@ public class CbrRatesSourceTests {
   public async void GetRates_ReadCbrCurrencies() {
     CbrExchangeRates sourceRates = new CbrExchangeRates();
     sourceRates.Items.Add(new CbrCurrency() { Name = "name1", CharCode = "charCode1", Value = "34,5678" });
-    sourceRates.Items.Add(new CbrCurrency() { Name = "name2", CharCode = "charCode2", Value = "2,34" });
+    sourceRates.Items.Add(new CbrCurrency() { Name = "name2", CharCode = "charCode2", Value = "2,345" });
 
     var adapter = new Mock<ICbrRatesAdapter>();
     adapter.Setup(adapter => adapter.GetRates()).Returns(Task.FromResult<CbrExchangeRates>(sourceRates));
