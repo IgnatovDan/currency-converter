@@ -8,13 +8,13 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
   // This class is designed to work with the "https://www.cbr.ru/scripts/XML_daily.asp" service
   // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/ASPNETCore/cbr-currencies-console/GetCurrencies_HttpClient_XmlSerializer_v3.cs
   //
-  internal class Adapter : ICbrRatesAdapter {
+  internal class CbrExchangeRatesAdapter : ICbrRatesAdapter {
     private string cbrRatesUrl { get; }
-    public Adapter(string cbrRatesUrl!!) {
+    public CbrExchangeRatesAdapter(string cbrRatesUrl!!) {
       this.cbrRatesUrl = cbrRatesUrl;
     }
     public async Task<CbrExchangeRates> GetRates() {
-      return await Adapter.GetExchangeRates(this.cbrRatesUrl);
+      return await CbrExchangeRatesAdapter.GetExchangeRates(this.cbrRatesUrl);
     }
     private static async Task<CbrExchangeRates> GetExchangeRates(string url) {
       System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);

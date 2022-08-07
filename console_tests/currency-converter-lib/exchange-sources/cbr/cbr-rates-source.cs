@@ -31,8 +31,8 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
       return result;
     }
 
-    public CbrRatesSource() : this(new Adapter(DefaultCbrRatesUrl)) { }
-    public CbrRatesSource(string cbrRatesUrl!!) : this(new Adapter(cbrRatesUrl)) { }
+    public CbrRatesSource() : this(new CbrExchangeRatesAdapter(DefaultCbrRatesUrl)) { }
+    public CbrRatesSource(string cbrRatesUrl!!) : this(new CbrExchangeRatesAdapter(cbrRatesUrl)) { }
     public CbrRatesSource(ICbrRatesAdapter adapter!!) {
       this.adapter = adapter;
     }
