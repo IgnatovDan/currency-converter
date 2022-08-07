@@ -44,7 +44,10 @@ jobs:
         run: dotnet test --logger trx --results-directory "TestResults"
 
       - name: TesList folders
-        run: ls
+        run: |
+          ls
+          cd TestResults
+          ls
 
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
