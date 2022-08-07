@@ -30,7 +30,7 @@ namespace CurrencyConverter.ExchangeRateSources.WebApiJson {
       this.url = url;
     }
 
-    public async Task<ExchangeRates> getRates() {
+    public async Task<ExchangeRates> GetRates() {
       var rates = await WebApiJsonAdapter.GetExchangeRates(url);
       return ConvertToCurrencyConverterDTO(rates);
     }

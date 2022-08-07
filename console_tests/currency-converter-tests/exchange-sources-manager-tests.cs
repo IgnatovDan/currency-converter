@@ -56,11 +56,11 @@ namespace CurrencyConverterTests {
     async public Task GetRates_BySourceName() {
       var source1 = new Mock<IExchangeSource>();
       var rates1 = new ExchangeRates(null);
-      source1.Setup(source => source.getRates()).Returns(Task.FromResult<ExchangeRates>(rates1));
+      source1.Setup(source => source.GetRates()).Returns(Task.FromResult<ExchangeRates>(rates1));
 
       var source2 = new Mock<IExchangeSource>();
       var rates2 = new ExchangeRates(null);
-      source2.Setup(source => source.getRates()).Returns(Task.FromResult<ExchangeRates>(rates2));
+      source2.Setup(source => source.GetRates()).Returns(Task.FromResult<ExchangeRates>(rates2));
 
       var manager = new ExchangeSourcesManager();
       manager.RegisterSource("1", source1.Object);

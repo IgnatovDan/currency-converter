@@ -1,6 +1,6 @@
 namespace CurrencyConverter.ExchangeRateSources {
   public interface IExchangeSource {
-    Task<ExchangeRates> getRates();
+    Task<ExchangeRates> GetRates();
   }
 
   public class ExchangeSourcesManager {
@@ -22,7 +22,7 @@ namespace CurrencyConverter.ExchangeRateSources {
       if (exchangeRatesSource == null) {
         throw new Exception($"A 'null' value is received by the '{sourceName}' rates source name.");
       }
-      return exchangeRatesSource.getRates();
+      return exchangeRatesSource.GetRates();
     }
   }
 }
