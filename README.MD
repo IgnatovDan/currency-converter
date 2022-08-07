@@ -18,16 +18,29 @@ Applications:
    - see README.MD in each folder for more details.
 1. **[Web API for Currency Converter (ASP.NET Core)](https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api)**: provides api to download xml with exchange rates based on data from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp). See its [README.MD](https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api#readme) for more details.
 
+---
+### RC1 (done)
 #### Planned Timeline:
 - start date: 24.07.2022
 - estimation: 64h
-- RC1 finish date: 01.08.2022
+- finish date: 01.08.2022
 
 #### Actual Timeline:
 - start date: 24.07.2022
 - total hours: 76h
-- RC1 finish date: 05.08.2022
+- finish date: 05.08.2022
+---
+### Add Tests (in progress)
+#### Planned Timeline:
+- start date: 07.08.2022
+- estimation: 40h
+- finish date: 21.08.2022
 
+#### Actual Timeline:
+- start date: 07.08.2022
+- total hours: ??
+- finish date: ??
+---
 #### TODO:
-- add tests
+- add tests - in progress
 - other todos in README.MD files in each project
