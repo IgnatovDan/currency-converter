@@ -3,8 +3,15 @@ namespace CurrencyConverter.ExchangeRateSources.DataObjects {
     Task<ExchangeRates> GetRates();
   }
 
-  public class ExchangeSourcesManager {
+  public class ExchangeSourcesManager : IDisposable {
     Dictionary<string, IExchangeRatesSource> sources { get; } = new Dictionary<string, IExchangeRatesSource>();
+
+    public void Dispose() {
+      foreach (var source in sources.Values) {
+        (source as IDisposable)?.Dispose();
+      }
+      this.sources.Clear();
+    }
 
     public void RegisterSource(string sourceName!!, IExchangeRatesSource exchangeSource!!) {
       if (sourceName == String.Empty) {
