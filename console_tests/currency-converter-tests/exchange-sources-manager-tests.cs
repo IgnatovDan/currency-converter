@@ -6,27 +6,27 @@ namespace CurrencyConverterTests {
 
   public class ExchangeSourcesManagerTests {
     [Theory, MemberData(nameof(RegisterSource_NullSourceName_Data))]
-    public void RegisterSource_NullSourceName(string sourceName, IExchangeSource exchangeSource) {
+    public void RegisterSource_NullSourceName(string sourceName, IExchangeRatesSource exchangeSource) {
       var manager = new ExchangeSourcesManager();
       Assert.Throws<System.ArgumentNullException>(() => manager.RegisterSource(sourceName, exchangeSource));
     }
     public static IEnumerable<object?[]> RegisterSource_NullSourceName_Data => new List<object?[]> {
       new object?[] { null, null },
-      new object?[] { null, new Mock<IExchangeSource>().Object },
+      new object?[] { null, new Mock<IExchangeRatesSource>().Object },
     };
 
     [Theory, MemberData(nameof(RegisterSource_EmptyStringSourceName_Data))]
-    public void RegisterSource_EmptyStringSourceName(string sourceName, IExchangeSource exchangeSource) {
+    public void RegisterSource_EmptyStringSourceName(string sourceName, IExchangeRatesSource exchangeSource) {
       var manager = new ExchangeSourcesManager();
       Assert.Throws<System.ArgumentNullException>(() => manager.RegisterSource(sourceName, exchangeSource));
     }
     public static IEnumerable<object?[]> RegisterSource_EmptyStringSourceName_Data => new List<object?[]> {
       new object?[] { "", null },
-      new object?[] { "", new Mock<IExchangeSource>().Object },
+      new object?[] { "", new Mock<IExchangeRatesSource>().Object },
     };
 
     [Theory, MemberData(nameof(RegisterSource_NullSource_Data))]
-    public void RegisterSource_NullSource(IExchangeSource exchangeSource) {
+    public void RegisterSource_NullSource(IExchangeRatesSource exchangeSource) {
       var manager = new ExchangeSourcesManager();
       Assert.Throws<System.ArgumentNullException>(() => manager.RegisterSource("a", exchangeSource));
     }
@@ -46,16 +46,16 @@ namespace CurrencyConverterTests {
     [Fact]
     public void GetRates_SourceIsNotFound() {
       var manager = new ExchangeSourcesManager();
-      manager.RegisterSource("1", new Mock<IExchangeSource>().Object);
-      manager.RegisterSource("2", new Mock<IExchangeSource>().Object);
+      manager.RegisterSource("1", new Mock<IExchangeRatesSource>().Object);
+      manager.RegisterSource("2", new Mock<IExchangeRatesSource>().Object);
       var ex = Assert.Throws<System.Exception>(() => manager.GetSource("3"));
       Assert.Contains("3", ex.Message);
     }
 
     [Fact]
     public void GetSource() {
-      var source1 = new Mock<IExchangeSource>();
-      var source2 = new Mock<IExchangeSource>();
+      var source1 = new Mock<IExchangeRatesSource>();
+      var source2 = new Mock<IExchangeRatesSource>();
 
       var manager = new ExchangeSourcesManager();
       manager.RegisterSource("1", source1.Object);

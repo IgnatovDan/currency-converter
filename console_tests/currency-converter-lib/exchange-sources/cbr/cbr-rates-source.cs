@@ -4,7 +4,7 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
   public interface ICbrRatesAdapter {
     Task<CbrExchangeRates> GetRates();
   }
-  public class CbrRatesSource : IExchangeSource, IDisposable {
+  public class CbrRatesSource : IExchangeRatesSource, IDisposable {
     private const string DefaultCbrRatesUrl = "https://www.cbr.ru/scripts/XML_daily.asp";
 
     private ICbrRatesAdapter adapter { get; }
