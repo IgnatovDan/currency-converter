@@ -1,5 +1,5 @@
-using CurrencyConverter.ExchangeRateSources.DataObjects;
-using CurrencyConverter.ExchangeRateSources.DataObjects.Cbr;
+using CurrencyConverter.ExchangeRateSources;
+using CurrencyConverter.ExchangeRateSources.Cbr;
 
 using Moq;
 

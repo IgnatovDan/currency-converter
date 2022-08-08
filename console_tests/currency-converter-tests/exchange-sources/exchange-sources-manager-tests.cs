@@ -1,4 +1,4 @@
-using CurrencyConverter.ExchangeRateSources.DataObjects;
+using CurrencyConverter.ExchangeRateSources;
 
 using Moq;
 

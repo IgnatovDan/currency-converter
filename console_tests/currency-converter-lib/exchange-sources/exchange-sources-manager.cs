@@ -1,4 +1,4 @@
-namespace CurrencyConverter.ExchangeRateSources.DataObjects {
+namespace CurrencyConverter.ExchangeRateSources {
   public interface IExchangeRatesSource {
     Task<ExchangeRates> GetRates();
   }

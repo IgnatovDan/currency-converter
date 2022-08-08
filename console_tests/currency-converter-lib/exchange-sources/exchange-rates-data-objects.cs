@@ -1,4 +1,4 @@
-namespace CurrencyConverter.ExchangeRateSources.DataObjects {
+namespace CurrencyConverter.ExchangeRateSources {
   public class ExchangeRates {
     private static Currency RUB { get; } = new Currency("Российский рубль", "RUB", 1);
     public ExchangeRates(DateTime? date) {
@@ -20,5 +20,16 @@ namespace CurrencyConverter.ExchangeRateSources.DataObjects {
         this.Items.Add(ExchangeRates.RUB);
       }
     }
+  }
+
+  public class Currency {
+    public Currency(string name, string charCode, decimal value) {
+      Name = name;
+      CharCode = charCode;
+      Value = value;
+    }
+    public string Name { get; }
+    public string CharCode { get; }
+    public decimal Value { get; }
   }
 }

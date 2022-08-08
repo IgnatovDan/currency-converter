@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
 
 using CurrencyConverter;
-using CurrencyConverter.ExchangeRateSources.DataObjects;
-using CurrencyConverter.ExchangeRateSources.DataObjects.Cbr;
-using CurrencyConverter.ExchangeRateSources.DataObjects.WebApiXml;
-using CurrencyConverter.ExchangeRateSources.DataObjects.WebApiJson;
+using CurrencyConverter.ExchangeRateSources;
+using CurrencyConverter.ExchangeRateSources.Cbr;
+using CurrencyConverter.ExchangeRateSources.WebApiXml;
+using CurrencyConverter.ExchangeRateSources.WebApiJson;
 
 try {
   Console.OutputEncoding = System.Text.Encoding.UTF8; // Enable UTF8 to show RU chars in console and VSCode terminal

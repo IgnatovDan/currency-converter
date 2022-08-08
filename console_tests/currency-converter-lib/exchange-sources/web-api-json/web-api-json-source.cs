@@ -1,4 +1,6 @@
-namespace CurrencyConverter.ExchangeRateSources.DataObjects.WebApiJson {
+using CurrencyConverter.ExchangeRateSources;
+
+namespace CurrencyConverter.ExchangeRateSources.WebApiJson {
   public class WebApiJsonRatesSource : IExchangeRatesSource {
     private const string DefaultUrl = "https://localhost:7271/exchange-rates-utf.json";
 

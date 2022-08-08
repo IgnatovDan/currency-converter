@@ -1,4 +1,4 @@
-using CurrencyConverter.ExchangeRateSources.DataObjects;
+using CurrencyConverter.ExchangeRateSources;
 
 namespace CurrencyConverterTests.ExchangeSources.DataObjects {
   public class ExchangeRatesTests {

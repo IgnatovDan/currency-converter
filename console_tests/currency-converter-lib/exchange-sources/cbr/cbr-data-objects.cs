@@ -1,7 +1,7 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace CurrencyConverter.ExchangeRateSources.DataObjects.Cbr {
+namespace CurrencyConverter.ExchangeRateSources.Cbr {
   /*
   https://www.cbr.ru/scripts/XML_daily.asp returns the following XML:
   
