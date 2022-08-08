@@ -23,15 +23,13 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
     }
 
     public async Task<CbrExchangeRates> GetRates() {
-      this.client.DefaultRequestHeaders.Clear();
-
       var response = await this.client.GetAsync(this.cbrRatesUrl);
       if (response.IsSuccessStatusCode) {
         var charset = response.Content.Headers.ContentType?.CharSet;
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); // because server uses windows 1251
         var encoding = (charset != null) ? Encoding.GetEncoding(charset) : Encoding.UTF8;
 
         var bytes = await response.Content.ReadAsByteArrayAsync();
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); // for encoding.GetString because string encoding is 1251
         var str = encoding.GetString(bytes);
 
         XmlSerializer serializer = new XmlSerializer(typeof(CbrExchangeRates));
