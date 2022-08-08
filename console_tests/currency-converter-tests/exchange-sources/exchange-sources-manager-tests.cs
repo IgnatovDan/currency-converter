@@ -1,8 +1,8 @@
-using CurrencyConverter.ExchangeRateSources;
+using CurrencyConverter.ExchangeRateSources.DataObjects;
 
 using Moq;
 
-namespace CurrencyConverterTests {
+namespace CurrencyConverterTests.ExchangeSources {
 
   public class ExchangeSourcesManagerTests {
     [Theory, MemberData(nameof(RegisterSource_NullSourceName_Data))]

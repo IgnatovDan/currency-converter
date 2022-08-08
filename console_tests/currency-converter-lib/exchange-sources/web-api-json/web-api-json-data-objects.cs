@@ -1,4 +1,4 @@
-namespace CurrencyConverter.ExchangeRateSources.WebApiJson {
+namespace CurrencyConverter.ExchangeRateSources.DataObjects.WebApiJson {
   public class JsonExchangeRates {
     public string? Name { get; set; }
     public DateTime Date { get; set; }

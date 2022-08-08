@@ -2,12 +2,12 @@ using System.Net;
 using System.Text;
 
 using CurrencyConverter;
-using CurrencyConverter.ExchangeRateSources.Cbr;
+using CurrencyConverter.ExchangeRateSources.DataObjects.Cbr;
 
 using Moq;
 using Moq.Protected;
 
-namespace CurrencyConverterTests {
+namespace CurrencyConverterTests.ExchangeSources.Cbr {
 
   public class CbrExchangeRatesAdapterTests {
     const string cbrSiteReplyExampleTwoCurrencies =

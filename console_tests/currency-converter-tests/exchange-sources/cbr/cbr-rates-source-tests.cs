@@ -1,9 +1,9 @@
-using CurrencyConverter.ExchangeRateSources;
-using CurrencyConverter.ExchangeRateSources.Cbr;
+using CurrencyConverter.ExchangeRateSources.DataObjects;
+using CurrencyConverter.ExchangeRateSources.DataObjects.Cbr;
 
 using Moq;
 
-namespace CurrencyConverterTests {
+namespace CurrencyConverterTests.ExchangeSources.Cbr {
 
   public class CbrRatesSourceTests {
     [Fact]
@@ -56,11 +56,11 @@ namespace CurrencyConverterTests {
     public async void GetRates_IgnoreEmptyCurrencies() {
       CbrExchangeRates sourceRates = new CbrExchangeRates();
       sourceRates.Items.AddRange(new CbrCurrency[] {
-      new CbrCurrency() { Name = "", CharCode = "charCode1", Value = "34,5678" },
-      new CbrCurrency() { Name = "name2", CharCode = "", Value = "2,34" },
-      new CbrCurrency() { Name = "name3", CharCode = "charCode3", Value = "" },
-      new CbrCurrency() { Name = "name4", CharCode = "charCode4", Value = "0" }
-    });
+        new CbrCurrency() { Name = "", CharCode = "charCode1", Value = "34,5678" },
+        new CbrCurrency() { Name = "name2", CharCode = "", Value = "2,34" },
+        new CbrCurrency() { Name = "name3", CharCode = "charCode3", Value = "" },
+        new CbrCurrency() { Name = "name4", CharCode = "charCode4", Value = "0" }
+      });
 
       var adapter = new Mock<ICbrRatesAdapter>();
       adapter.Setup(adapter => adapter.GetRates()).Returns(Task.FromResult<CbrExchangeRates>(sourceRates));

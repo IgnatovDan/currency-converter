@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace CurrencyConverter.ExchangeRateSources.Cbr {
+namespace CurrencyConverter.ExchangeRateSources.DataObjects.Cbr {
   public interface ICbrRatesAdapter {
     Task<CbrExchangeRates> GetRates();
   }

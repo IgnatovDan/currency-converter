@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 
-namespace CurrencyConverter.ExchangeRateSources.WebApiJson {
+namespace CurrencyConverter.ExchangeRateSources.DataObjects.WebApiJson {
   //
   // This class is designed to work with the "https://localhost:7271/exchange-rates-utf.json" service,
   // see https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api
