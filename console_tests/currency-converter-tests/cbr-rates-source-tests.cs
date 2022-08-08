@@ -1,4 +1,3 @@
-using CurrencyConverter;
 using CurrencyConverter.ExchangeRateSources;
 using CurrencyConverter.ExchangeRateSources.Cbr;
 

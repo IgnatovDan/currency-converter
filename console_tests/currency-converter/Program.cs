@@ -23,7 +23,7 @@ try {
     var targetCurrency = args[2];
     var exchangeSourceName = (args.Length == 3) ? "cbr" : args[3];
 
-    var rates = await rateSourcesManager.GetExchangeRates(exchangeSourceName);
+    var rates = await rateSourcesManager.GetSource(exchangeSourceName).GetRates();
     rates.EnsureRUB();
     var newAmount = Converter.Convert(amount, rates.GetCurrency(sourceCurrency).Value, rates.GetCurrency(targetCurrency).Value);
 

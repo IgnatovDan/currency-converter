@@ -4,12 +4,12 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
   public interface ICbrRatesAdapter {
     Task<CbrExchangeRates> GetRates();
   }
-  public class CbrRatesSource : IExchangeSource {
+  public class CbrRatesSource : IExchangeSource, IDisposable {
     private const string DefaultCbrRatesUrl = "https://www.cbr.ru/scripts/XML_daily.asp";
 
     private ICbrRatesAdapter adapter { get; }
 
-    private static ExchangeRates ConvertToCurrencyConverterDTO(CbrExchangeRates rates) {
+    private static ExchangeRates ConvertToExchangeRates(CbrExchangeRates rates) {
       var result = new ExchangeRates(
         String.IsNullOrEmpty(rates?.Date) ? null : DateTime.ParseExact(rates?.Date ?? "", "dd.MM.yyyy", CultureInfo.InvariantCulture)
       );
@@ -31,14 +31,21 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
       return result;
     }
 
-    public CbrRatesSource() : this(new CbrExchangeRatesAdapter(DefaultCbrRatesUrl)) { }
+    public CbrRatesSource() : this(new CbrExchangeRatesAdapter(new HttpClient(), DefaultCbrRatesUrl)) { }
     public CbrRatesSource(string cbrRatesUrl!!) : this(new CbrExchangeRatesAdapter(cbrRatesUrl)) { }
     public CbrRatesSource(ICbrRatesAdapter adapter!!) {
       this.adapter = adapter;
     }
+
+    public void Dispose() {
+      (this.adapter as IDisposable)?.Dispose();
+    }
+
     public async Task<ExchangeRates> GetRates() {
-      var adapterRates = await this.adapter.GetRates();
-      return ConvertToCurrencyConverterDTO(adapterRates);
+      using (var httpClient = new HttpClient()) {
+        var adapterRates = await this.adapter.GetRates();
+        return ConvertToExchangeRates(adapterRates);
+      }
     }
   }
 }
