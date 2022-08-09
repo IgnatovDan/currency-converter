@@ -1,0 +1,7 @@
+uses: b3b00/coverlet-action@1.1.9
+with:
+  testProject: 'myProjectTests/myProjectTests.csproj'
+  output: 'lcov.info'
+  outputFormat: 'lcov'
+  excludes: '[program]*,[test]test.*'
+  threshold: 80
