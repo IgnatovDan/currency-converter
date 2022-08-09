@@ -39,4 +39,6 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Collect Code Coverage
+        # https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md
+        # https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=windows
         run: dotnet test --collect:"XPlat Code Coverage"
