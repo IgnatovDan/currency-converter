@@ -41,7 +41,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: b3b00/coverlet-action@1.1.9
         with:
-          testProject: 'myProjectTests/myProjectTests.csproj'
+          testProject: 'console/currency-converter-tests/currency-converter-tests.csproj'
           output: 'lcov.info'
           outputFormat: 'lcov'
           excludes: '[program]*,[test]test.*'
