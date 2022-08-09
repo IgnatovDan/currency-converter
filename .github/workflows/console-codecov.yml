@@ -1,10 +1,36 @@
-uses: b3b00/coverlet-action@1.1.9
-with:
-  testProject: 'myProjectTests/myProjectTests.csproj'
-  output: 'lcov.info'
-  outputFormat: 'lcov'
-  excludes: '[program]*,[test]test.*'
-  threshold: 80
-
+name: 'Run `b3b00/coverlet-action`'
 on:
   workflow_dispatch:
+
+jobs:
+  test:
+    # Operating System
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Display dotnet version
+        run: dotnet --version
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Upload coverage to Codecov
+        uses: b3b00/coverlet-action@1.1.9
+        with:
+          testProject: 'myProjectTests/myProjectTests.csproj'
+          output: 'lcov.info'
+          outputFormat: 'lcov'
+          excludes: '[program]*,[test]test.*'
+          threshold: 80
