@@ -43,6 +43,15 @@ jobs:
         # https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=windows
         run: dotnet test --collect:"XPlat Code Coverage"
 
-      - name: Build
-        - uses: codecov/codecov-action@v3
-        run: dotnet build --configuration Release --no-restore
+      - name: Upload Code Coverage
+        # uses: actions/checkout@master
+        # https://github.com/marketplace/actions/codecov
+        # https://github.com/codecov/codecov-demo-full/blob/main/.github/workflows/api.yml
+        # https://docs.codecov.com/docs/codecov-uploader
+        uses: codecov/codecov-action@v3
+        with:
+          #files: ./coverage1.xml,./coverage2.xml # optional
+          #flags: unittests # optional, https://docs.codecov.com/docs/flags
+          #name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          #verbose: true # optional (default = false)
