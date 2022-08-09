@@ -39,7 +39,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Collect Code Coverage
-        run: dotnet test --collect:\"XPlat Code Coverage\"
+        run: dotnet test
 
       - name: Upload Code Coverage
         #- uses: actions/checkout@master
