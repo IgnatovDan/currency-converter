@@ -13,6 +13,7 @@ Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_
 ## Run tests
 
 Run the `dotnet test` command from the root folder
+(I created the https://github.com/IgnatovDan/currency-converter/tree/backup_console_without-tests branch with 'console-currency-converter' without tests)
 
 ## Used technologies
 
