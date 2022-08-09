@@ -1,3 +1,5 @@
+[![Run `Console Converter` tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml/badge.svg)](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml)
+
 # Console Currency Converter (.NET Core)
 
 Pass your currency name ([USD/EUR/RUB](https://en.wikipedia.org/wiki/ISO_4217)), your amount and the target currency name as command line arguments and run it. The application will show the target amount.
