@@ -35,11 +35,15 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
       - name: Collect Code Coverage
         # https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md
         # https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=windows
         run: dotnet test --collect:"XPlat Code Coverage"
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
+      - name: Upload Code Coverage
+        - uses: codecov/codecov-action@v3
+          with:
+            fail_ci_if_error: true
