@@ -1,5 +1,5 @@
 # Workflow name
-name: 'Run `b3b00/coverlet-action`'
+name: 'Run `codecov/codecov-action@v3`'
 
 # Event for the workflow
 on:
