@@ -12,8 +12,14 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
     private string cbrRatesUrl { get; }
     private HttpClient client { get; }
 
-    public CbrExchangeRatesAdapter(string cbrRatesUrl!!) : this(new HttpClient(), cbrRatesUrl) {}
-    public CbrExchangeRatesAdapter(HttpClient client!!, string cbrRatesUrl!!) {
+    public CbrExchangeRatesAdapter(string cbrRatesUrl) : this(new HttpClient(), cbrRatesUrl) { }
+    public CbrExchangeRatesAdapter(HttpClient client, string cbrRatesUrl) {
+      if (String.IsNullOrEmpty(cbrRatesUrl)) {
+        throw new ArgumentNullException($"'{nameof(cbrRatesUrl)}' cannot be null or empty.", nameof(cbrRatesUrl));
+      }
+      if (client == null) {
+        throw new ArgumentNullException($"'{nameof(client)}' cannot be null or empty.", nameof(client));
+      }
       this.cbrRatesUrl = cbrRatesUrl;
       this.client = client;
     }
