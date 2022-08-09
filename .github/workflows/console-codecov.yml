@@ -44,4 +44,5 @@ jobs:
         run: dotnet test --collect:"XPlat Code Coverage"
 
       - name: Build
+        - uses: codecov/codecov-action@v3
         run: dotnet build --configuration Release --no-restore
