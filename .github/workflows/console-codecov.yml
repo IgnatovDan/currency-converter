@@ -5,3 +5,6 @@ with:
   outputFormat: 'lcov'
   excludes: '[program]*,[test]test.*'
   threshold: 80
+
+on:
+  workflow_dispatch:
