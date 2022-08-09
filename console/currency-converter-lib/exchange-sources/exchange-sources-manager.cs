@@ -13,15 +13,21 @@ namespace CurrencyConverter.ExchangeRateSources {
       this.sources.Clear();
     }
 
-    public void RegisterSource(string sourceName!!, IExchangeRatesSource exchangeSource!!) {
-      if (sourceName == String.Empty) {
+    public void RegisterSource(string sourceName, IExchangeRatesSource exchangeSource) {
+      if (String.IsNullOrEmpty(sourceName)) {
         throw new ArgumentNullException($"'{nameof(sourceName)}' cannot be null or empty.", nameof(sourceName));
+      }
+      if (exchangeSource == null) {
+        throw new ArgumentNullException($"'{nameof(exchangeSource)}' cannot be null or empty.", nameof(exchangeSource));
       }
 
       this.sources.Add(sourceName, exchangeSource);
     }
 
-    public IExchangeRatesSource GetSource(string sourceName!!) {
+    public IExchangeRatesSource GetSource(string sourceName) {
+      if (String.IsNullOrEmpty(sourceName)) {
+        throw new ArgumentNullException($"'{nameof(sourceName)}' cannot be null or empty.", nameof(sourceName));
+      }
       IExchangeRatesSource? exchangeRatesSource;
       if (!sources.TryGetValue(sourceName, out exchangeRatesSource) || (exchangeRatesSource == null)) {
         throw new Exception($"Cannot find '{sourceName}' rates source. Available sources: {String.Join(", ", sources.Keys)}.");

@@ -35,8 +35,11 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
     }
 
     public CbrRatesSource() : this(new CbrExchangeRatesAdapter(new HttpClient(), DefaultCbrRatesUrl)) { }
-    public CbrRatesSource(string cbrRatesUrl!!) : this(new CbrExchangeRatesAdapter(cbrRatesUrl)) { }
-    public CbrRatesSource(ICbrRatesAdapter adapter!!) {
+    public CbrRatesSource(string cbrRatesUrl) : this(new CbrExchangeRatesAdapter(cbrRatesUrl)) { }
+    public CbrRatesSource(ICbrRatesAdapter adapter) {
+      if (adapter == null) {
+        throw new ArgumentNullException($"'{nameof(adapter)}' cannot be null or empty.", nameof(adapter));
+      }
       this.adapter = adapter;
     }
 
