@@ -20,7 +20,6 @@ namespace CurrencyConverter.ExchangeRateSources.Cbr {
       if (client == null) {
         throw new ArgumentNullException($"'{nameof(client)}' cannot be null or empty.", nameof(client));
       }
-
       this.cbrRatesUrl = cbrRatesUrl;
       this.client = client;
     }
