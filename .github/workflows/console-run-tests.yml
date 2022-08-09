@@ -1,6 +1,6 @@
 # Spike: https://github.com/IgnatovDan/Sandbox/blob/main/.github/workflows/TestGithubActionsForBranches.yml
 # Workflow name
-name: 'Run console tests'
+name: 'Run `Console Converter` tests'
 
 # Event for the workflow
 on:
@@ -18,7 +18,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./console_tests/
+        working-directory: ./console/
 
     # Job Steps
     steps:
@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dotnet-results
-          # 'working-directory' is not used
-          # 'path from root' is required, https://github.com/actions/upload-artifact/issues/232
-          path: console_tests/TestResults
+          # upload-artifact ignores the 'working-directory' value
+          # and required 'path from root', https://github.com/actions/upload-artifact/issues/232
+          path: console/TestResults
         if: ${{ always() }}
