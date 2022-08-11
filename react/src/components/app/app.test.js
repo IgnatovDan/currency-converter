@@ -5,5 +5,5 @@ test('renders header', () => {
   //render(<App />);
   // const linkElement = screen.getByText(/Currency Converter/i);
   // expect(linkElement).toBeInTheDocument();
-  expect(true).toBe(true);
+  expect(true).toBe(false);
 });
