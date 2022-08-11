@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Editor from './editor';
 
@@ -32,7 +32,8 @@ describe("input", () => {
     // userEvent.type(spin, 1);
     // userEvent.clear(spin);
     // userEvent.type(spin, '1');
-    //userEvent.click(screen.getByRole("button"));
+    // userEvent.click(screen.getByRole("button"));
+    // fireEvent.change(spin, {target: {value: '23'}}) // https://testing-library.com/docs/example-input-event/
     // expect(spin).toHaveValue(1);
   });
 });
