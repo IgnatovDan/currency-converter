@@ -3,13 +3,6 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Editor from './editor';
 
-// https://github.com/testing-library/user-event/issues/549
-function EditorWrapper({ defaultValue, ...rest }) {
-  const [value, setValue] = useState(defaultValue);
-  const onChange = useCallback((event) => setValue(event.target.value), [setValue]);
-  return <Editor onChange={ onChange } value={ value } { ...rest } />
-}
-
 describe("input", () => {
   test('render without params', async () => {
     render(<Editor />);
@@ -57,7 +50,7 @@ describe("combobox", () => {
     expect(screen.getByRole('combobox')).toHaveAttribute('required');
   });
 
-  test('display listItems and set value', async () => {
+  test('display value and listItems', async () => {
     const items = [
       { value: 'value1', text: 'text1' },
       { value: 'value2', text: 'text2' }
@@ -82,7 +75,39 @@ describe("combobox", () => {
     expect(option2.text).toBe('text2');
   });
 
-  test('change value2', async () => {
+  test('change value', async () => {
+
+    const items = [
+      { value: 'value1', text: 'text1' },
+      { value: 'value2', text: 'text2' },
+      { value: 'value3', text: 'text3' },
+    ];
+    let newValue = '';
+    render(
+      <Editor
+        tagName="select"
+        listItems={ items }
+        value={ 'value2' }
+        onChange={ e => newValue = e.target.value } />
+    );
+
+    expect(screen.getByRole('combobox')).toHaveValue('value2');
+
+    await userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      screen.getByRole('option', { name: 'text3' })
+    );
+
+    expect(newValue).toBe('value3');
+  });
+
+  test('change value with wrapper', async () => {
+    // https://github.com/testing-library/user-event/issues/549
+    function EditorWrapper({ defaultValue, ...rest }) {
+      const [value, setValue] = useState(defaultValue);
+      const onChange = useCallback((event) => setValue(event.target.value), [setValue]);
+      return <Editor onChange={ onChange } value={ value } { ...rest } />
+    }
 
     const items = [
       { value: 'value1', text: 'text1' },
