@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Editor from './editor';
 
@@ -26,15 +26,23 @@ describe("input", () => {
   });
 
   test('change value', async () => {
-    render(<EditorWrapper type="number" value={ 42 } />);
+    let newValue = 0;
+    render(<Editor type="number" value={ 42 } onChange={ (e) => newValue = e.target.value } />);
     const spin = screen.getByRole('spinbutton');
     expect(spin).toHaveValue(42);
+    fireEvent.change(spin, { target: { value: 2 } })
+    expect(newValue).toBe("2");
+
+    // Memoize other approaches:
+    //await act(async () => {
+    //  fireEvent.change(spin, { target: { value: 2 } })
+    //})
     // userEvent.type(spin, 1);
     // userEvent.clear(spin);
     // userEvent.type(spin, '1');
     // userEvent.click(screen.getByRole("button"));
     // fireEvent.change(spin, {target: {value: '23'}}) // https://testing-library.com/docs/example-input-event/
-    // expect(spin).toHaveValue(1);
+    //expect(spin).toHaveValue(1);
   });
 });
 
