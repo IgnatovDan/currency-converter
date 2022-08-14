@@ -116,3 +116,15 @@ describe('Warning message', () => {
     expect(screen.getByLabelText(/Warning message/i).textContent).toBe('msg1');
   });
 });
+
+describe('Loading panel', () => {
+  test('render if loading', () => {
+    render(<ConverterUI isLoading={ true } />);
+    expect(screen.getByTestId(/loading-panel/i)).toBeInTheDocument();
+  });
+
+  test('render', () => {
+    render(<ConverterUI isLoading={ false } />);
+    expect(screen.queryByTestId(/loading-panel/i)).toBeNull();
+  });
+});
