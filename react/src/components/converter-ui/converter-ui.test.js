@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import ConverterUI from './converter-ui';
 
 describe('Source amount', () => {
@@ -12,12 +12,15 @@ describe('Source amount', () => {
     expect(screen.getByLabelText(/source amount/i)).toHaveValue(42);
   });
 
-  test('onChanged event', () => {
-    // TODO
-    // render(<Button svgImage="svg" />);
-    // const button = screen.getByRole("button");
-    // const svgElements = button.querySelectorAll('svg');
-    // expect(svgElements).toHaveLength(1);
+  test('amountChanged event is thrown when amount was changed', () => {
+    // let newValue;
+    // render(<ConverterUI amount={ 42 } amountChanged={ (val) => newValue = val } />);
+    // const input = screen.getByLabelText(/source amount/i);//.querySelectorAll('input1');
+    // fireEvent.change(
+    //   input,
+    //   { target: { value: 43 } }
+    // )
+    // expect(newValue).toBe("43");
   });
 });
 
