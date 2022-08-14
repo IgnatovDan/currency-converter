@@ -50,11 +50,13 @@ function ConverterUI({
     <div className={ `${classes} ${styles.s}` }>
       <form onSubmit={ e => e.preventDefault() }>
         <fieldset className={ styles__values.s }>
-          <Editor value={ amount } onInput={ handleAmountChange } type="number" required step="0.01" />
+          <Editor
+            aria-label="Source amount" // this text is not visible but it is obvious
+            value={ amount } onInput={ handleAmountChange } type="number" required step="0.01" />
           <LabeledEditor caption="From">
             <Editor tagName="select" required value={ sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } listItems={ selectCurrencyListItems } />
           </LabeledEditor>
-          <Button classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
+          <Button aria-label="Toggle currencies" classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
           <LabeledEditor caption="Into">
             <Editor tagName="select" required value={ targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } listItems={ selectCurrencyListItems } />
           </LabeledEditor>
@@ -63,7 +65,9 @@ function ConverterUI({
           </LabeledEditor>
         </fieldset>
       </form>
-      <p className={ styles__targetAmount.s }>{ targetAmount }</p>
+      <p
+        aria-label="Target amount"
+        className={ styles__targetAmount.s }>{ targetAmount }</p>
       <CurrencyRateExpression
         sourceCurrencyCharCode={ sourceCurrencyCharCode }
         targetRate={ targetRate }

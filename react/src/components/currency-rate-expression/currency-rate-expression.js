@@ -4,11 +4,11 @@ import styles__item from './__item/currency-rate-expression__item.module.css';
 function CurrencyRateExpression({ sourceCurrencyCharCode, targetRate, targetCurrencyCharCode }) {
   return (
     <div className={ styles.s }>
-      <p className={ styles__item.s }>1</p>
-      <p className={ styles__item.s }>{ sourceCurrencyCharCode ?? 'USD' }</p>
+      <p aria-label="Source rate" className={ styles__item.s }>1</p>
+      <p aria-label="Source char code" className={ styles__item.s }>{ sourceCurrencyCharCode ?? 'USD' }</p>
       <p className={ styles__item.s }>=</p>
-      <p className={ styles__item.s }>{ targetRate ?? '1' }</p>
-      <p className={ styles__item.s }>{ targetCurrencyCharCode ?? 'RUB' }</p>
+      <p aria-label="Target rate" className={ styles__item.s }>{ targetRate ?? '1' }</p>
+      <p aria-label="Target char code" className={ styles__item.s }>{ targetCurrencyCharCode ?? 'RUB' }</p>
     </div>
   );
 }
