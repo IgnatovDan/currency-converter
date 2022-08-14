@@ -11,6 +11,14 @@ describe('Source amount', () => {
     render(<ConverterUI amount={ 42 } />);
     expect(screen.getByLabelText(/source amount/i)).toHaveValue(42);
   });
+
+  test('onChanged event', () => {
+    // TODO
+    // render(<Button svgImage="svg" />);
+    // const button = screen.getByRole("button");
+    // const svgElements = button.querySelectorAll('svg');
+    // expect(svgElements).toHaveLength(1);
+  });
 });
 
 describe('From', () => {
@@ -86,5 +94,22 @@ describe('Currency rate expression', () => {
     expect(screen.getByLabelText(/Source char code/i).textContent).toBe('USD');
     expect(screen.getByLabelText(/Target rate/i).textContent).toBe('11');
     expect(screen.getByLabelText(/Target char code/i).textContent).toBe('RUB');
+  });
+});
+
+describe('Warning message', () => {
+  test('not render if empty', () => {
+    render(<ConverterUI />);
+    expect(screen.queryByLabelText(/Warning message/i)).toBeNull();
+  });
+
+  test('render', () => {
+    render(<ConverterUI warningMessage={ 'msg1' } />);
+    expect(screen.getByLabelText(/Warning message/i)).toBeInTheDocument();
+  });
+
+  test('value', () => {
+    render(<ConverterUI warningMessage={ 'msg1' } />);
+    expect(screen.getByLabelText(/Warning message/i).textContent).toBe('msg1');
   });
 });

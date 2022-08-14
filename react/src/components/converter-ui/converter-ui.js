@@ -72,7 +72,7 @@ function ConverterUI({
         sourceCurrencyCharCode={ sourceCurrencyCharCode }
         targetRate={ targetRate }
         targetCurrencyCharCode={ targetCurrencyCharCode } />
-      { warningMessage && <p className={ styles__warningMessage.s }>{ warningMessage }</p> }
+      { warningMessage && <p aria-label="Warning message" className={ styles__warningMessage.s }>{ warningMessage }</p> }
       { isLoading && <LoadingPanel /> }
     </div>
   );
