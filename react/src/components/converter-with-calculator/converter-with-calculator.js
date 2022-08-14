@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import ConverterUI from '../converter-ui/converter-ui.js';
 
-import { Currency } from '../../api/exchange-sources/exchange-rates-data-objects';
-
 function HandleValueNumberToZero(value) {
   if (Number.isNaN(value) || value === Infinity || value === undefined || value === null) {
     return 0;
