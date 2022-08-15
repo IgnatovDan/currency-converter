@@ -14,26 +14,14 @@ describe('Source amount', () => {
     expect(screen.getByLabelText(labelMatch)).toHaveValue(42);
   });
 
-  test('amountChanged event is called when amount was changed', async () => {
+  test('amountChanged callback is called when amount was changed', async () => {
     const user = userEvent.setup()
     let counter = jest.fn();
     render(<ConverterUI amountChanged={ counter } />);
-    await user.type(screen.getByLabelText(labelMatch), '23');
-    //expect(screen.getByLabelText(/source amount/i)).toHaveValue(23);
-    //await user.click(screen.getByRole('button', { name: /Toggle currencies/i }))
-    //expect(counter).toHaveBeenCalledTimes(1);
-    //expect(counter.mock.calls.slice(-1)[0]).toBe(23);
-    expect(counter).toHaveBeenLastCalledWith(23);
-    //expect(counter.mock.calls[0][0]).toBe('23');
 
-    // let newValue;
-    // render(<ConverterUI amount={ 42 } amountChanged={ (val) => newValue = val } />);
-    // const input = screen.getByLabelText(/source amount/i);//.querySelectorAll('input1');
-    // fireEvent.change(
-    //   input,
-    //   { target: { value: 43 } }
-    // )
-    // expect(newValue).toBe("43");
+    await user.type(screen.getByLabelText(labelMatch), '23');
+
+    expect(counter).toHaveBeenLastCalledWith(23);
   });
 });
 
@@ -43,10 +31,30 @@ describe('From', () => {
     expect(screen.getByLabelText(/from/i)).toBeInTheDocument();
   });
 
-  test('value', () => {
+  test('render value', () => {
     const availableCurrencies = [{ CharCode: 'code1', Name: 'Name1' }, { CharCode: 'code2', Name: 'Name2' }];
     render(<ConverterUI availableCurrencies={ availableCurrencies } sourceCurrencyCharCode={ 'code2' } />);
+
     expect(screen.getByLabelText(/from/i)).toHaveValue('code2');
+  });
+
+  test('sourceCurrencyCharCodeChanged callback is called when source currency was changed', async () => {
+    const availableCurrencies = [
+      { CharCode: 'code1', Name: 'Name1' },
+      { CharCode: 'code2', Name: 'Name2' },
+      { CharCode: 'code3', Name: 'Name3' }
+    ];
+    const user = userEvent.setup()
+    let counter = jest.fn();
+   
+    render(<ConverterUI
+      sourceCurrencyCharCodeChanged={ counter }
+      availableCurrencies={ availableCurrencies }
+      sourceCurrencyCharCode={ 'code2' } />);
+    
+    await user.selectOptions(screen.getByLabelText(/from/i), 'code3');
+
+    expect(counter).toHaveBeenLastCalledWith('code3');
   });
 });
 
@@ -56,7 +64,7 @@ describe('Toggle currencies', () => {
     expect(screen.getByRole('button', { name: /Toggle currencies/i })).toBeInTheDocument();
   });
 
-  test('click raise sourceCurrencyCharCodeChanged/targetCurrencyCharCodeChanged', async () => {
+  test('click calls sourceCurrencyCharCodeChanged and targetCurrencyCharCodeChanged', async () => {
     const user = userEvent.setup()
     let counterSource = jest.fn();
     let counterTarget = jest.fn();
@@ -70,12 +78,13 @@ describe('Toggle currencies', () => {
       targetCurrencyCharCodeChanged={ counterTarget } />
     );
 
-    await user.click(screen.getByRole('button', { name: /Toggle currencies/i }))
+    await user.click(screen.getByRole('button', { name: /Toggle currencies/i }));
+
     expect(counterSource).toHaveBeenCalledTimes(1);
-    expect(counterSource.mock.calls[0][0]).toBe('code2');
+    expect(counterSource).toHaveBeenCalledWith('code2');
 
     expect(counterTarget).toHaveBeenCalledTimes(1);
-    expect(counterTarget.mock.calls[0][0]).toBe('code1');
+    expect(counterTarget).toHaveBeenCalledWith('code1');
   });
 });
 
@@ -85,11 +94,31 @@ describe('Into', () => {
     expect(screen.getByLabelText(/into/i)).toBeInTheDocument();
   });
 
-  test('value', () => {
+  test('show value', () => {
     const availableCurrencies = [{ CharCode: 'code1', Name: 'Name1' }, { CharCode: 'code2', Name: 'Name2' }];
     render(<ConverterUI availableCurrencies={ availableCurrencies } targetCurrencyCharCode={ 'code2' } />);
     expect(screen.getByLabelText(/into/i)).toHaveValue('code2');
   });
+
+  test('targetCurrencyCharCodeChanged callback is called when target currency was changed', async () => {
+    const availableCurrencies = [
+      { CharCode: 'code1', Name: 'Name1' },
+      { CharCode: 'code2', Name: 'Name2' },
+      { CharCode: 'code3', Name: 'Name3' }
+    ];
+    const user = userEvent.setup()
+    let counter = jest.fn();
+   
+    render(<ConverterUI
+      targetCurrencyCharCodeChanged={ counter }
+      availableCurrencies={ availableCurrencies }
+      targetCurrencyCharCode={ 'code2' } />);
+    
+    await user.selectOptions(screen.getByLabelText(/into/i), 'code3');
+
+    expect(counter).toHaveBeenLastCalledWith('code3');
+  });
+
 });
 
 describe('Target amount', () => {
@@ -98,7 +127,7 @@ describe('Target amount', () => {
     expect(screen.getByLabelText(/target amount/i)).toBeInTheDocument();
   });
 
-  test('value', () => {
+  test('show value', () => {
     render(<ConverterUI targetAmount={ 42 } />);
     expect(screen.getByLabelText(/target amount/i).textContent).toBe('42');
   });
@@ -110,10 +139,29 @@ describe('Exchange rates source', () => {
     expect(screen.getByLabelText(/Exchange rates source/i)).toBeInTheDocument();
   });
 
-  test('value', () => {
+  test('show value', () => {
     const availableExchangeRateSources = [{ key: 1, caption: 'item1' }, { key: 2, caption: 'item2' }, { key: 3, caption: 'item3' }];
     render(<ConverterUI availableExchangeRateSources={ availableExchangeRateSources } exchangeRatesSourceKey={ 2 } />);
     expect(screen.getByLabelText(/Exchange rates source/i)).toHaveValue('2');
+  });
+
+  test('exchangeRatesSourceKeyChanged callback is called when target rates source was changed', async () => {
+    const availableExchangeRateSources = [
+      { key: 1, caption: 'item1' },
+      { key: 2, caption: 'item2' },
+      { key: 3, caption: 'item3' }
+    ];
+    const user = userEvent.setup()
+    let counter = jest.fn();
+   
+    render(<ConverterUI
+      exchangeRatesSourceKeyChanged={ counter }
+      availableExchangeRateSources={ availableExchangeRateSources }
+      exchangeRatesSourceKey={ 2 } />);
+    
+    await user.selectOptions(screen.getByLabelText(/Exchange rates source/i), '3');
+
+    expect(counter).toHaveBeenLastCalledWith('3');
   });
 });
 
@@ -126,7 +174,7 @@ describe('Currency rate expression', () => {
     expect(screen.getByLabelText(/Target char code/i)).toBeInTheDocument();
   });
 
-  test('values', () => {
+  test('show values', () => {
     render(<ConverterUI sourceCurrencyCharCode={ "USD" } targetRate={ 11 } targetCurrencyCharCode={ "RUB" } />);
     expect(screen.getByLabelText(/Source rate/i).textContent).toBe('1');
     expect(screen.getByLabelText(/Source char code/i).textContent).toBe('USD');
@@ -136,19 +184,14 @@ describe('Currency rate expression', () => {
 });
 
 describe('Warning message', () => {
+  test('render if not empty', () => {
+    render(<ConverterUI warningMessage={ 'msg1' } />);
+    expect(screen.getByLabelText(/Warning message/i).textContent).toBe('msg1');
+  });
+
   test('not render if empty', () => {
     render(<ConverterUI />);
     expect(screen.queryByLabelText(/Warning message/i)).toBeNull();
-  });
-
-  test('render', () => {
-    render(<ConverterUI warningMessage={ 'msg1' } />);
-    expect(screen.getByLabelText(/Warning message/i)).toBeInTheDocument();
-  });
-
-  test('value', () => {
-    render(<ConverterUI warningMessage={ 'msg1' } />);
-    expect(screen.getByLabelText(/Warning message/i).textContent).toBe('msg1');
   });
 });
 
@@ -158,7 +201,7 @@ describe('Loading panel', () => {
     expect(screen.getByTestId(/loading-panel/i)).toBeInTheDocument();
   });
 
-  test('render', () => {
+  test('not render if loaded', () => {
     render(<ConverterUI isLoading={ false } />);
     expect(screen.queryByTestId(/loading-panel/i)).toBeNull();
   });
