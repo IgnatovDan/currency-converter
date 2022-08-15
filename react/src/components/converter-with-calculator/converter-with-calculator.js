@@ -60,7 +60,8 @@ function ConverterWithCalculator({
   }, [amount, sourceCurrencyValue, targetCurrencyValue]);
 
   useEffect(() => {
-    const newValue = calculateTargetRate(calculateTargetAmount(sourceCurrencyValue, targetCurrencyValue));
+    const newValue = calculateTargetRate(sourceCurrencyValue, targetCurrencyValue);
+    debugger;
     setTargetRate(newValue);
   }, [sourceCurrencyValue, targetCurrencyValue]);
 
