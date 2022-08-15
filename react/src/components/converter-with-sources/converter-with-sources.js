@@ -25,7 +25,7 @@ function ConverterWithSources({ classes }) {
           }
           setAvailableCurrencies(exchangeRates?.Items);
           if (exchangeRatesSourceKey === 'demo') {
-            setWarningMessage('Демо данные'); // move to rates, return with 'getRates'
+            setWarningMessage('Демо данные'); // read this value from the current 'rates' object?
           }
           else {
             setWarningMessage(undefined);
