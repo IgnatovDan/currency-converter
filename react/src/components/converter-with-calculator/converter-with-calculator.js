@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import ConverterUI from '../converter-ui/converter-ui.js';
 
-function HandleValueNumberToZero(value) {
-  if (Number.isNaN(value) || value === Infinity || value === undefined || value === null) {
-    return 0;
-  }
-  return value;
-}
+import { calculateTargetAmount, calculateTargetRate } from '../../api/currency-converter';
+import { HandleValueNumberToZero } from '../../api/utils';
+
 
 function handleIncorrectCharCode(charCode, availableCurrencies, defaultCharCode) {
   if (!charCode || !availableCurrencies?.find(item => item.CharCode === charCode)) {
@@ -58,13 +55,13 @@ function ConverterWithCalculator({
   }, [availableCurrencies, targetCurrencyCharCode]);
 
   useEffect(() => {
-    const safeValue = HandleValueNumberToZero(amount * sourceCurrencyValue / targetCurrencyValue);
-    setTargetAmount(Math.round((safeValue + Number.EPSILON) * 100) / 100);
+    const newValue = calculateTargetAmount(amount, sourceCurrencyValue, targetCurrencyValue);
+    setTargetAmount(newValue);
   }, [amount, sourceCurrencyValue, targetCurrencyValue]);
 
   useEffect(() => {
-    const safeValue = HandleValueNumberToZero(sourceCurrencyValue / targetCurrencyValue);
-    setTargetRate(Math.round((safeValue + Number.EPSILON) * 10000) / 10000);
+    const newValue = calculateTargetRate(calculateTargetAmount(sourceCurrencyValue, targetCurrencyValue));
+    setTargetRate(newValue);
   }, [sourceCurrencyValue, targetCurrencyValue]);
 
   const amountChanged = useCallback(value => setAmount(HandleValueNumberToZero(value)), []);
