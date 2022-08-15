@@ -48,10 +48,22 @@ describe('Toggle currencies', () => {
     const user = userEvent.setup()
     let counterSource = jest.fn();
     let counterTarget = jest.fn();
-    render(<ConverterUI sourceCurrencyCharCodeChanged={ counterSource } targetCurrencyCharCodeChanged={ counterTarget }/>);
+    const availableCurrencies = [{ CharCode: 'code1', Name: 'Name1' }, { CharCode: 'code2', Name: 'Name2' }];
+
+    render(<ConverterUI
+      availableCurrencies={ availableCurrencies }
+      sourceCurrencyCharCode={ 'code1' }
+      sourceCurrencyCharCodeChanged={ counterSource }
+      targetCurrencyCharCode={ 'code2' }
+      targetCurrencyCharCodeChanged={ counterTarget } />
+    );
+
     await user.click(screen.getByRole('button', { name: /Toggle currencies/i }))
     expect(counterSource).toHaveBeenCalledTimes(1);
+    expect(counterSource.mock.calls[0][0]).toBe('code2');
+
     expect(counterTarget).toHaveBeenCalledTimes(1);
+    expect(counterTarget.mock.calls[0][0]).toBe('code1');
   });
 });
 
