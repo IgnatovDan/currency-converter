@@ -3,17 +3,29 @@ import userEvent from '@testing-library/user-event';
 import ConverterUI from './converter-ui';
 
 describe('Source amount', () => {
+  const labelMatch = /source amount/i;
   test('render', () => {
     render(<ConverterUI />);
-    expect(screen.getByLabelText(/source amount/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(labelMatch)).toBeInTheDocument();
   });
 
   test('render value', () => {
     render(<ConverterUI amount={ 42 } />);
-    expect(screen.getByLabelText(/source amount/i)).toHaveValue(42);
+    expect(screen.getByLabelText(labelMatch)).toHaveValue(42);
   });
 
-  test('amountChanged event is thrown when amount was changed', () => {
+  test('amountChanged event is called when amount was changed', async () => {
+    const user = userEvent.setup()
+    let counter = jest.fn();
+    render(<ConverterUI amountChanged={ counter } />);
+    await user.type(screen.getByLabelText(labelMatch), '23');
+    //expect(screen.getByLabelText(/source amount/i)).toHaveValue(23);
+    //await user.click(screen.getByRole('button', { name: /Toggle currencies/i }))
+    //expect(counter).toHaveBeenCalledTimes(1);
+    //expect(counter.mock.calls.slice(-1)[0]).toBe(23);
+    expect(counter).toHaveBeenLastCalledWith(23);
+    //expect(counter.mock.calls[0][0]).toBe('23');
+
     // let newValue;
     // render(<ConverterUI amount={ 42 } amountChanged={ (val) => newValue = val } />);
     // const input = screen.getByLabelText(/source amount/i);//.querySelectorAll('input1');
