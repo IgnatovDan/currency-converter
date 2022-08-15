@@ -4,7 +4,7 @@ import ConverterWithCalculator from '../converter-with-calculator/converter-with
 
 import { Currency } from '../../api/exchange-sources/exchange-rates-data-objects';
 
-function ConverterWithSources({ classes }) {
+function ConverterWithRateSources({ classes }) {
   const [isLoading, setIsLoading] = useState(true);
   const [availableCurrencies, setAvailableCurrencies] = useState([]);
   const [exchangeRatesSourceKey, setExchangeRatesSourceKey] = useState('cbr'); // default rates source, pass in props
@@ -66,4 +66,4 @@ function ConverterWithSources({ classes }) {
 
 }
 
-export default ConverterWithSources;
+export default ConverterWithRateSources;
