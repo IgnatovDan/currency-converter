@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import ConverterUI from './converter-ui';
 
 describe('Source amount', () => {
@@ -40,7 +41,17 @@ describe('From', () => {
 describe('Toggle currencies', () => {
   test('render', () => {
     render(<ConverterUI />);
-    expect(screen.getByLabelText(/Toggle currencies/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Toggle currencies/i })).toBeInTheDocument();
+  });
+
+  test('click raise sourceCurrencyCharCodeChanged/targetCurrencyCharCodeChanged', async () => {
+    const user = userEvent.setup()
+    let counterSource = jest.fn();
+    let counterTarget = jest.fn();
+    render(<ConverterUI sourceCurrencyCharCodeChanged={ counterSource } targetCurrencyCharCodeChanged={ counterTarget }/>);
+    await user.click(screen.getByRole('button', { name: /Toggle currencies/i }))
+    expect(counterSource).toHaveBeenCalledTimes(1);
+    expect(counterTarget).toHaveBeenCalledTimes(1);
   });
 });
 

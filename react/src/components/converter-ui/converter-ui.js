@@ -38,8 +38,8 @@ function ConverterUI({
 
   const handleTogglerClick = useCallback(() => {
     const currentSourceCurrencyCharCode = sourceCurrencyCharCode;
-    sourceCurrencyCharCodeChanged(targetCurrencyCharCode);
-    targetCurrencyCharCodeChanged(currentSourceCurrencyCharCode);
+    sourceCurrencyCharCodeChanged?.(targetCurrencyCharCode);
+    targetCurrencyCharCodeChanged?.(currentSourceCurrencyCharCode);
   }, [sourceCurrencyCharCode, sourceCurrencyCharCodeChanged, targetCurrencyCharCode, targetCurrencyCharCodeChanged]);
 
   const selectRatesSourceCurrencyListItems = availableExchangeRateSources?.map(item => ({ value: item.key, text: item.caption }));
