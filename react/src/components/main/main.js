@@ -1,4 +1,4 @@
-import Converter from "../converter/converter";
+import ConverterWithRateSources from "../converter-with-rate-sources/converter-with-rate-sources";
 
 import styles from './main.module.css';
 import styles__converter from './__converter/main__converter.module.css';
@@ -6,7 +6,7 @@ import styles__converter from './__converter/main__converter.module.css';
 function Main() {
   return (
     <main className={ styles.s }>
-      <Converter classes={ styles__converter.s }></Converter>
+      <ConverterWithRateSources classes={ styles__converter.s }></ConverterWithRateSources>
     </main>
   );
 }
