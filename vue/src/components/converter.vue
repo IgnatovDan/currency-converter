@@ -5,6 +5,7 @@
         <UiEditor tagName="input" v-model="amount" type="number" required :step="0.01" />
         <LabeledEditor caption="From">
           <UiEditor
+            editorType="combobox"
             tagName="select"
             v-model="sourceCurrencyCharCode"
             required
@@ -19,6 +20,7 @@
         />
         <LabeledEditor caption="To">
           <UiEditor
+            editorType="combobox"
             tagName="select"
             v-model="targetCurrencyCharCode"
             required
@@ -27,6 +29,7 @@
         </LabeledEditor>
         <LabeledEditor caption="Exchange rates source">
           <UiEditor
+            editorType="combobox"
             tagName="select"
             v-model="exchangeRatesSourceKey"
             required
@@ -47,9 +50,9 @@
 </template>
 
 <script>
-import UiEditor from './ui-editor.vue';
+import UiEditor from './ui-editor/ui-editor.vue';
 import LabeledEditor from './labeled-editor.vue';
-import UiButton from './ui-button.vue';
+import UiButton from './ui-button/ui-button.vue';
 import LoadingPanel from './loading-panel.vue';
 import CurrencyRateExpression from './currency-rate-expression.vue';
 

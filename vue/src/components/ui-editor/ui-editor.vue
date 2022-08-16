@@ -1,7 +1,8 @@
 <template>
   <component
-    :is="tagName"
+    :is="targetTag.tagName"
     v-bind="$attrs"
+    :type="targetTag.type"
     :value="modelValue"
     class="ui-editor"
     :required="required"
@@ -17,14 +18,23 @@
 <script>
 export default {
   props: {
-    tagName: { type: String, required: true },
-    modelValue: { type: [Number, String], required: true },
-    required: { type: Boolean, required: true },
+    editorType: { type: String },
+    modelValue: { type: [Number, String] },
+    required: { type: Boolean, default: false },
     step: { type: Number },
     listItems: {
       type: Array,
       validator: (items) =>
         items.every((item) => typeof item === 'object' && item !== null && 'value' in item && 'text' in item),
+    },
+  },
+
+  computed: {
+    targetTag() {
+      if (this.editorType && this.editorType.match(/combobox/i)) {
+        return { tagName: 'select' };
+      }
+      return { tagName: 'input', type: 'number' }; // editorType.match(/spinbutton/i)
     },
   },
 
