@@ -2,11 +2,10 @@
   <div class="converter">
     <form @submit.prevent>
       <fieldset class="converter__values">
-        <UiEditor tagName="input" v-model="amount" type="number" required :step="0.01" />
+        <UiEditor editorType="spinbutton" v-model="amount" required :step="0.01" />
         <LabeledEditor caption="From">
           <UiEditor
             editorType="combobox"
-            tagName="select"
             v-model="sourceCurrencyCharCode"
             required
             :listItems="availableCurrenciesListItems"
@@ -21,7 +20,6 @@
         <LabeledEditor caption="To">
           <UiEditor
             editorType="combobox"
-            tagName="select"
             v-model="targetCurrencyCharCode"
             required
             :listItems="availableCurrenciesListItems"
@@ -30,7 +28,6 @@
         <LabeledEditor caption="Exchange rates source">
           <UiEditor
             editorType="combobox"
-            tagName="select"
             v-model="exchangeRatesSourceKey"
             required
             :listItems="availableExchangeRateSources"

@@ -72,48 +72,23 @@ describe('with editorType:combobox', () => {
     expect(option2.text).toBe('text2');
   });
 
-  //   // test('value not in items', async () => {
-  //   //   const items = [
-  //   //     { value: 'value1', text: 'text1' },
-  //   //     { value: 'value2', text: 'text2' }
-  //   //   ];
-  //   //   render(<Editor tagName="select" listItems={ items } value="value-not-exist" onChange={ () => { } } />);
+  test('update:modelValue is called when selected item is changed', async () => {
+    const items = [
+      { value: 'value1', text: 'text1' },
+      { value: 'value2', text: 'text2' },
+      { value: 'value3', text: 'text3' },
+    ];
+    const { emitted } = render(UiEditor, { props: { editorType: 'combobox', listItems: items, value: 'value2' } });
 
-  //   //   expect(screen.getByRole('combobox')).toHaveValue('value1');
-  //   // });
+    expect(screen.getByRole('combobox')).toHaveValue('value2');
 
-  //   // test('value not in items with default value', async () => {
-  //   //   const items = [
-  //   //     { value: 'value1', text: 'text1' },
-  //   //     { value: 'value2', text: 'text2' },
-  //   //     { value: 'value3', text: 'text3' }
-  //   //   ];
-  //   //   render(<Editor tagName="select" listItems={ items } value="value-not-exist" onChange={ () => { } } defaultValue={ 'value2' } />);
+    await userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      screen.getByRole('option', { name: 'text3' })
+    );
 
-  //   //   expect(screen.getByRole('combobox')).toHaveValue('value2');
-  //   // });
-
-  //   test('onChange is called when selected item is changed', async () => {
-  //     const items = [
-  //       { value: 'value1', text: 'text1' },
-  //       { value: 'value2', text: 'text2' },
-  //       { value: 'value3', text: 'text3' },
-  //     ];
-  //     let newValue = '';
-  //     render(
-  //       <UiEditor tagName="select" listItems={ items } value={ 'value2' }
-  //         onChange={ e => newValue = e.target.value }
-  //       />
-  //     );
-
-  //     expect(screen.getByRole('combobox')).toHaveValue('value2');
-
-  //     await userEvent.selectOptions(
-  //       screen.getByRole('combobox'),
-  //       screen.getByRole('option', { name: 'text3' })
-  //     );
-
-  //     expect(newValue).toBe('value3');
-  //   });
+    expect(emitted('update:modelValue').length).toBe(1);
+    expect(emitted('update:modelValue')[0][0]).toBe('value3');
+  });
 
 });
