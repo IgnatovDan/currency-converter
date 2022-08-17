@@ -4,32 +4,32 @@ import UiEditor from './ui-editor.vue';
 
 describe('type = spinbutton', () => {
   test('render', async () => {
-    render(UiEditor);
+    render(<UiEditor />);
     expect(screen.queryAllByRole(/spinbutton/i)).toHaveLength(1);
   });
 
   test('render with editorType:spinbutton', async () => {
-    render(UiEditor, { props: { editorType: 'spinbutton' } });
+    render(<UiEditor editorType="spinbutton" />);
     expect(screen.queryAllByRole(/spinbutton/i)).toHaveLength(1);
   });
 
   test('render modelValue={ 42 }', async () => {
-    render(UiEditor, { props: { 'modelValue': '42' } });
+    render(<UiEditor modelValue={ 42 } />);
     expect(screen.getByRole(/spinbutton/i)).toHaveValue(42);
   });
 
   test('render required', async () => {
-    render(UiEditor, { props: { required: true } });
+    render(<UiEditor required />);
     expect(screen.getByRole(/spinbutton/i)).toHaveAttribute('required');
   });
 
   test('render step=0.01', async () => {
-    render(UiEditor, { props: { step: 0.01 } });
+    render(<UiEditor step={ 0.01 } />);
     expect(screen.getByRole(/spinbutton/i)).toHaveAttribute('step', '0.01');
   });
 
   test('update:modelValue is called when input value is changed', async () => {
-    const { emitted } = render(UiEditor, { props: { 'modelValue': 1 } });
+    const { emitted } = render(<UiEditor modelValue="1" />);
 
     await fireEvent.update(screen.getByRole(/spinbutton/i), 42);
 
@@ -42,12 +42,12 @@ describe('type = spinbutton', () => {
 
 describe('with editorType:combobox', () => {
   test('render', async () => {
-    render(UiEditor, { props: { editorType: 'combobox' } });
+    render(<UiEditor editorType="combobox" />);
     expect(screen.queryAllByRole(/combobox/i)).toHaveLength(1);
   });
 
   test('render with required', async () => {
-    render(UiEditor, { props: { editorType: 'combobox', required: true } });
+    render(<UiEditor editorType="combobox" required />);
     expect(screen.getByRole(/combobox/i)).toHaveAttribute('required');
   });
 
@@ -56,7 +56,7 @@ describe('with editorType:combobox', () => {
       { value: 'value1', text: 'text1' },
       { value: 'value2', text: 'text2' }
     ];
-    render(UiEditor, { props: { editorType: 'combobox', listItems: items, value: 'value2' } });
+    render(<UiEditor editorType="combobox" listItems={ items } value="value2" />);
 
     expect(screen.getByRole('combobox')).toHaveValue('value2');
     expect(screen.getAllByRole('option')).toHaveLength(2);
@@ -78,7 +78,7 @@ describe('with editorType:combobox', () => {
       { value: 'value2', text: 'text2' },
       { value: 'value3', text: 'text3' },
     ];
-    const { emitted } = render(UiEditor, { props: { editorType: 'combobox', listItems: items, value: 'value2' } });
+    const { emitted } = render(<UiEditor editorType="combobox" listItems={ items } value="value2" />);
 
     expect(screen.getByRole('combobox')).toHaveValue('value2');
 
