@@ -8,7 +8,7 @@ test('render values', () => {
     targetCurrencyCharCode={ 'code2' } />);
 
   expect(screen.getByLabelText(/Source rate/i).textContent).toBe('1');
-  expect(screen.getByLabelText(/Source currency char code/i).textContent).toBe('code1');
+  expect(screen.getByLabelText(/Source char code/i).textContent).toBe('code1');
   expect(screen.getByLabelText(/Target rate/i).textContent).toBe('1234');
-  expect(screen.getByLabelText(/Target currency char code/i).textContent).toBe('code2');
+  expect(screen.getByLabelText(/Target char code/i).textContent).toBe('code2');
 });

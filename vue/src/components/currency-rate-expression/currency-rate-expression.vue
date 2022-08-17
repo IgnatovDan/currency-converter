@@ -1,10 +1,10 @@
 <template>
   <div class="currency-rate-expression">
     <p class="currency-rate-expression__item" aria-label="Source rate">1</p>
-    <p class="currency-rate-expression__item" aria-label="Source currency char code">{{ sourceCurrencyCharCode }}</p>
+    <p class="currency-rate-expression__item" aria-label="Source char code">{{ sourceCurrencyCharCode }}</p>
     <p class="currency-rate-expression__item">=</p>
     <p class="currency-rate-expression__item" aria-label="Target rate">{{ targetRate }}</p>
-    <p class="currency-rate-expression__item" aria-label="Target currency char code">{{ targetCurrencyCharCode }}</p>
+    <p class="currency-rate-expression__item" aria-label="Target char code">{{ targetCurrencyCharCode }}</p>
   </div>
 </template>
 
