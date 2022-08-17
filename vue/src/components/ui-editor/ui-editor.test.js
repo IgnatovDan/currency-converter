@@ -34,7 +34,8 @@ describe('type = spinbutton', () => {
     await fireEvent.update(screen.getByRole(/spinbutton/i), 42);
 
     expect(screen.getByRole(/spinbutton/i)).toHaveValue(42);
-    expect(emitted()).toMatchObject({ "update:modelValue": [["42"]] });
+    expect(emitted('update:modelValue').length).toBe(1);
+    expect(emitted('update:modelValue')[0][0]).toBe('42');
   });
 
   // });
