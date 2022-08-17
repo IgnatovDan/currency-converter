@@ -1,18 +1,25 @@
 <template>
-  <component
-    :is="targetTag.tagName"
+  <select v-if="this.editorType && this.editorType.match(/combobox/i)"
     v-bind="$attrs"
-    :type="targetTag.type"
+    :value="modelValue"
+    class="ui-editor"
+    :required="required"
+    @input="handleInput($event.target.value)"
+  >
+    <option v-for="item in listItems" :key="item.value" :value="item.value">
+      {{ item.text }}
+    </option>
+  </select>
+  
+  <input v-else
+    v-bind="$attrs"
+    :type="inputType"
     :value="modelValue"
     class="ui-editor"
     :required="required"
     :step="step"
     @input="handleInput($event.target.value)"
   >
-    <option v-for="item in listItems" :key="item.value" :value="item.value">
-      {{ item.text }}
-    </option>
-  </component>
 </template>
 
 <script>
@@ -30,11 +37,8 @@ export default {
   },
 
   computed: {
-    targetTag() {
-      if (this.editorType && this.editorType.match(/combobox/i)) {
-        return { tagName: 'select' };
-      }
-      return { tagName: 'input', type: 'number' }; // editorType.match(/spinbutton/i)
+    inputType() {
+      return (!this.editorType || this.editorType.match(/spinbutton/i)) ? 'number' : null;
     },
   },
 

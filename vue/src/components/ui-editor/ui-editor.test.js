@@ -38,18 +38,18 @@ describe('type = spinbutton', () => {
     expect(emitted('update:modelValue')[0][0]).toBe('42');
   });
 
-  // });
+});
 
-  // describe('tagName = select', () => {
-  //   test('render tagName="select"', async () => {
-  //     render(<UiEditor tagName="select" />);
-  //     expect(screen.queryAllByRole('combobox')).toHaveLength(1);
-  //   });
+describe('with editorType:combobox', () => {
+    test('render', async () => {
+      render(UiEditor, render(UiEditor, { props: { editorType: 'combobox' } }));
+      expect(screen.queryAllByRole(/combobox/i)).toHaveLength(1);
+    });
 
-  //   test('render with required', async () => {
-  //     render(<UiEditor tagName="select" required />);
-  //     expect(screen.getByRole('combobox')).toHaveAttribute('required');
-  //   });
+    test('render with required', async () => {
+      render(UiEditor, render(UiEditor, { props: { editorType: 'combobox', required: true } }));
+      expect(screen.getByRole(/combobox/i)).toHaveAttribute('required');
+    });
 
   //   test('render value and items', async () => {
   //     const items = [
