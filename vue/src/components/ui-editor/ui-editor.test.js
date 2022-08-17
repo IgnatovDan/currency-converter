@@ -47,30 +47,30 @@ describe('with editorType:combobox', () => {
     });
 
     test('render with required', async () => {
-      render(UiEditor, render(UiEditor, { props: { editorType: 'combobox', required: true } }));
+      render(UiEditor, { props: { editorType: 'combobox', required: true } });
       expect(screen.getByRole(/combobox/i)).toHaveAttribute('required');
     });
 
-  //   test('render value and items', async () => {
-  //     const items = [
-  //       { value: 'value1', text: 'text1' },
-  //       { value: 'value2', text: 'text2' }
-  //     ];
-  //     render(<UiEditor tagName="select" listItems={ items } value="value2" onChange={ () => { } } />);
+    // test('render value and items', async () => {
+    //   const items = [
+    //     { value: 'value1', text: 'text1' },
+    //     { value: 'value2', text: 'text2' }
+    //   ];
+    //   render(<UiEditor tagName="select" listItems={ items } value="value2" onChange={ () => { } } />);
 
-  //     expect(screen.getByRole('combobox')).toHaveValue('value2');
-  //     expect(screen.getAllByRole('option')).toHaveLength(2);
+    //   expect(screen.getByRole('combobox')).toHaveValue('value2');
+    //   expect(screen.getAllByRole('option')).toHaveLength(2);
 
-  //     const option1 = screen.getByRole('option', { name: 'text1' });
-  //     expect(option1.selected).toBe(false)
-  //     expect(option1.value).toBe('value1');
-  //     expect(option1.text).toBe('text1');
+    //   const option1 = screen.getByRole('option', { name: 'text1' });
+    //   expect(option1.selected).toBe(false)
+    //   expect(option1.value).toBe('value1');
+    //   expect(option1.text).toBe('text1');
 
-  //     const option2 = screen.getByRole('option', { name: 'text2' });
-  //     expect(option2.selected).toBe(true)
-  //     expect(option2.value).toBe('value2');
-  //     expect(option2.text).toBe('text2');
-  //   });
+    //   const option2 = screen.getByRole('option', { name: 'text2' });
+    //   expect(option2.selected).toBe(true)
+    //   expect(option2.value).toBe('value2');
+    //   expect(option2.text).toBe('text2');
+    // });
 
   //   // test('value not in items', async () => {
   //   //   const items = [
