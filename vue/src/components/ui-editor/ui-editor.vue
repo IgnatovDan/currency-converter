@@ -1,25 +1,25 @@
 <template>
-  <select v-if="this.editorType && this.editorType.match(/combobox/i)"
+  <select
+    v-if="this.editorType && this.editorType.match(/combobox/i)"
     v-bind="$attrs"
-    :value="modelValue"
+    v-model="inputValue"
     class="ui-editor"
     :required="required"
-    @input="handleInput($event.target.value)"
   >
     <option v-for="item in listItems" :key="item.value" :value="item.value">
       {{ item.text }}
     </option>
   </select>
-  
-  <input v-else
+
+  <input
+    v-else
     v-bind="$attrs"
     :type="inputType"
-    :value="modelValue"
+    v-model="inputValue"
     class="ui-editor"
     :required="required"
     :step="step"
-    @input="handleInput($event.target.value)"
-  >
+  />
 </template>
 
 <script>
@@ -38,7 +38,15 @@ export default {
 
   computed: {
     inputType() {
-      return (!this.editorType || this.editorType.match(/spinbutton/i)) ? 'number' : null;
+      return !this.editorType || this.editorType.match(/spinbutton/i) ? 'number' : null;
+    },
+    inputValue: {
+      get() {
+        return this.modelValue;
+      },
+      set(newValue) {
+        this.$emit('update:modelValue', newValue);
+      }
     },
   },
 

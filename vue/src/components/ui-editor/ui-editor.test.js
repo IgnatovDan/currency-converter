@@ -56,7 +56,7 @@ describe('with editorType:combobox', () => {
       { value: 'value1', text: 'text1' },
       { value: 'value2', text: 'text2' }
     ];
-    render(<UiEditor editorType="combobox" listItems={ items } value="value2" />);
+    render(<UiEditor editorType="combobox" listItems={ items } modelValue="value2" />);
 
     expect(screen.getByRole('combobox')).toHaveValue('value2');
     expect(screen.getAllByRole('option')).toHaveLength(2);
@@ -78,9 +78,7 @@ describe('with editorType:combobox', () => {
       { value: 'value2', text: 'text2' },
       { value: 'value3', text: 'text3' },
     ];
-    const { emitted } = render(<UiEditor editorType="combobox" listItems={ items } value="value2" />);
-
-    expect(screen.getByRole('combobox')).toHaveValue('value2');
+    const { emitted } = render(<UiEditor editorType="combobox" listItems={ items } modelValue="value2" />);
 
     await userEvent.selectOptions(
       screen.getByRole('combobox'),
