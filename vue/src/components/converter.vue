@@ -48,7 +48,7 @@
 
 <script>
 import UiEditor from './ui-editor/ui-editor.vue';
-import LabeledEditor from './labeled-editor.vue';
+import LabeledEditor from './labeled-editor/labeled-editor.vue';
 import UiButton from './ui-button/ui-button.vue';
 import LoadingPanel from './loading-panel.vue';
 import CurrencyRateExpression from './currency-rate-expression/currency-rate-expression.vue';
