@@ -94,7 +94,7 @@ describe('Into', () => {
     expect(screen.getByLabelText(/into/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
+  test('render value', () => {
     const selectCurrencyListItems = [{ value: 'code1', Text: 'Name1' }, { value: 'code2', Text: 'Name2' }];
     render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } targetCurrencyCharCode={ 'code2' } />);
     expect(screen.getByLabelText(/into/i)).toHaveValue('code2');
@@ -127,7 +127,7 @@ describe('Target amount', () => {
     expect(screen.getByLabelText(/target amount/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
+  test('render value', () => {
     render(<ConverterUI targetAmount={ 42 } />);
     expect(screen.getByLabelText(/target amount/i).textContent).toBe('42');
   });
@@ -139,7 +139,7 @@ describe('Exchange rates source', () => {
     expect(screen.getByLabelText(/Exchange rates source/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
+  test('render value', () => {
     const selectRatesSourceListItems = [
       { value: 1, text: 'item1' },
       { value: 2, text: 'item2' },
@@ -178,7 +178,7 @@ describe('Currency rate expression', () => {
     expect(screen.getByLabelText(/Target char code/i)).toBeInTheDocument();
   });
 
-  test('show values', () => {
+  test('render values', () => {
     render(<ConverterUI sourceCurrencyCharCode={ "USD" } targetRate={ 11 } targetCurrencyCharCode={ "RUB" } />);
     expect(screen.getByLabelText(/Source rate/i).textContent).toBe('1');
     expect(screen.getByLabelText(/Source char code/i).textContent).toBe('USD');
@@ -200,12 +200,12 @@ describe('Warning message', () => {
 });
 
 describe('Loading panel', () => {
-  test('render if loading', () => {
+  test('render if loading:true', () => {
     render(<ConverterUI isLoading={ true } />);
     expect(screen.getByTestId(/loading-panel/i)).toBeInTheDocument();
   });
 
-  test('not render if loaded', () => {
+  test('not render if loading:false', () => {
     render(<ConverterUI isLoading={ false } />);
     expect(screen.queryByTestId(/loading-panel/i)).toBeNull();
   });
