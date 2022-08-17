@@ -28,3 +28,4 @@ For more details, see https://stackoverflow.com/questions/3102819/disable-same-o
 
 #### Useful Links:
 - [Vue Testing Library](https://testing-library.com/docs/vue-testing-library/intro)
+- [Vue Test Utils (for Vue3)](https://test-utils.vuejs.org/guide/) and [Vue Test Utils (for Vue2)](https://v1.test-utils.vuejs.org/)
