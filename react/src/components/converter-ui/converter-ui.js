@@ -56,7 +56,7 @@ function ConverterUI({
           <LabeledEditor caption="From">
             <Editor tagName="select" required value={ sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } listItems={ selectCurrencyListItems } />
           </LabeledEditor>
-          <Button aria-label="Toggle currencies" classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
+          <Button classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
           <LabeledEditor caption="Into">
             <Editor tagName="select" required value={ targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } listItems={ selectCurrencyListItems } />
           </LabeledEditor>
