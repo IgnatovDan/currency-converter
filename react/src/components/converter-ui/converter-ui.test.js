@@ -32,24 +32,24 @@ describe('From', () => {
   });
 
   test('render value', () => {
-    const availableCurrencies = [{ CharCode: 'code1', Name: 'Name1' }, { CharCode: 'code2', Name: 'Name2' }];
-    render(<ConverterUI availableCurrencies={ availableCurrencies } sourceCurrencyCharCode={ 'code2' } />);
+    const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
+    render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } sourceCurrencyCharCode={ 'code2' } />);
 
     expect(screen.getByLabelText(/from/i)).toHaveValue('code2');
   });
 
   test('sourceCurrencyCharCodeChanged callback is called when source currency was changed', async () => {
-    const availableCurrencies = [
-      { CharCode: 'code1', Name: 'Name1' },
-      { CharCode: 'code2', Name: 'Name2' },
-      { CharCode: 'code3', Name: 'Name3' }
+    const selectCurrencyListItems = [
+      { value: 'code1', text: 'Name1' },
+      { value: 'code2', text: 'Name2' },
+      { value: 'code3', text: 'Name3' }
     ];
     const user = userEvent.setup()
     let counter = jest.fn();
    
     render(<ConverterUI
       sourceCurrencyCharCodeChanged={ counter }
-      availableCurrencies={ availableCurrencies }
+      selectCurrencyListItems={ selectCurrencyListItems }
       sourceCurrencyCharCode={ 'code2' } />);
     
     await user.selectOptions(screen.getByLabelText(/from/i), 'code3');
@@ -68,10 +68,10 @@ describe('Toggle currencies', () => {
     const user = userEvent.setup()
     let counterSource = jest.fn();
     let counterTarget = jest.fn();
-    const availableCurrencies = [{ CharCode: 'code1', Name: 'Name1' }, { CharCode: 'code2', Name: 'Name2' }];
+    const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
 
     render(<ConverterUI
-      availableCurrencies={ availableCurrencies }
+      selectCurrencyListItems={ selectCurrencyListItems }
       sourceCurrencyCharCode={ 'code1' }
       sourceCurrencyCharCodeChanged={ counterSource }
       targetCurrencyCharCode={ 'code2' }
@@ -95,23 +95,23 @@ describe('Into', () => {
   });
 
   test('show value', () => {
-    const availableCurrencies = [{ CharCode: 'code1', Name: 'Name1' }, { CharCode: 'code2', Name: 'Name2' }];
-    render(<ConverterUI availableCurrencies={ availableCurrencies } targetCurrencyCharCode={ 'code2' } />);
+    const selectCurrencyListItems = [{ value: 'code1', Text: 'Name1' }, { value: 'code2', Text: 'Name2' }];
+    render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } targetCurrencyCharCode={ 'code2' } />);
     expect(screen.getByLabelText(/into/i)).toHaveValue('code2');
   });
 
   test('targetCurrencyCharCodeChanged callback is called when target currency was changed', async () => {
-    const availableCurrencies = [
-      { CharCode: 'code1', Name: 'Name1' },
-      { CharCode: 'code2', Name: 'Name2' },
-      { CharCode: 'code3', Name: 'Name3' }
+    const selectCurrencyListItems = [
+      { value: 'code1', Text: 'Name1' },
+      { value: 'code2', Text: 'Name2' },
+      { value: 'code3', Text: 'Name3' }
     ];
     const user = userEvent.setup()
     let counter = jest.fn();
    
     render(<ConverterUI
       targetCurrencyCharCodeChanged={ counter }
-      availableCurrencies={ availableCurrencies }
+      selectCurrencyListItems={ selectCurrencyListItems }
       targetCurrencyCharCode={ 'code2' } />);
     
     await user.selectOptions(screen.getByLabelText(/into/i), 'code3');
@@ -140,23 +140,27 @@ describe('Exchange rates source', () => {
   });
 
   test('show value', () => {
-    const availableExchangeRateSources = [{ key: 1, caption: 'item1' }, { key: 2, caption: 'item2' }, { key: 3, caption: 'item3' }];
-    render(<ConverterUI availableExchangeRateSources={ availableExchangeRateSources } exchangeRatesSourceKey={ 2 } />);
+    const selectRatesSourceListItems = [
+      { value: 1, text: 'item1' },
+      { value: 2, text: 'item2' },
+      { value: 3, text: 'item3' }
+    ];
+    render(<ConverterUI selectRatesSourceListItems={ selectRatesSourceListItems } exchangeRatesSourceKey={ 2 } />);
     expect(screen.getByLabelText(/Exchange rates source/i)).toHaveValue('2');
   });
 
   test('exchangeRatesSourceKeyChanged callback is called when target rates source was changed', async () => {
-    const availableExchangeRateSources = [
-      { key: 1, caption: 'item1' },
-      { key: 2, caption: 'item2' },
-      { key: 3, caption: 'item3' }
+    const selectRatesSourceListItems = [
+      { value: 1, text: 'item1' },
+      { value: 2, text: 'item2' },
+      { value: 3, text: 'item3' }
     ];
     const user = userEvent.setup()
     let counter = jest.fn();
    
     render(<ConverterUI
       exchangeRatesSourceKeyChanged={ counter }
-      availableExchangeRateSources={ availableExchangeRateSources }
+      selectRatesSourceListItems={ selectRatesSourceListItems }
       exchangeRatesSourceKey={ 2 } />);
     
     await user.selectOptions(screen.getByLabelText(/Exchange rates source/i), '3');

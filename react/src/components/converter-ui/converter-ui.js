@@ -3,7 +3,6 @@ import Button from '../button/button';
 import Editor from '../editor/editor';
 import LabeledEditor from '../labeled-editor/labeled-editor';
 import CurrencyRateExpression from '../currency-rate-expression/currency-rate-expression';
-import { convertCurrenciesToSelectListItems } from './utils';
 import { ReactComponent as UpDownArrowsSvg } from '../../images/up-down-arrows.svg'; /* from https://uxwing.com/up-down-arrows-icon/ */
 import LoadingPanel from '../loading-panel/loading-panel';
 
@@ -15,7 +14,7 @@ import styles__warningMessage from './__warning-message/converter-ui__warning-me
 
 function ConverterUI({
   classes,
-  availableCurrencies,
+  selectCurrencyListItems,
   amount,
   amountChanged,
   sourceCurrencyCharCode,
@@ -28,9 +27,7 @@ function ConverterUI({
   isLoading,
   exchangeRatesSourceKey,
   exchangeRatesSourceKeyChanged,
-  availableExchangeRateSources }) {
-
-  const selectCurrencyListItems = convertCurrenciesToSelectListItems(availableCurrencies);
+  selectRatesSourceListItems }) {
 
   const handleAmountChange = useCallback(e => amountChanged(Number(e.target.value)), [amountChanged]);
   const handleSourceCurrencyChange = useCallback(e => sourceCurrencyCharCodeChanged(e.target.value), [sourceCurrencyCharCodeChanged]);
@@ -41,8 +38,6 @@ function ConverterUI({
     sourceCurrencyCharCodeChanged?.(targetCurrencyCharCode);
     targetCurrencyCharCodeChanged?.(currentSourceCurrencyCharCode);
   }, [sourceCurrencyCharCode, sourceCurrencyCharCodeChanged, targetCurrencyCharCode, targetCurrencyCharCodeChanged]);
-
-  const selectRatesSourceCurrencyListItems = availableExchangeRateSources?.map(item => ({ value: item.key, text: item.caption }));
 
   const handleExchangeRatesSourceChange = e => exchangeRatesSourceKeyChanged(e.target.value);
 
@@ -61,7 +56,7 @@ function ConverterUI({
             <Editor tagName="select" required value={ targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } listItems={ selectCurrencyListItems } />
           </LabeledEditor>
           <LabeledEditor caption="Exchange rates source">
-            <Editor tagName="select" required value={ exchangeRatesSourceKey } onChange={ handleExchangeRatesSourceChange } listItems={ selectRatesSourceCurrencyListItems } />
+            <Editor tagName="select" required value={ exchangeRatesSourceKey } onChange={ handleExchangeRatesSourceChange } listItems={ selectRatesSourceListItems } />
           </LabeledEditor>
         </fieldset>
       </form>
