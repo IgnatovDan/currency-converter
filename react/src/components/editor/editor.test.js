@@ -78,27 +78,6 @@ describe('tagName = select', () => {
     expect(option2.text).toBe('text2');
   });
 
-  // test('value not in items', async () => {
-  //   const items = [
-  //     { value: 'value1', text: 'text1' },
-  //     { value: 'value2', text: 'text2' }
-  //   ];
-  //   render(<Editor tagName="select" listItems={ items } value="value-not-exist" onChange={ () => { } } />);
-
-  //   expect(screen.getByRole('combobox')).toHaveValue('value1');
-  // });
-
-  // test('value not in items with default value', async () => {
-  //   const items = [
-  //     { value: 'value1', text: 'text1' },
-  //     { value: 'value2', text: 'text2' },
-  //     { value: 'value3', text: 'text3' }
-  //   ];
-  //   render(<Editor tagName="select" listItems={ items } value="value-not-exist" onChange={ () => { } } defaultValue={ 'value2' } />);
-
-  //   expect(screen.getByRole('combobox')).toHaveValue('value2');
-  // });
-
   test('onChange is called when selected item is changed', async () => {
     const items = [
       { value: 'value1', text: 'text1' },
