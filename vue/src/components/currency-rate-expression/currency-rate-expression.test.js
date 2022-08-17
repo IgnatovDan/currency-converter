@@ -3,16 +3,12 @@ import CurrencyRateExpression from './currency-rate-expression.vue';
 
 test('render values', () => {
   render(<CurrencyRateExpression
-    sourceCurrencyCharCode={ 'source code' }
+    sourceCurrencyCharCode={ 'code1' }
     targetRate={ 1234 }
-    targetCurrencyCharCode={ 'target code' } />);
-  
-  const sourceCodeElement = screen.getByText(/source code/i);
-  expect(sourceCodeElement).toBeInTheDocument();
+    targetCurrencyCharCode={ 'code2' } />);
 
-  const targetRateElement = screen.getByText(/1234/);
-  expect(targetRateElement).toBeInTheDocument();
-
-  const targetCodeElement = screen.getByText(/target code/i);
-  expect(targetCodeElement).toBeInTheDocument();
+  expect(screen.getByLabelText(/Source rate/i)).toHaveTextContent('1');
+  expect(screen.getByLabelText(/Source currency char code/i)).toHaveTextContent('code1');
+  expect(screen.getByLabelText(/Target rate/i)).toHaveTextContent('1234');
+  expect(screen.getByLabelText(/Target currency char code/i)).toHaveTextContent('code2');
 });

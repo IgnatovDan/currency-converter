@@ -1,19 +1,19 @@
 <template>
   <div class="currency-rate-expression">
-    <p class="currency-rate-expression__item">1</p>
-    <p class="currency-rate-expression__item">{{ sourceCurrencyCharCode }}</p>
+    <p class="currency-rate-expression__item" aria-label="Source rate">1</p>
+    <p class="currency-rate-expression__item" aria-label="Source currency char code">{{ sourceCurrencyCharCode }}</p>
     <p class="currency-rate-expression__item">=</p>
-    <p class="currency-rate-expression__item">{{ targetRate }}</p>
-    <p class="currency-rate-expression__item">{{ targetCurrencyCharCode }}</p>
+    <p class="currency-rate-expression__item" aria-label="Target rate">{{ targetRate }}</p>
+    <p class="currency-rate-expression__item" aria-label="Target currency char code">{{ targetCurrencyCharCode }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    sourceCurrencyCharCode: { type: String, required: true },
-    targetRate: { type: Number, required: true },
-    targetCurrencyCharCode: { type: String, required: true },
+    sourceCurrencyCharCode: { type: String },
+    targetRate: { type: Number },
+    targetCurrencyCharCode: { type: String },
   },
 };
 </script>
