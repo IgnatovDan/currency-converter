@@ -84,6 +84,11 @@ describe('with editorType:combobox', () => {
     const { emitted } = render(<UiEditor editorType="combobox" listItems={ items } modelValue="value2" />);
 
     await user.selectOptions(screen.getByRole(/combobox/i), 'value3');
+    // Or:
+    // await userEvent.selectOptions(
+    //   screen.getByRole(/combobox/i),
+    //   screen.getByRole(/option/i, { name: 'text3' })
+    // );
 
     expect(emitted('update:modelValue').length).toBe(1);
     expect(emitted('update:modelValue')[0][0]).toBe('value3');
