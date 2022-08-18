@@ -173,17 +173,17 @@ describe('Currency rate expression', () => {
   });
 });
 
-// describe('Warning message', () => {
-//   test('render if not empty', () => {
-//     render(<ConverterUI warningMessage={ 'msg1' } />);
-//     expect(screen.getByLabelText(/Warning message/i).textContent).toBe('msg1');
-//   });
+describe('Warning message', () => {
+  test('render if not empty', () => {
+    render(<ConverterUI warningMessage={ 'msg1' } />);
+    expect(screen.getByLabelText(/Warning message/i).textContent).toBe('msg1');
+  });
 
-//   test('not render if empty', () => {
-//     render(<ConverterUI />);
-//     expect(screen.queryByLabelText(/Warning message/i)).toBeNull();
-//   });
-// });
+  test('not render if empty', () => {
+    render(<ConverterUI />);
+    expect(screen.queryByLabelText(/Warning message/i)).toBeNull();
+  });
+});
 
 // describe('Loading panel', () => {
 //   test('render if loading:true', () => {

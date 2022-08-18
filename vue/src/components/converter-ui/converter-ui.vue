@@ -41,7 +41,7 @@
       :targetRate="targetRate"
       :targetCurrencyCharCode="targetCurrencyCharCode"
     />
-    <p v-if="warningMessage" class="converter__warning-message">{{ warningMessage }}</p>
+    <p v-if="warningMessage" aria-label="Warning message" class="converter__warning-message">{{ warningMessage }}</p>
     <LoadingPanel v-if="isLoading" />
   </div>
 </template>
