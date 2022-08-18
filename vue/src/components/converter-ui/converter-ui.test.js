@@ -143,11 +143,11 @@ describe('Exchange rates source', () => {
       { value: 3, text: 'item3' }
     ];
     const user = userEvent.setup()
-   
+
     const { emitted } = render(<ConverterUI
       selectRatesSourceListItems={ selectRatesSourceListItems }
       exchangeRatesSourceKey={ 2 } />);
-    
+
     await user.selectOptions(screen.getByLabelText(/Exchange rates source/i), '3');
 
     expect(emitted('update:exchangeRatesSourceKey').length).toBe(1);
@@ -185,14 +185,14 @@ describe('Warning message', () => {
   });
 });
 
-// describe('Loading panel', () => {
-//   test('render if loading:true', () => {
-//     render(<ConverterUI isLoading={ true } />);
-//     expect(screen.getByTestId(/loading-panel/i)).toBeInTheDocument();
-//   });
+describe('Loading panel', () => {
+  test('render if loading:true', () => {
+    render(<ConverterUI isLoading={ true } />);
+    expect(screen.getByTestId(/loading-panel/i)).toBeInTheDocument();
+  });
 
-//   test('not render if loading:false', () => {
-//     render(<ConverterUI isLoading={ false } />);
-//     expect(screen.queryByTestId(/loading-panel/i)).toBeNull();
-//   });
-// });
+  test('not render if loading:false', () => {
+    render(<ConverterUI isLoading={ false } />);
+    expect(screen.queryByTestId(/loading-panel/i)).toBeNull();
+  });
+});

@@ -42,7 +42,7 @@
       :targetCurrencyCharCode="targetCurrencyCharCode"
     />
     <p v-if="warningMessage" aria-label="Warning message" class="converter__warning-message">{{ warningMessage }}</p>
-    <LoadingPanel v-if="isLoading" />
+    <LoadingPanel v-if="isLoading" data-testid="loading-panel" />
   </div>
 </template>
 
@@ -113,7 +113,7 @@ export default {
       },
       set(newValue) {
         this.$emit('update:sourceCurrencyCharCode', newValue);
-      }
+      },
     },
     targetCurrencyCharCodeComputed: {
       get() {
@@ -121,7 +121,7 @@ export default {
       },
       set(newValue) {
         this.$emit('update:targetCurrencyCharCode', newValue);
-      }
+      },
     },
     exchangeRatesSourceKeyComputed: {
       get() {
@@ -129,8 +129,8 @@ export default {
       },
       set(newValue) {
         this.$emit('update:exchangeRatesSourceKey', newValue);
-      }
-    }
+      },
+    },
   },
 
   methods: {
