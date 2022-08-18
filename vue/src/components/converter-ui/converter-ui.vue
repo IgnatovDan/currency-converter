@@ -17,7 +17,7 @@
           text="Toggle currencies"
           @click="() => handleTogglerClick()"
         />
-        <LabeledEditor caption="To">
+        <LabeledEditor caption="Into">
           <UiEditor
             editorType="combobox"
             v-model="targetCurrencyCharCodeComputed"
@@ -75,9 +75,7 @@ export default {
   props: {
     selectCurrencyListItems: {
       type: Array,
-      default: [],
-      validator: (items) =>
-        items.every((item) => typeof item === 'object' && item !== null && 'value' in item && 'text' in item),
+      default: []
     },
     amount: { type: Number, default: 0 },
     sourceCurrencyCharCode: { type: String },
@@ -89,9 +87,7 @@ export default {
     exchangeRatesSourceKey: { type: String },
     selectRatesSourceListItems: {
       type: Array,
-      default: [],
-      validator: (items) =>
-        items.every((item) => typeof item === 'object' && item !== null && 'value' in item && 'text' in item),
+      default: []
     },
   },
 

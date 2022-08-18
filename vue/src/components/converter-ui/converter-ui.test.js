@@ -80,38 +80,33 @@ describe('Toggle currencies', () => {
   });
 });
 
-// describe('Into', () => {
-//   test('render', () => {
-//     render(<ConverterUI />);
-//     expect(screen.getByLabelText(/into/i)).toBeInTheDocument();
-//   });
+describe('Into', () => {
+  test('render', () => {
+    render(<ConverterUI />);
+    expect(screen.getByLabelText(/into/i)).toBeInTheDocument();
+  });
 
-//   test('render value', () => {
-//     const selectCurrencyListItems = [{ value: 'code1', Text: 'Name1' }, { value: 'code2', Text: 'Name2' }];
-//     render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } targetCurrencyCharCode={ 'code2' } />);
-//     expect(screen.getByLabelText(/into/i)).toHaveValue('code2');
-//   });
+  test('render value', () => {
+    const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
+    render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } targetCurrencyCharCode={ 'code2' } />);
+    expect(screen.getByLabelText(/into/i)).toHaveValue('code2');
+  });
 
-//   test('update:targetCurrencyCharCode callback is called when target currency was changed', async () => {
-//     const selectCurrencyListItems = [
-//       { value: 'code1', Text: 'Name1' },
-//       { value: 'code2', Text: 'Name2' },
-//       { value: 'code3', Text: 'Name3' }
-//     ];
-//     const user = userEvent.setup();
-   
-//     const { emitted } = render(<ConverterUI
-//       selectCurrencyListItems={ selectCurrencyListItems }
-//       targetCurrencyCharCode={ 'code2' } />);
-    
-//     await user.selectOptions(screen.getByLabelText(/into/i), 'code3');
-//     //await user.selectOptions( screen.getByLabelText(/into/i), screen.getByRole('option', { name: 'code3' }));
-//     //await userEvent.selectOptions( screen.getByLabelText(/from/i), screen.getByRole('option', { name: 'code3' }));
+  test('update:targetCurrencyCharCode callback is called when source currency was changed', async () => {
+    const user = userEvent.setup();
+    const selectCurrencyListItems = [
+      { value: 'code1', text: 'Name1' },
+      { value: 'code2', text: 'Name2' },
+      { value: 'code3', text: 'Name3' }
+    ];
+    const { emitted } = render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } targetCurrencyCharCode={ 'code2' } />);
 
-//     expect(emitted('update:targetCurrencyCharCode').length).toBe(1);
-//     expect(emitted('update:targetCurrencyCharCode')[0][0]).toBe('code3');
-//   });
-// });
+    await user.selectOptions(screen.getByLabelText(/into/i), 'code3');
+
+    expect(emitted('update:targetCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:targetCurrencyCharCode')[0][0]).toBe('code3');
+  });
+});
 
 // describe('Target amount', () => {
 //   test('render', () => {
