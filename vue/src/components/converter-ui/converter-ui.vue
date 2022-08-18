@@ -2,11 +2,11 @@
   <div v-bind="$attrs" class="converter">
     <form @submit.prevent>
       <fieldset class="converter__values">
-        <UiEditor aria-label="Source amount" editorType="spinbutton" v-model="amountValue" required :step="0.01" />
+        <UiEditor aria-label="Source amount" editorType="spinbutton" v-model="amountComputed" required :step="0.01" />
         <LabeledEditor caption="From">
           <UiEditor
             editorType="combobox"
-            v-model="sourceCurrencyCharCode"
+            v-model="sourceCurrencyCharCodeComputed"
             required
             :listItems="selectCurrencyListItems"
           />
@@ -109,7 +109,7 @@ export default {
   },
 
   computed: {
-    amountValue: {
+    amountComputed: {
       get() {
         return this.amount;
       },
@@ -117,6 +117,14 @@ export default {
         this.$emit('update:amount', newValue);
       },
     },
+    sourceCurrencyCharCodeComputed: {
+      get() {
+        return this.sourceCurrencyCharCode;
+      },
+      set(newValue) {
+        this.$emit('update:sourceCurrencyCharCode', newValue);
+      }
+    }
   },
 
   methods: {

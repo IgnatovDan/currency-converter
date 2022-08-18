@@ -25,33 +25,34 @@ describe('Source amount', () => {
   });
 });
 
-// describe('From', () => {
-//   test('render', () => {
-//     render(<ConverterUI />);
-//     expect(screen.getByLabelText(/from/i)).toBeInTheDocument();
-//   });
+describe('From', () => {
+  test('render', () => {
+    render(<ConverterUI />);
+    expect(screen.getByLabelText(/from/i)).toBeInTheDocument();
+  });
 
-//   test('render value', () => {
-//     const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
-//     render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } sourceCurrencyCharCode={ 'code2' } />);
+  test('render value', () => {
+    const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
+    render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } sourceCurrencyCharCode={ 'code2' } />);
 
-//     expect(screen.getByLabelText(/from/i)).toHaveValue('code2');
-//   });
+    expect(screen.getByLabelText(/from/i)).toHaveValue('code2');
+  });
 
-//   test('sourceCurrencyCharCodeChanged callback is called when source currency was changed', async () => {
-//     const selectCurrencyListItems = [
-//       { value: 'code1', text: 'Name1' },
-//       { value: 'code2', text: 'Name2' },
-//       { value: 'code3', text: 'Name3' }
-//     ];
-//     const { emitted } = render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } sourceCurrencyCharCode={ 'code2' } />);
+  test('sourceCurrencyCharCodeChanged callback is called when source currency was changed', async () => {
+    const user = userEvent.setup();
+    const selectCurrencyListItems = [
+      { value: 'code1', text: 'Name1' },
+      { value: 'code2', text: 'Name2' },
+      { value: 'code3', text: 'Name3' }
+    ];
+    const { emitted } = render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } sourceCurrencyCharCode={ 'code2' } />);
 
-//     await userEvent.selectOptions( screen.getByLabelText(/from/i), screen.getByRole('option', { name: 'code3' }));
+    await user.selectOptions(screen.getByLabelText(/from/i), 'code3');
 
-//     expect(emitted('update:sourceCurrencyCharCode').length).toBe(1);
-//     expect(emitted('update:sourceCurrencyCharCode')[0][0]).toBe('code3');
-//   });
-// });
+    expect(emitted('update:sourceCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:sourceCurrencyCharCode')[0][0]).toBe('code3');
+  });
+});
 
 // describe('Toggle currencies', () => {
 //   test('render', () => {
