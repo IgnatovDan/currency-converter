@@ -155,23 +155,23 @@ describe('Exchange rates source', () => {
   });
 });
 
-// describe('Currency rate expression', () => {
-//   test('render', () => {
-//     render(<ConverterUI />);
-//     expect(screen.getByLabelText(/Source rate/i)).toBeInTheDocument();
-//     expect(screen.getByLabelText(/Source char code/i)).toBeInTheDocument();
-//     expect(screen.getByLabelText(/Target rate/i)).toBeInTheDocument();
-//     expect(screen.getByLabelText(/Target char code/i)).toBeInTheDocument();
-//   });
+describe('Currency rate expression', () => {
+  test('render', () => {
+    render(<ConverterUI />);
+    expect(screen.getByLabelText(/Source rate/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Source char code/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Target rate/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Target char code/i)).toBeInTheDocument();
+  });
 
-//   test('render values', () => {
-//     render(<ConverterUI sourceCurrencyCharCode={ "USD" } targetRate={ 11 } targetCurrencyCharCode={ "RUB" } />);
-//     expect(screen.getByLabelText(/Source rate/i).textContent).toBe('1');
-//     expect(screen.getByLabelText(/Source char code/i).textContent).toBe('USD');
-//     expect(screen.getByLabelText(/Target rate/i).textContent).toBe('11');
-//     expect(screen.getByLabelText(/Target char code/i).textContent).toBe('RUB');
-//   });
-// });
+  test('render values', () => {
+    render(<ConverterUI sourceCurrencyCharCode={ "USD" } targetRate={ 11 } targetCurrencyCharCode={ "RUB" } />);
+    expect(screen.getByLabelText(/Source rate/i).textContent).toBe('1');
+    expect(screen.getByLabelText(/Source char code/i).textContent).toBe('USD');
+    expect(screen.getByLabelText(/Target rate/i).textContent).toBe('11');
+    expect(screen.getByLabelText(/Target char code/i).textContent).toBe('RUB');
+  });
+});
 
 // describe('Warning message', () => {
 //   test('render if not empty', () => {
