@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Editor from './editor';
 
@@ -25,15 +25,18 @@ describe('type = number', () => {
   });
 
   test('onChange is called when value is changed', async () => {
-    let newValue;
-    render(<Editor type="number" value={ 0 } onChange={ (e) => newValue = e.target.value } />);
-    fireEvent.change(
-      screen.getByRole('spinbutton'),
-      { target: { value: 43 } }
-    )
-    expect(newValue).toBe("43");
+    const user = userEvent.setup();
+    let onChange = jest.fn();
+    render(<Editor type="number" value={ 0 } onChange={ (e) => onChange(e.target.value) } />);
+    
+    await user.type(screen.getByRole(/spinbutton/i), '5');
+    expect(onChange).toHaveBeenLastCalledWith('5');
 
-    // Keep in GH history other approaches:
+    // Just keep here other approaches:
+    // fireEvent.change(
+    //   screen.getByRole('spinbutton'),
+    //   { target: { value: 43 } }
+    // )
     //await act(async () => {
     //  fireEvent.change(spin, { target: { value: 2 } })
     //})
@@ -79,6 +82,7 @@ describe('tagName = select', () => {
   });
 
   test('onChange is called when selected item is changed', async () => {
+    const user = userEvent.setup();
     const items = [
       { value: 'value1', text: 'text1' },
       { value: 'value2', text: 'text2' },
@@ -93,15 +97,12 @@ describe('tagName = select', () => {
 
     expect(screen.getByRole('combobox')).toHaveValue('value2');
 
-    await userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'text3' })
-    );
+    await user.selectOptions(screen.getByRole(/combobox/i), 'value3');
 
     expect(newValue).toBe('value3');
   });
 
-  test('change value with wrapper (keep in GH history)', async () => {
+  test('change value with wrapper (just keep this approach here)', async () => {
     // https://github.com/testing-library/user-event/issues/549
     function EditorWrapper({ defaultValue, ...rest }) {
       const [value, setValue] = useState(defaultValue);
