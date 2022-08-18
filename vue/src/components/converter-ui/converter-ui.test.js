@@ -108,17 +108,17 @@ describe('Into', () => {
   });
 });
 
-// describe('Target amount', () => {
-//   test('render', () => {
-//     render(<ConverterUI />);
-//     expect(screen.getByLabelText(/target amount/i)).toBeInTheDocument();
-//   });
+describe('Target amount', () => {
+  test('render', () => {
+    render(<ConverterUI />);
+    expect(screen.getByLabelText(/target amount/i)).toBeInTheDocument();
+  });
 
-//   test('render value', () => {
-//     render(<ConverterUI targetAmount={ 42 } />);
-//     expect(screen.getByLabelText(/target amount/i).textContent).toBe('42');
-//   });
-// });
+  test('render value', () => {
+    render(<ConverterUI targetAmount={ 42 } />);
+    expect(screen.getByLabelText(/target amount/i).textContent).toBe('42');
+  });
+});
 
 // describe('Exchange rates source', () => {
 //   test('render', () => {

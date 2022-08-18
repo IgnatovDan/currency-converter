@@ -35,7 +35,7 @@
         </LabeledEditor>
       </fieldset>
     </form>
-    <p class="converter__target-amount">{{ targetAmount }}</p>
+    <p aria-label="Target amount" class="converter__target-amount">{{ targetAmount }}</p>
     <CurrencyRateExpression
       :sourceCurrencyCharCode="sourceCurrencyCharCode"
       :targetRate="targetRate"
