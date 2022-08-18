@@ -54,31 +54,31 @@ describe('From', () => {
   });
 });
 
-// describe('Toggle currencies', () => {
-//   test('render', () => {
-//     render(<ConverterUI />);
-//     expect(screen.getByRole('button', { name: /Toggle currencies/i })).toBeInTheDocument();
-//   });
+describe('Toggle currencies', () => {
+  test('render', () => {
+    render(<ConverterUI />);
+    expect(screen.getByRole('button', { name: /Toggle currencies/i })).toBeInTheDocument();
+  });
 
-//   test('click calls sourceCurrencyCharCodeChanged and targetCurrencyCharCodeChanged', async () => {
-//     const user = userEvent.setup()
-//     const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
+  test('click calls sourceCurrencyCharCodeChanged and targetCurrencyCharCodeChanged', async () => {
+    const user = userEvent.setup()
+    const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
 
-//     const { emitted } = render(<ConverterUI
-//       selectCurrencyListItems={ selectCurrencyListItems }
-//       sourceCurrencyCharCode={ 'code1' }
-//       targetCurrencyCharCode={ 'code2' }
-//     />);
+    const { emitted } = render(<ConverterUI
+      selectCurrencyListItems={ selectCurrencyListItems }
+      sourceCurrencyCharCode={ 'code1' }
+      targetCurrencyCharCode={ 'code2' }
+    />);
 
-//     await user.click(screen.getByRole('button', { name: /Toggle currencies/i }));
+    await user.click(screen.getByRole('button', { name: /Toggle currencies/i }));
 
-//     expect(emitted('update:sourceCurrencyCharCode').length).toBe(1);
-//     expect(emitted('update:sourceCurrencyCharCode')[0][0]).toBe('code2');
+    expect(emitted('update:sourceCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:sourceCurrencyCharCode')[0][0]).toBe('code2');
 
-//     expect(emitted('update:targetCurrencyCharCode').length).toBe(1);
-//     expect(emitted('update:targetCurrencyCharCode')[0][0]).toBe('code1');
-//   });
-// });
+    expect(emitted('update:targetCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:targetCurrencyCharCode')[0][0]).toBe('code1');
+  });
+});
 
 // describe('Into', () => {
 //   test('render', () => {

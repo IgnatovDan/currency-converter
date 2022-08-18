@@ -20,7 +20,7 @@
         <LabeledEditor caption="To">
           <UiEditor
             editorType="combobox"
-            v-model="targetCurrencyCharCode"
+            v-model="targetCurrencyCharCodeComputed"
             required
             :listItems="selectCurrencyListItems"
           />
@@ -124,14 +124,22 @@ export default {
       set(newValue) {
         this.$emit('update:sourceCurrencyCharCode', newValue);
       }
+    },
+    targetCurrencyCharCodeComputed: {
+      get() {
+        return this.targetCurrencyCharCode;
+      },
+      set(newValue) {
+        this.$emit('update:targetCurrencyCharCode', newValue);
+      }
     }
   },
 
   methods: {
     handleTogglerClick() {
       const currentSourceCurrencyCharCode = this.sourceCurrencyCharCode;
-      $emit('update:sourceCurrencyCharCode', this.targetCurrencyCharCode);
-      $emit('update:sourceCurrencyCharCode', currentSourceCurrencyCharCode);
+      this.$emit('update:sourceCurrencyCharCode', this.targetCurrencyCharCode);
+      this.$emit('update:targetCurrencyCharCode', currentSourceCurrencyCharCode);
     },
   },
 
