@@ -120,40 +120,40 @@ describe('Target amount', () => {
   });
 });
 
-// describe('Exchange rates source', () => {
-//   test('render', () => {
-//     render(<ConverterUI />);
-//     expect(screen.getByLabelText(/Exchange rates source/i)).toBeInTheDocument();
-//   });
+describe('Exchange rates source', () => {
+  test('render', () => {
+    render(<ConverterUI />);
+    expect(screen.getByLabelText(/Exchange rates source/i)).toBeInTheDocument();
+  });
 
-//   test('render value', () => {
-//     const selectRatesSourceListItems = [
-//       { value: 1, text: 'item1' },
-//       { value: 2, text: 'item2' },
-//       { value: 3, text: 'item3' }
-//     ];
-//     render(<ConverterUI selectRatesSourceListItems={ selectRatesSourceListItems } exchangeRatesSourceKey={ 2 } />);
-//     expect(screen.getByLabelText(/Exchange rates source/i)).toHaveValue('2');
-//   });
+  test('render value', () => {
+    const selectRatesSourceListItems = [
+      { value: 1, text: 'item1' },
+      { value: 2, text: 'item2' },
+      { value: 3, text: 'item3' }
+    ];
+    render(<ConverterUI selectRatesSourceListItems={ selectRatesSourceListItems } exchangeRatesSourceKey={ 2 } />);
+    expect(screen.getByLabelText(/Exchange rates source/i)).toHaveValue('2');
+  });
 
-//   test('update:exchangeRatesSourceKey callback is called when target rates source was changed', async () => {
-//     const selectRatesSourceListItems = [
-//       { value: 1, text: 'item1' },
-//       { value: 2, text: 'item2' },
-//       { value: 3, text: 'item3' }
-//     ];
-//     const user = userEvent.setup()
+  test('update:exchangeRatesSourceKey callback is called when target rates source was changed', async () => {
+    const selectRatesSourceListItems = [
+      { value: 1, text: 'item1' },
+      { value: 2, text: 'item2' },
+      { value: 3, text: 'item3' }
+    ];
+    const user = userEvent.setup()
    
-//     const { emitted } = render(<ConverterUI
-//       selectRatesSourceListItems={ selectRatesSourceListItems }
-//       exchangeRatesSourceKey={ 2 } />);
+    const { emitted } = render(<ConverterUI
+      selectRatesSourceListItems={ selectRatesSourceListItems }
+      exchangeRatesSourceKey={ 2 } />);
     
-//     await user.selectOptions(screen.getByLabelText(/Exchange rates source/i), '3');
+    await user.selectOptions(screen.getByLabelText(/Exchange rates source/i), '3');
 
-//     expect(emitted('update:exchangeRatesSourceKey').length).toBe(1);
-//     expect(emitted('update:exchangeRatesSourceKey')[0][0]).toBe('3');
-//   });
-// });
+    expect(emitted('update:exchangeRatesSourceKey').length).toBe(1);
+    expect(emitted('update:exchangeRatesSourceKey')[0][0]).toBe(3);
+  });
+});
 
 // describe('Currency rate expression', () => {
 //   test('render', () => {

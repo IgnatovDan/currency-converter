@@ -28,7 +28,7 @@
         <LabeledEditor caption="Exchange rates source">
           <UiEditor
             editorType="combobox"
-            v-model="exchangeRatesSourceKey"
+            v-model="exchangeRatesSourceKeyComputed"
             required
             :listItems="selectRatesSourceListItems"
           />
@@ -73,10 +73,7 @@ export default {
   components: { UiEditor, LabeledEditor, UiButton, LoadingPanel, CurrencyRateExpression },
 
   props: {
-    selectCurrencyListItems: {
-      type: Array,
-      default: []
-    },
+    selectCurrencyListItems: { type: Array, default: [] },
     amount: { type: Number, default: 0 },
     sourceCurrencyCharCode: { type: String },
     targetCurrencyCharCode: { type: String },
@@ -84,11 +81,8 @@ export default {
     targetRate: { type: Number, default: 0 },
     warningMessage: { type: String },
     isLoading: { type: Boolean },
-    exchangeRatesSourceKey: { type: String },
-    selectRatesSourceListItems: {
-      type: Array,
-      default: []
-    },
+    exchangeRatesSourceKey: { type: [Number, String] },
+    selectRatesSourceListItems: { type: Array, default: [] },
   },
 
   emits: [
@@ -127,6 +121,14 @@ export default {
       },
       set(newValue) {
         this.$emit('update:targetCurrencyCharCode', newValue);
+      }
+    },
+    exchangeRatesSourceKeyComputed: {
+      get() {
+        return this.exchangeRatesSourceKey;
+      },
+      set(newValue) {
+        this.$emit('update:exchangeRatesSourceKey', newValue);
       }
     }
   },
