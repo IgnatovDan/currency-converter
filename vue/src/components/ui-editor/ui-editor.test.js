@@ -29,13 +29,15 @@ describe('type = spinbutton', () => {
   });
 
   test('update:modelValue is called when input value is changed', async () => {
-    const { emitted } = render(<UiEditor modelValue="1" />);
+    const user = userEvent.setup();
+    const { emitted } = render(<UiEditor modelValue="0" />);
 
-    await fireEvent.update(screen.getByRole(/spinbutton/i), 42);
+    await user.type(screen.getByRole(/spinbutton/i), '5');
+    //Or: await fireEvent.update(screen.getByRole(/spinbutton/i), 42);
 
-    expect(screen.getByRole(/spinbutton/i)).toHaveValue(42);
+    expect(screen.getByRole(/spinbutton/i)).toHaveValue(5);
     expect(emitted('update:modelValue').length).toBe(1);
-    expect(emitted('update:modelValue')[0][0]).toBe(42);
+    expect(emitted('update:modelValue')[0][0]).toBe(5);
   });
 
 });
@@ -73,6 +75,7 @@ describe('with editorType:combobox', () => {
   });
 
   test('update:modelValue is called when selected item is changed', async () => {
+    const user = userEvent.setup();
     const items = [
       { value: 'value1', text: 'text1' },
       { value: 'value2', text: 'text2' },
@@ -80,10 +83,7 @@ describe('with editorType:combobox', () => {
     ];
     const { emitted } = render(<UiEditor editorType="combobox" listItems={ items } modelValue="value2" />);
 
-    await userEvent.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'text3' })
-    );
+    await user.selectOptions(screen.getByRole(/combobox/i), 'value3');
 
     expect(emitted('update:modelValue').length).toBe(1);
     expect(emitted('update:modelValue')[0][0]).toBe('value3');
