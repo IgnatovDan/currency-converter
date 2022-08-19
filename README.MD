@@ -40,7 +40,7 @@ Applications:
 - estimation: 40h
 - finish date: 21.08.2022
 
-#### Actual Timeline:
+#### Actual Timeline (Done: console/React/Vue; TODO: vanilla/my-web-api):
 - start date: 07.08.2022
 - total hours: ??
 - finish date: ??
