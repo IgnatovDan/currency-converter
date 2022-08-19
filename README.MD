@@ -34,17 +34,17 @@ Applications:
 - total hours: 76h
 - finish date: 05.08.2022
 ---
-### Add Tests (in progress)
+### RC2: Add Tests (in progress)
 #### Planned Timeline:
 - start date: 07.08.2022
 - estimation: 40h
 - finish date: 21.08.2022
 
-#### Actual Timeline (Done: console/React/Vue; TODO: vanilla/my-web-api):
+#### Actual Timeline:
 - start date: 07.08.2022
-- total hours: ??
+- total hours: 64h (Done: console/React/Vue; TODO: vanilla/my-web-api)
 - finish date: ??
 ---
-#### TODO:
+#### Long time TODO:
 - add tests - in progress
 - other todos in README.MD files in each project
