@@ -42,7 +42,7 @@ Applications:
 
 #### Actual Timeline:
 - start date: 07.08.2022
-- total hours: 64h (Done: console/React/Vue; TODO: vanilla/my-web-api)
+- total hours: 64h at 19.08.2022 (Done: console/React/Vue; TODO: vanilla/my-web-api)
 - finish date: ??
 ---
 #### Long time TODO:
