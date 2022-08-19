@@ -1,16 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import ConverterUI from '../converter-ui/converter-ui.js';
 
 import { calculateTargetAmount, calculateTargetRate } from '../../api/currency-converter';
 import { HandleValueNumberToZero } from '../../api/utils';
-
 
 function handleIncorrectCharCode(charCode, availableCurrencies, defaultCharCode) {
   if (!charCode || !availableCurrencies?.find(item => item.CharCode === charCode)) {
     if (availableCurrencies?.find(item => item.CharCode === defaultCharCode)) {
       return defaultCharCode;
     }
-    else if(availableCurrencies.length) {
+    else if (availableCurrencies.length) {
       return availableCurrencies[0].CharCode;
     }
   }
@@ -61,13 +60,16 @@ function ConverterWithCalculator({
 
   useEffect(() => {
     const newValue = calculateTargetRate(sourceCurrencyValue, targetCurrencyValue);
-    debugger;
     setTargetRate(newValue);
   }, [sourceCurrencyValue, targetCurrencyValue]);
 
   const amountChanged = useCallback(value => setAmount(HandleValueNumberToZero(value)), []);
   const sourceCurrencyCharCodeChanged = useCallback(value => setSourceCurrencyCharCode(value), []);
   const targetCurrencyCharCodeChanged = useCallback(value => setTargetCurrencyCharCode(value), []);
+
+  const selectCurrencyListItems = useMemo(() => {
+    return (availableCurrencies || []).map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` }))
+  }, [availableCurrencies]);
 
   return (
     <ConverterUI classes={ classes }
@@ -80,7 +82,7 @@ function ConverterWithCalculator({
       targetCurrencyCharCode={ targetCurrencyCharCode }
       targetCurrencyCharCodeChanged={ targetCurrencyCharCodeChanged }
       targetAmount={ targetAmount }
-      availableCurrencies={ availableCurrencies }
+      selectCurrencyListItems={ selectCurrencyListItems }
       targetRate={ targetRate }
       isLoading={ isLoading }
       availableExchangeRateSources={ availableExchangeRateSources }
