@@ -3,7 +3,7 @@ import ConverterUI from '../converter-ui/converter-ui.js';
 
 import { calculateTargetAmount, calculateTargetRate } from '../../api/currency-converter';
 import { HandleValueNumberToZero } from '../../api/utils';
-import { convertCurrenciesToSelectListItems } from './utils';
+import { Currency } from '../../api/exchange-sources/exchange-rates-data-objects';
 
 function handleIncorrectCharCode(charCode, availableCurrencies, defaultCharCode) {
   if (!charCode || !availableCurrencies?.find(item => item.CharCode === charCode)) {
@@ -69,13 +69,26 @@ function ConverterWithCalculator({
   const targetCurrencyCharCodeChanged = useCallback(value => setTargetCurrencyCharCode(value), []);
 
   const selectCurrencyListItems = useMemo(
-    () => convertCurrenciesToSelectListItems(availableCurrencies),
-    [availableCurrencies]);
-  
+    () => {
+      const RUB = Currency.RUB().CharCode;
+      return availableCurrencies
+        .map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` }))
+        .sort((a, b) => {
+          if (a.value === RUB) {
+            return -1;
+          }
+          else if (b.value === RUB) {
+            return 1;
+          }
+          return ((a.text > b.text) ? 1 : -1);
+        });
+    },
+    [availableCurrencies]
+  );
+
   const selectRatesSourceListItems = useMemo(
     () => availableExchangeRateSources?.map(item => ({ value: item.key, text: item.caption })),
     [availableExchangeRateSources]);
-
 
   return (
     <ConverterUI classes={ classes }
