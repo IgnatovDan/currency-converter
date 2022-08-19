@@ -4,7 +4,6 @@ import ConverterUI from '../converter-ui/converter-ui.js';
 import { calculateTargetAmount, calculateTargetRate } from '../../api/currency-converter';
 import { HandleValueNumberToZero } from '../../api/utils';
 
-
 function handleIncorrectCharCode(charCode, availableCurrencies, defaultCharCode) {
   if (!charCode || !availableCurrencies?.find(item => item.CharCode === charCode)) {
     if (availableCurrencies?.find(item => item.CharCode === defaultCharCode)) {
@@ -68,15 +67,14 @@ function ConverterWithCalculator({
   const sourceCurrencyCharCodeChanged = useCallback(value => setSourceCurrencyCharCode(value), []);
   const targetCurrencyCharCodeChanged = useCallback(value => setTargetCurrencyCharCode(value), []);
 
-  const selectCurrencyListItems = useMemo(
-    () => availableCurrencies.map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` })),
-    [availableCurrencies]
-  );
-
   const selectRatesSourceListItems = useMemo(
     () => availableExchangeRateSources?.map(item => ({ value: item.key, text: item.caption })),
     [availableExchangeRateSources]);
   
+  const selectCurrencyListItems = useMemo(() => {
+    return (availableCurrencies || []).map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` }))
+  }, [availableCurrencies]);
+
   return (
     <ConverterUI classes={ classes }
       amount={ amount }
