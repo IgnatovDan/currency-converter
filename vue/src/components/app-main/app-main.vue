@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Converter from '../converter.vue';
+import Converter from '../converter-with-sources/converter-with-sources.vue';
 
 export default {
   components: { Converter },

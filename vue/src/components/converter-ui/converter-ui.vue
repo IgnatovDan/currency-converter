@@ -8,7 +8,7 @@
             editorType="combobox"
             v-model="sourceCurrencyCharCodeComputed"
             required
-            :listItems="selectCurrencyListItems"
+            :listItems="selectCurrencyListItemsSorted"
           />
         </LabeledEditor>
         <UiButton
@@ -22,7 +22,7 @@
             editorType="combobox"
             v-model="targetCurrencyCharCodeComputed"
             required
-            :listItems="selectCurrencyListItems"
+            :listItems="selectCurrencyListItemsSorted"
           />
         </LabeledEditor>
         <LabeledEditor caption="Exchange rates source">
@@ -52,20 +52,7 @@ import LabeledEditor from '../labeled-editor/labeled-editor.vue';
 import UiButton from '../ui-button/ui-button.vue';
 import LoadingPanel from '../loading-panel/loading-panel.vue';
 import CurrencyRateExpression from '../currency-rate-expression/currency-rate-expression.vue';
-
-import rateSourcesManager from '../../api/exchange-sources/exchange-sources-manager.js'; // TODO: pass as props/context
 import { Currency } from '../../api/exchange-sources/exchange-rates-data-objects.js';
-
-function convertCurrencyArrayToListItems(currencyArray) {
-  return currencyArray?.map((item) => ({ value: item.CharCode, text: item.Name }));
-}
-
-function HandleValueNumberToZero(value) {
-  if (Number.isNaN(value) || value === Infinity || value === undefined || value === null) {
-    return 0;
-  }
-  return value;
-}
 
 const toggleIconSrc = require('@/assets/up-down-arrows.svg');
 
@@ -81,7 +68,7 @@ export default {
     targetRate: { type: Number, default: 0 },
     warningMessage: { type: String },
     isLoading: { type: Boolean },
-    exchangeRatesSourceKey: { type: [Number, String] },
+    exchangeRatesSourceKey: { type: [String] },
     selectRatesSourceListItems: { type: Array, default: [] },
   },
 
@@ -130,6 +117,18 @@ export default {
       set(newValue) {
         this.$emit('update:exchangeRatesSourceKey', newValue);
       },
+    },
+    selectCurrencyListItemsSorted() {
+      const RUB = Currency.RUB().CharCode;
+      return this.selectCurrencyListItems
+        ?.sort((a, b) => {
+          if (a.value === RUB) {
+            return -1;
+          } else if (b.value === RUB) {
+            return 1;
+          }
+          return a.text > b.text ? 1 : -1;
+        });
     },
   },
 
