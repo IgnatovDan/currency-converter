@@ -1,30 +1,52 @@
 <template>
-  <component
-    :is="tagName"
+  <select
+    v-if="this.editorType && this.editorType.match(/combobox/i)"
     v-bind="$attrs"
-    :value="modelValue"
+    v-model="inputValue"
     class="ui-editor"
     :required="required"
-    :step="step"
-    @input="handleInput($event.target.value)"
   >
     <option v-for="item in listItems" :key="item.value" :value="item.value">
       {{ item.text }}
     </option>
-  </component>
+  </select>
+
+  <input
+    v-else
+    v-bind="$attrs"
+    :type="inputType"
+    v-model="inputValue"
+    class="ui-editor"
+    :required="required"
+    :step="step"
+  />
 </template>
 
 <script>
 export default {
   props: {
-    tagName: { type: String, required: true },
-    modelValue: { type: [Number, String], required: true },
-    required: { type: Boolean, required: true },
+    editorType: { type: String },
+    modelValue: { type: [Number, String] },
+    required: { type: Boolean, default: false },
     step: { type: Number },
     listItems: {
       type: Array,
       validator: (items) =>
         items.every((item) => typeof item === 'object' && item !== null && 'value' in item && 'text' in item),
+    },
+  },
+
+  computed: {
+    inputType() {
+      return !this.editorType || this.editorType.match(/spinbutton/i) ? 'number' : null;
+    },
+    inputValue: {
+      get() {
+        return this.modelValue;
+      },
+      set(newValue) {
+        this.$emit('update:modelValue', newValue);
+      }
     },
   },
 

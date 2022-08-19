@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
-import ConverterUI from './converter-ui';
+import ConverterUI from './converter-ui.vue';
 
 describe('Source amount', () => {
   const labelMatch = /source amount/i;
@@ -16,12 +16,12 @@ describe('Source amount', () => {
 
   test('amountChanged callback is called when amount was changed', async () => {
     const user = userEvent.setup()
-    let counter = jest.fn();
-    render(<ConverterUI amountChanged={ counter } />);
+    const { emitted } = render(<ConverterUI amount={ 0 } />);
 
-    await user.type(screen.getByLabelText(labelMatch), '23');
+    await user.type(screen.getByLabelText(labelMatch), '5');
 
-    expect(counter).toHaveBeenLastCalledWith(23);
+    expect(screen.getByLabelText(labelMatch)).toHaveValue(5);
+    expect(emitted('update:amount')[0][0]).toBe(5);
   });
 });
 
@@ -39,22 +39,18 @@ describe('From', () => {
   });
 
   test('sourceCurrencyCharCodeChanged callback is called when source currency was changed', async () => {
+    const user = userEvent.setup();
     const selectCurrencyListItems = [
       { value: 'code1', text: 'Name1' },
       { value: 'code2', text: 'Name2' },
       { value: 'code3', text: 'Name3' }
     ];
-    const user = userEvent.setup()
-    let counter = jest.fn();
-   
-    render(<ConverterUI
-      sourceCurrencyCharCodeChanged={ counter }
-      selectCurrencyListItems={ selectCurrencyListItems }
-      sourceCurrencyCharCode={ 'code2' } />);
-    
+    const { emitted } = render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } sourceCurrencyCharCode={ 'code2' } />);
+
     await user.selectOptions(screen.getByLabelText(/from/i), 'code3');
 
-    expect(counter).toHaveBeenLastCalledWith('code3');
+    expect(emitted('update:sourceCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:sourceCurrencyCharCode')[0][0]).toBe('code3');
   });
 });
 
@@ -66,25 +62,21 @@ describe('Toggle currencies', () => {
 
   test('click calls sourceCurrencyCharCodeChanged and targetCurrencyCharCodeChanged', async () => {
     const user = userEvent.setup()
-    let counterSource = jest.fn();
-    let counterTarget = jest.fn();
     const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
 
-    render(<ConverterUI
+    const { emitted } = render(<ConverterUI
       selectCurrencyListItems={ selectCurrencyListItems }
       sourceCurrencyCharCode={ 'code1' }
-      sourceCurrencyCharCodeChanged={ counterSource }
       targetCurrencyCharCode={ 'code2' }
-      targetCurrencyCharCodeChanged={ counterTarget } />
-    );
+    />);
 
     await user.click(screen.getByRole('button', { name: /Toggle currencies/i }));
 
-    expect(counterSource).toHaveBeenCalledTimes(1);
-    expect(counterSource).toHaveBeenCalledWith('code2');
+    expect(emitted('update:sourceCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:sourceCurrencyCharCode')[0][0]).toBe('code2');
 
-    expect(counterTarget).toHaveBeenCalledTimes(1);
-    expect(counterTarget).toHaveBeenCalledWith('code1');
+    expect(emitted('update:targetCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:targetCurrencyCharCode')[0][0]).toBe('code1');
   });
 });
 
@@ -94,31 +86,26 @@ describe('Into', () => {
     expect(screen.getByLabelText(/into/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
+  test('render value', () => {
     const selectCurrencyListItems = [{ value: 'code1', text: 'Name1' }, { value: 'code2', text: 'Name2' }];
     render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } targetCurrencyCharCode={ 'code2' } />);
     expect(screen.getByLabelText(/into/i)).toHaveValue('code2');
   });
 
-  test('targetCurrencyCharCodeChanged callback is called when target currency was changed', async () => {
+  test('update:targetCurrencyCharCode callback is called when source currency was changed', async () => {
+    const user = userEvent.setup();
     const selectCurrencyListItems = [
       { value: 'code1', text: 'Name1' },
       { value: 'code2', text: 'Name2' },
       { value: 'code3', text: 'Name3' }
     ];
-    const user = userEvent.setup()
-    let counter = jest.fn();
-   
-    render(<ConverterUI
-      targetCurrencyCharCodeChanged={ counter }
-      selectCurrencyListItems={ selectCurrencyListItems }
-      targetCurrencyCharCode={ 'code2' } />);
-    
+    const { emitted } = render(<ConverterUI selectCurrencyListItems={ selectCurrencyListItems } targetCurrencyCharCode={ 'code2' } />);
+
     await user.selectOptions(screen.getByLabelText(/into/i), 'code3');
 
-    expect(counter).toHaveBeenLastCalledWith('code3');
+    expect(emitted('update:targetCurrencyCharCode').length).toBe(1);
+    expect(emitted('update:targetCurrencyCharCode')[0][0]).toBe('code3');
   });
-
 });
 
 describe('Target amount', () => {
@@ -127,7 +114,7 @@ describe('Target amount', () => {
     expect(screen.getByLabelText(/target amount/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
+  test('render value', () => {
     render(<ConverterUI targetAmount={ 42 } />);
     expect(screen.getByLabelText(/target amount/i).textContent).toBe('42');
   });
@@ -139,29 +126,32 @@ describe('Exchange rates source', () => {
     expect(screen.getByLabelText(/Exchange rates source/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
-    const availableExchangeRateSources = [{ key: 1, caption: 'item1' }, { key: 2, caption: 'item2' }, { key: 3, caption: 'item3' }];
-    render(<ConverterUI availableExchangeRateSources={ availableExchangeRateSources } exchangeRatesSourceKey={ 2 } />);
+  test('render value', () => {
+    const selectRatesSourceListItems = [
+      { value: 1, text: 'item1' },
+      { value: 2, text: 'item2' },
+      { value: 3, text: 'item3' }
+    ];
+    render(<ConverterUI selectRatesSourceListItems={ selectRatesSourceListItems } exchangeRatesSourceKey={ 2 } />);
     expect(screen.getByLabelText(/Exchange rates source/i)).toHaveValue('2');
   });
 
-  test('exchangeRatesSourceKeyChanged callback is called when target rates source was changed', async () => {
-    const availableExchangeRateSources = [
-      { key: 1, caption: 'item1' },
-      { key: 2, caption: 'item2' },
-      { key: 3, caption: 'item3' }
+  test('update:exchangeRatesSourceKey callback is called when target rates source was changed', async () => {
+    const selectRatesSourceListItems = [
+      { value: '1', text: 'item1' },
+      { value: '2', text: 'item2' },
+      { value: '3', text: 'item3' }
     ];
     const user = userEvent.setup()
-    let counter = jest.fn();
-   
-    render(<ConverterUI
-      exchangeRatesSourceKeyChanged={ counter }
-      availableExchangeRateSources={ availableExchangeRateSources }
-      exchangeRatesSourceKey={ 2 } />);
-    
+
+    const { emitted } = render(<ConverterUI
+      selectRatesSourceListItems={ selectRatesSourceListItems }
+      exchangeRatesSourceKey={ '2' } />);
+
     await user.selectOptions(screen.getByLabelText(/Exchange rates source/i), '3');
 
-    expect(counter).toHaveBeenLastCalledWith('3');
+    expect(emitted('update:exchangeRatesSourceKey').length).toBe(1);
+    expect(emitted('update:exchangeRatesSourceKey')[0][0]).toBe('3');
   });
 });
 
@@ -174,7 +164,7 @@ describe('Currency rate expression', () => {
     expect(screen.getByLabelText(/Target char code/i)).toBeInTheDocument();
   });
 
-  test('show values', () => {
+  test('render values', () => {
     render(<ConverterUI sourceCurrencyCharCode={ "USD" } targetRate={ 11 } targetCurrencyCharCode={ "RUB" } />);
     expect(screen.getByLabelText(/Source rate/i).textContent).toBe('1');
     expect(screen.getByLabelText(/Source char code/i).textContent).toBe('USD');
@@ -196,12 +186,12 @@ describe('Warning message', () => {
 });
 
 describe('Loading panel', () => {
-  test('render if loading', () => {
+  test('render if loading:true', () => {
     render(<ConverterUI isLoading={ true } />);
     expect(screen.getByTestId(/loading-panel/i)).toBeInTheDocument();
   });
 
-  test('not render if loaded', () => {
+  test('not render if loading:false', () => {
     render(<ConverterUI isLoading={ false } />);
     expect(screen.queryByTestId(/loading-panel/i)).toBeNull();
   });
