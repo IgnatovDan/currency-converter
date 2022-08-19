@@ -68,6 +68,15 @@ function ConverterWithCalculator({
   const sourceCurrencyCharCodeChanged = useCallback(value => setSourceCurrencyCharCode(value), []);
   const targetCurrencyCharCodeChanged = useCallback(value => setTargetCurrencyCharCode(value), []);
 
+  const selectCurrencyListItems = useMemo(
+    () => availableCurrencies.map(item => ({ value: item.CharCode, text: item.Name + ` (${item.CharCode})` })),
+    [availableCurrencies]
+  );
+
+  const selectRatesSourceListItems = useMemo(
+    () => availableExchangeRateSources?.map(item => ({ value: item.key, text: item.caption })),
+    [availableExchangeRateSources]);
+  
   return (
     <ConverterUI classes={ classes }
       amount={ amount }
