@@ -6,6 +6,8 @@ name: 'Run `Console Converter` tests'
 on:
   # push:
   pull_request:
+    paths: 
+    - 'console/**'
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

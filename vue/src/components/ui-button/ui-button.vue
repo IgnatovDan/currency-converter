@@ -1,5 +1,5 @@
 <template>
-  <button class="ui-button">
+  <button class="ui-button" :aria-label="text">
     <img v-if="image" class="ui-button__image" :src="image" :alt="text" />
     <p class="ui-button__text">{{ text }}</p>
   </button>

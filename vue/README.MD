@@ -12,7 +12,9 @@ Vue, HTML, JS, CSS, BEM, fetch, XML, JSON.
 This is a Vue application, project was bootstrapped with [vuejs-cli](https://cli.vuejs.org/guide/creating-a-project.html).
 
 Available Scripts
-- `npm run serve`
+- `npm run serve` - to open application in browser
+- `npm run test:unit` - to run tests once
+- `npm run test:unit -- --watch` - to run tests and keep running and watching changes
 
 ## How to avoid "Access to fetch at 'https://www.cbr.ru/scripts/XML_daily.asp' from origin 'null' has been blocked by CORS policy":
 
@@ -23,3 +25,7 @@ For more details, see https://stackoverflow.com/questions/3102819/disable-same-o
 - use local server proxy to avoid "blocked by CORS policy" error
 - add new implementation based on vuex
 - add tests
+
+#### Useful Links:
+- [Vue Testing Library](https://testing-library.com/docs/vue-testing-library/intro)
+- [Vue Test Utils (for Vue3)](https://test-utils.vuejs.org/guide/) and [Vue Test Utils (for Vue2)](https://v1.test-utils.vuejs.org/)
