@@ -3,9 +3,9 @@ import Button from '../button/button';
 import Editor from '../editor/editor';
 import LabeledEditor from '../labeled-editor/labeled-editor';
 import CurrencyRateExpression from '../currency-rate-expression/currency-rate-expression';
-import { Currency } from '../../api/exchange-sources/exchange-rates-data-objects.js';
 import { ReactComponent as UpDownArrowsSvg } from '../../images/up-down-arrows.svg'; /* from https://uxwing.com/up-down-arrows-icon/ */
 import LoadingPanel from '../loading-panel/loading-panel';
+import { Currency } from '../../api/exchange-sources/exchange-rates-data-objects';
 
 import styles from './converter-ui.module.css';
 import styles__currencyToggler from './__currency-toggler/converter-ui__currency-toggler.module.css';
@@ -28,7 +28,7 @@ function ConverterUI({
   isLoading,
   exchangeRatesSourceKey,
   exchangeRatesSourceKeyChanged,
-  availableExchangeRateSources }) {
+  selectRatesSourceListItems }) {
 
   const handleAmountChange = useCallback(e => amountChanged(Number(e.target.value)), [amountChanged]);
   const handleSourceCurrencyChange = useCallback(e => sourceCurrencyCharCodeChanged(e.target.value), [sourceCurrencyCharCodeChanged]);
@@ -40,11 +40,9 @@ function ConverterUI({
     targetCurrencyCharCodeChanged?.(currentSourceCurrencyCharCode);
   }, [sourceCurrencyCharCode, sourceCurrencyCharCodeChanged, targetCurrencyCharCode, targetCurrencyCharCodeChanged]);
 
-  const selectRatesSourceCurrencyListItems = availableExchangeRateSources?.map(item => ({ value: item.key, text: item.caption }));
-
   const handleExchangeRatesSourceChange = e => exchangeRatesSourceKeyChanged(e.target.value);
 
-  const sorterSelectCurrencyListItems = useMemo(() => {
+  const sortedSelectCurrencyListItems = useMemo(() => {
     const RUB = Currency.RUB().CharCode;
     return (selectCurrencyListItems || [])
       .sort((a, b) => {
@@ -67,14 +65,14 @@ function ConverterUI({
             aria-label="Source amount" // this text is not visible but it is obvious
             value={ amount } onInput={ handleAmountChange } type="number" required step="0.01" />
           <LabeledEditor caption="From">
-            <Editor tagName="select" required value={ sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } listItems={ sorterSelectCurrencyListItems } />
+            <Editor tagName="select" required value={ sourceCurrencyCharCode } onChange={ handleSourceCurrencyChange } listItems={ sortedSelectCurrencyListItems } />
           </LabeledEditor>
-          <Button aria-label="Toggle currencies" classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
+          <Button classes={ styles__currencyToggler.s } onClick={ handleTogglerClick } svgImage={ UpDownArrowsSvg } text="Toggle currencies" />
           <LabeledEditor caption="Into">
-            <Editor tagName="select" required value={ targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } listItems={ sorterSelectCurrencyListItems } />
+            <Editor tagName="select" required value={ targetCurrencyCharCode } onChange={ handleTargetCurrencyChange } listItems={ sortedSelectCurrencyListItems } />
           </LabeledEditor>
           <LabeledEditor caption="Exchange rates source">
-            <Editor tagName="select" required value={ exchangeRatesSourceKey } onChange={ handleExchangeRatesSourceChange } listItems={ selectRatesSourceCurrencyListItems } />
+            <Editor tagName="select" required value={ exchangeRatesSourceKey } onChange={ handleExchangeRatesSourceChange } listItems={ selectRatesSourceListItems } />
           </LabeledEditor>
         </fieldset>
       </form>

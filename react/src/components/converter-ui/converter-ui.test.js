@@ -127,7 +127,7 @@ describe('Target amount', () => {
     expect(screen.getByLabelText(/target amount/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
+  test('render value', () => {
     render(<ConverterUI targetAmount={ 42 } />);
     expect(screen.getByLabelText(/target amount/i).textContent).toBe('42');
   });
@@ -139,24 +139,28 @@ describe('Exchange rates source', () => {
     expect(screen.getByLabelText(/Exchange rates source/i)).toBeInTheDocument();
   });
 
-  test('show value', () => {
-    const availableExchangeRateSources = [{ key: 1, caption: 'item1' }, { key: 2, caption: 'item2' }, { key: 3, caption: 'item3' }];
-    render(<ConverterUI availableExchangeRateSources={ availableExchangeRateSources } exchangeRatesSourceKey={ 2 } />);
+  test('render value', () => {
+    const selectRatesSourceListItems = [
+      { value: 1, text: 'item1' },
+      { value: 2, text: 'item2' },
+      { value: 3, text: 'item3' }
+    ];
+    render(<ConverterUI selectRatesSourceListItems={ selectRatesSourceListItems } exchangeRatesSourceKey={ 2 } />);
     expect(screen.getByLabelText(/Exchange rates source/i)).toHaveValue('2');
   });
 
   test('exchangeRatesSourceKeyChanged callback is called when target rates source was changed', async () => {
-    const availableExchangeRateSources = [
-      { key: 1, caption: 'item1' },
-      { key: 2, caption: 'item2' },
-      { key: 3, caption: 'item3' }
+    const selectRatesSourceListItems = [
+      { value: 1, text: 'item1' },
+      { value: 2, text: 'item2' },
+      { value: 3, text: 'item3' }
     ];
     const user = userEvent.setup()
     let counter = jest.fn();
    
     render(<ConverterUI
       exchangeRatesSourceKeyChanged={ counter }
-      availableExchangeRateSources={ availableExchangeRateSources }
+      selectRatesSourceListItems={ selectRatesSourceListItems }
       exchangeRatesSourceKey={ 2 } />);
     
     await user.selectOptions(screen.getByLabelText(/Exchange rates source/i), '3');
@@ -174,7 +178,7 @@ describe('Currency rate expression', () => {
     expect(screen.getByLabelText(/Target char code/i)).toBeInTheDocument();
   });
 
-  test('show values', () => {
+  test('render values', () => {
     render(<ConverterUI sourceCurrencyCharCode={ "USD" } targetRate={ 11 } targetCurrencyCharCode={ "RUB" } />);
     expect(screen.getByLabelText(/Source rate/i).textContent).toBe('1');
     expect(screen.getByLabelText(/Source char code/i).textContent).toBe('USD');
@@ -196,12 +200,12 @@ describe('Warning message', () => {
 });
 
 describe('Loading panel', () => {
-  test('render if loading', () => {
+  test('render if loading:true', () => {
     render(<ConverterUI isLoading={ true } />);
     expect(screen.getByTestId(/loading-panel/i)).toBeInTheDocument();
   });
 
-  test('not render if loaded', () => {
+  test('not render if loading:false', () => {
     render(<ConverterUI isLoading={ false } />);
     expect(screen.queryByTestId(/loading-panel/i)).toBeNull();
   });
