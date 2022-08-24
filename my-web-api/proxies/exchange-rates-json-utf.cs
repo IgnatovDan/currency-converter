@@ -6,13 +6,13 @@ using System.Text.Json;
 using System.Text.Unicode;
 using System.Xml.Serialization;
 
-namespace ExchangeRatesJsonUtf {
+namespace Proxies {
 
   //
-  // Convert result from https://www.cbr-xml-daily.ru/daily.xml into JSON
-  // Code is based on https://github.com/IgnatovDan/currency-converter/blob/master/console-to-cbr/crb-adapter/cbr-adapter.cs
+  // This class reads data from https://www.cbr-xml-daily.ru/daily.xml and writes it in 'context.Response' as JSON string
+  // Spike: https://github.com/IgnatovDan/currency-converter/blob/master/console-to-cbr/crb-adapter/cbr-adapter.cs
   // 
-  public class Main {
+  public class ExchangeRatesJsonUtf {
     private static ExchangeRates ConvertToExchangeRates(CbrExchangeRates rates) {
       var result = new ExchangeRates(
         DateTime.ParseExact(rates?.Date ?? "", "d.m.yyyy", CultureInfo.InvariantCulture)
@@ -87,7 +87,7 @@ namespace ExchangeRatesJsonUtf {
   }
 
   /*
-    https://www.cbr.ru/scripts/XML_daily.asp
+    https://www.cbr.ru/scripts/XML_daily.asp returns this string:
 
     <ValCurs Date="23.07.2022" name="Foreign Currency Market">
       <Valute ID="R01010">

@@ -3,20 +3,12 @@
 # Console Currency Converter (.NET Core)
 
 Pass your currency name ([USD/EUR/RUB](https://en.wikipedia.org/wiki/ISO_4217)), your amount and the target currency name as command line arguments and run it. The application will show the target amount.
-
-## Run application
-
-Run `dotnet run --project currency-converter/currency-converter.csproj USD 4000 RUB` in VSCode terminal.
-You can specify the exchange rates source as the 4th argument: 'cbr', 'web-api-proxy' or 'web-api-json'. For example: `dotnet run --project currency-converter/currency-converter.csproj USD 4000 RUB web-api-proxy`
-For 'web-api-proxy' or 'web-api-json' values build and run 'https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api' (it will start local server).
-
 Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
 
-## Run tests
-
-Run the `dotnet test` command from the root folder
-
-(I created the [backup_console_without-tests](https://github.com/IgnatovDan/currency-converter/tree/backup_console_without-tests) branch to keep sources of 'console-currency-converter' without any test)
+Available Scripts
+- `dotnet run --project currency-converter USD 4000 RUB` - run application with args `USD 4000 RUB` to convert $4000 to RUB and show it in console
+- `dotnet run --project currency-converter USD 4000 RUB web-api-proxy` - will use `web-api-proxy` to get exchange rates. Available rate sources: [`cbr`, `web-api-proxy`, `web-api-json`]). `cbr` is default. For `web-api-proxy`/`web-api-json` values build and run 'https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api'.
+- `dotnet test` - to run tests
 
 ## Used technologies
 
