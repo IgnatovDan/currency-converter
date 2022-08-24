@@ -6,7 +6,11 @@
 API urls:
 - 'https://localhost:7271/exchange-rates-1251.xml'
 - 'https://localhost:7271/exchange-rates-utf.json'
-('https://localhost:7271/swagger' doesn't show available urls)
+
+Available Scripts:
+
+- `dotnet run --project my-web-api.csproj` - to run web-api server
+- `dotnet test` - to run tests
  
 ## Used technologies
 .NET Core 6, ASP.NET Core, minimal web api, http

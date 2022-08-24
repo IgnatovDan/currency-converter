@@ -1,11 +1,11 @@
-namespace ExchangeRatesXml1251 {
+namespace Proxies {
 
   //
   // Transparent proxy to https://www.cbr-xml-daily.ru/daily.xml
   // Returns full string, in the correct encoding
   // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/ASPNETCore/cbr-currencies-proxy/proxies/transparent-proxy-return-stream-body.cs
   //
-  public class Main {
+  public class ExchangeRatesXml1251 {
     public async static Task ProcessRequest(HttpContext context, string cbrXmlDailyUrl) {
       using (HttpClient client = new HttpClient()) {
         client.DefaultRequestHeaders.Clear();

@@ -23,16 +23,17 @@ app.UseHttpsRedirection();
 const string CbrXmlDailyUrl = "https://www.cbr.ru/scripts/XML_daily.asp";
 
 //
-// Like https://www.cbr-xml-daily.ru/daily.xml
-// swagger doesn't show this api, but you can access it directly: https://localhost:7271/exchange-rates-1251.xml
+// Returns the same result as https://www.cbr-xml-daily.ru/daily.xml
 //
 app.MapGet("/exchange-rates-1251.xml", async (HttpContext context) => {
-  await ExchangeRatesXml1251.Main.ProcessRequest(context, CbrXmlDailyUrl);
-});
+  await Proxies.ExchangeRatesXml1251.ProcessRequest(context, CbrXmlDailyUrl);
+}).WithName("CalculateSum") ;
 
-// swagger doesn't show this api, but you can access it directly: https://localhost:7271/exchange-rates-utf.json
+//
+// Returns JSON string, generated from data returned from https://www.cbr-xml-daily.ru/daily.xml
+//
 app.MapGet("/exchange-rates-utf.json", async (HttpContext context) => {
-  await ExchangeRatesJsonUtf.Main.ProcessRequest(context, CbrXmlDailyUrl);
+  await Proxies.ExchangeRatesJsonUtf.ProcessRequest(context, CbrXmlDailyUrl);
 });
 
 app.Run();
