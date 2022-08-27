@@ -32,9 +32,9 @@ dotnet add web-api-test package Microsoft.AspNetCore.Mvc.Testing
 
 ## Github actions
 
-TODO: See https://github.com/IgnatovDan/....yml
+See https://github.com/IgnatovDan/currency-converter/blob/master/.github/workflows/web-api-tests.yml
 
-TODO: badge
+[![Run `Converter web-api tests`](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml/badge.svg)](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml)
 
 ## Links
 - https://github.com/IgnatovDan/Sandbox/tree/main/tasks/transactions-web-api#readme
