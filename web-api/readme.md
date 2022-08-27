@@ -27,6 +27,7 @@ dotnet new sln
 dotnet sln add web-api
 dotnet sln add web-api-test
 dotnet add web-api-test package Microsoft.AspNetCore.Mvc.Testing
+dotnet add web-api-test package Moq 
 ```
 [.NET default templates for dotnet new](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new-sdk-templates#test)
 

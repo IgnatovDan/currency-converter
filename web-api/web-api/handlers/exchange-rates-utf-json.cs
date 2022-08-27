@@ -1,4 +1,6 @@
 using System.Globalization;
+using System.Net;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
@@ -9,7 +11,7 @@ namespace Handlers;
 public class ExchangeRatesUtfJsonHandler {
   private static ExchangeRates ConvertToExchangeRates(CbrExchangeRates rates) {
     var result = new ExchangeRates(
-      DateTime.ParseExact(rates?.Date ?? "", "d.m.yyyy", CultureInfo.InvariantCulture)
+      DateTime.ParseExact(rates?.Date ?? "", "d.M.yyyy", CultureInfo.InvariantCulture)
     );
     result.Items.AddRange(
       (rates ?? new CbrExchangeRates()).Items
@@ -28,21 +30,51 @@ public class ExchangeRatesUtfJsonHandler {
     );
     return result;
   }
-  public static async Task Handle(HttpContext context, ICbrRatesProvider cbrRatesProvider) {
-    string cbrRatesXml = cbrRatesProvider.GetRatesXml();
-    XmlSerializer serializer = new XmlSerializer(typeof(CbrExchangeRates));
-    using (StringReader reader = new StringReader(cbrRatesXml)) {
-      var cbrRates = serializer.Deserialize(reader) as CbrExchangeRates ?? new CbrExchangeRates();
-      var exchangeRates = ConvertToExchangeRates(cbrRates);
-      await context.Response.WriteAsJsonAsync(
-        exchangeRates,
-        new JsonSerializerOptions {
-          WriteIndented = true,
-          IncludeFields = true,
-          Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic) // JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+  private static async Task<CbrExchangeRates> ReadCbrExchangeRates(ICbrHttpClientFactory cbrHttpClientFactory, string cbrXmlDailyUrl) {
+    using (var client = cbrHttpClientFactory.CreateHttpClient()) {
+      client.DefaultRequestHeaders.Clear();
+
+      // CancellationToken?
+      var response = await client.GetAsync(cbrXmlDailyUrl);
+      if (response.StatusCode == HttpStatusCode.NoContent) {
+        return new CbrExchangeRates();
+      }
+      else {
+        if (response.IsSuccessStatusCode) {
+          // for 'Encoding.GetEncoding': System.ArgumentException: 'windows-1251' is not a supported encoding name.
+          System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+          var charset = response.Content.Headers.ContentType?.CharSet;
+          var encoding = (charset != null) ? Encoding.GetEncoding(charset) : Encoding.UTF8;
+
+          var bytes = await response.Content.ReadAsByteArrayAsync();
+          var str = encoding.GetString(bytes);
+
+          XmlSerializer serializer = new XmlSerializer(typeof(CbrExchangeRates));
+          using (StringReader reader = new StringReader(str)) {
+            var result = serializer.Deserialize(reader) as CbrExchangeRates ?? new CbrExchangeRates();
+            return result;
+          }
         }
-      );
+        else {
+          var message = await response.Content.ReadAsStringAsync();
+          throw new Exception(message);
+        }
+      }
     }
+  }
+
+  public static async Task Handle(HttpContext context, ICbrHttpClientFactory cbrHttpClientFactory, string cbrXmlDailyUrl) {
+    CbrExchangeRates cbrRates = await ReadCbrExchangeRates(cbrHttpClientFactory, cbrXmlDailyUrl);
+    ExchangeRates exchangeRates = ConvertToExchangeRates(cbrRates);
+    await context.Response.WriteAsJsonAsync(
+      exchangeRates,
+      new JsonSerializerOptions {
+        WriteIndented = true,
+        IncludeFields = true,
+        Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic) // JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+      }
+    );
   }
 }
 
