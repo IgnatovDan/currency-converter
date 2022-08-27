@@ -1,5 +1,5 @@
 # Workflow name
-name: 'Run `Converter web-api tests`
+name: 'Run `Converter web-api tests`'
 
 # Event for the workflow
 on:
