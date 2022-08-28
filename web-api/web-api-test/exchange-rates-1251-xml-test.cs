@@ -43,11 +43,11 @@ public class ExchangeRates1251XmlTests {
 
     var bytes = await response.Content.ReadAsByteArrayAsync();
     System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); // required to call Encoding.GetEncoding("windows-1251")
-    var actualXmlString = Encoding.GetEncoding("windows-1251").GetString(bytes);
+    var actualResponseString = Encoding.GetEncoding("windows-1251").GetString(bytes);
 
     Assert.True(response.IsSuccessStatusCode);
     Assert.Equal("windows-1251", response.Content.Headers.ContentType?.CharSet);
     Assert.Equal("application/xml", response.Content.Headers.ContentType?.MediaType);
-    Assert.Equal(cbrResponseMessageContent, actualXmlString);
+    Assert.Equal(cbrResponseMessageContent, actualResponseString);
   }
 }

@@ -40,7 +40,7 @@ public class ExchangeRatesUtfJsonTests {
     var response = await client.GetAsync("/exchange-rates-utf.json");
 
     var bytes = await response.Content.ReadAsByteArrayAsync();
-    var actualXmlString = Encoding.UTF8.GetString(bytes);
+    var actualResponseString = Encoding.UTF8.GetString(bytes);
 
     Assert.True(response.IsSuccessStatusCode);
     Assert.Equal("utf-8", response.Content.Headers.ContentType?.CharSet);
@@ -56,6 +56,6 @@ public class ExchangeRatesUtfJsonTests {
       ""Value"": 41.8063
     }
   ]
-}", actualXmlString);
+}", actualResponseString);
   }
 }
