@@ -23,8 +23,7 @@ For more details, see https://stackoverflow.com/questions/3102819/disable-same-o
 
 #### TODO:
 - use local server proxy to avoid "blocked by CORS policy" error
-- add new implementation based on vuex
-- add tests
+- use vuex
 
 #### Useful Links:
 - [Vue Testing Library](https://testing-library.com/docs/vue-testing-library/intro)

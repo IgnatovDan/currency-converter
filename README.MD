@@ -1,6 +1,7 @@
 [![Run `Console Converter` tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml/badge.svg?branch=master)](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml)
 [![Run `React Converter` tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/react-run-tests.yml/badge.svg?branch=master)](https://github.com/IgnatovDan/currency-converter/actions/workflows/react-run-tests.yml)
 [![Run `Vue Converter` tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/vue-run-tests.yml/badge.svg?branch=master)](https://github.com/IgnatovDan/currency-converter/actions/workflows/vue-run-tests.yml)
+[![Run `Converter web-api tests`](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml/badge.svg)](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml)
 
 # Currency Converter applications
 Applications allow to select source currency, enter amount, select the target currency and then it will show the target amount.
@@ -20,7 +21,7 @@ Applications:
    - allows to select source currency, enter amount, select the target currency and then it will show the target amount and rate between source and target currencies.
    - allows to select exchange rates source: www.cbr.ru, XML from my web api (transparent proxy to www.cbr.ru) or JSON from my web api (it reads XML from www.cbr.ru and converts it to JSON).
    - see README.MD in each folder for more details.
-1. **[Web API for Currency Converter (ASP.NET Core)](https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api)**: provides api to download xml with exchange rates based on data from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp). See its [README.MD](https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api#readme) for more details.
+1. **[Web API for Currency Converter (ASP.NET Core)](https://github.com/IgnatovDan/currency-converter/tree/master/web-api)**: provides api to download xml with exchange rates based on data from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp). See its [README.MD](https://github.com/IgnatovDan/currency-converter/tree/master/web-api#readme) for more details.
 
 ---
 ### RC1 (done)
@@ -34,7 +35,7 @@ Applications:
 - total hours: 76h
 - finish date: 05.08.2022
 ---
-### RC2: Add Tests (in progress)
+### RC2: Add Tests
 #### Planned Timeline:
 - start date: 07.08.2022
 - estimation: 40h
@@ -42,9 +43,12 @@ Applications:
 
 #### Actual Timeline:
 - start date: 07.08.2022
-- total hours: 64h at 19.08.2022 (Done: console/React/Vue; TODO: vanilla/my-web-api)
-- finish date: ??
+- total hours: 72h (Done: console/React/Vue/web-api)
+- finish date: 28.08.2022
 ---
 #### Long time TODO:
-- add tests - in progress
-- other todos in README.MD files in each project
+- other TODOs in README.MD files in each project:
+  - [Console readme](https://github.com/IgnatovDan/currency-converter/tree/master/console#readme)
+  - [React readme](https://github.com/IgnatovDan/currency-converter/tree/master/react#readme)
+  - [Vue readme](https://github.com/IgnatovDan/currency-converter/tree/master/vue#readme)
+  - [VanillaJS readme](https://github.com/IgnatovDan/currency-converter/tree/master/vanilla-js#readme)

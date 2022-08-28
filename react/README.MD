@@ -22,8 +22,7 @@ For more details, see https://stackoverflow.com/questions/3102819/disable-same-o
 
 #### TODO:
 - use local server proxy to avoid "blocked by CORS policy" error
-- add new implementation based on redux
-- add tests
+- use redux
 
 #### Links
 - [Testing In React](https://javascript.plainenglish.io/testing-in-react-part-1-types-tools-244107abf0c6)
