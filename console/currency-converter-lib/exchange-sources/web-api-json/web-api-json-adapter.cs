@@ -4,8 +4,8 @@ using System.Text;
 
 namespace CurrencyConverter.ExchangeRateSources.WebApiJson {
   //
-  // This class is designed to work with the "https://localhost:7271/exchange-rates-utf.json" service,
-  // see https://github.com/IgnatovDan/currency-converter/tree/master/my-web-api
+  // This class is designed to work with the "https://localhost:7040/exchange-rates-utf.json" service,
+  // see https://github.com/IgnatovDan/currency-converter/tree/master/web-api
   // Spike: https://github.com/IgnatovDan/Sandbox/blob/main/ASPNETCore/cbr-currencies-console/GetCurrencies_HttpClient_GetFromJsonAsync.cs
   //
   internal class WebApiJsonAdapter {
