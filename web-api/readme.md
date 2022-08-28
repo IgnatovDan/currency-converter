@@ -35,7 +35,7 @@ dotnet add web-api-test package Moq
 
 See https://github.com/IgnatovDan/currency-converter/blob/master/.github/workflows/web-api-tests.yml
 
-[![Run `Converter web-api tests`](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml/badge.svg)](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml)
+[![Run `Converter web-api tests`](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-run-tests.yml/badge.svg)](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-run-tests.yml)
 
 ## Links
 - https://github.com/IgnatovDan/Sandbox/tree/main/tasks/transactions-web-api#readme
