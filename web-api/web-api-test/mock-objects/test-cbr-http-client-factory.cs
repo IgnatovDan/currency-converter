@@ -10,21 +10,35 @@ namespace web_api_test;
 
 // Similar to currency-converter\console\currency-converter-tests\exchange-sources\cbr\cbr-exchange-rates-adapter-tests.cs 
 public class TestCbrHttpClientFactory : ICbrHttpClientFactory {
-  private string responseMessageContent;
+  private string? responseMessageContent;
+  private int responseEncodingCodePage;
 
-  public TestCbrHttpClientFactory(string responseMessageContent) {
+  public TestCbrHttpClientFactory(
+    string? responseMessageContent,
+    int responseEncodingCodePage = 1251 /*1251 is used at https://www.cbr-xml-daily.ru/daily.xml*/
+  ) {
     this.responseMessageContent = responseMessageContent;
+    this.responseEncodingCodePage = responseEncodingCodePage;
   }
 
   public HttpClient CreateHttpClient() {
-    System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); // for Encoding.GetEncoding(1251)
-
     // Emulate response message from https://www.cbr-xml-daily.ru/daily.xml
-    var responseMessage = new HttpResponseMessage() {
-      StatusCode = HttpStatusCode.OK,
-      Content = new System.Net.Http.ByteArrayContent(Encoding.GetEncoding(1251).GetBytes(responseMessageContent)),
-    };
-    responseMessage.Content.Headers.Add("content-type", "application/xml; charset=windows-1251");
+    HttpResponseMessage responseMessage;
+
+    if (responseMessageContent == null) {
+      responseMessage = new HttpResponseMessage() { StatusCode = HttpStatusCode.NoContent };
+    }
+    else {
+      System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); // for Encoding.GetEncoding(1251)
+      Encoding encoding = Encoding.GetEncoding(this.responseEncodingCodePage);
+      responseMessage = new HttpResponseMessage() {
+        StatusCode = HttpStatusCode.OK,
+        Content = new System.Net.Http.ByteArrayContent(encoding.GetBytes(responseMessageContent))
+      };
+      var mediaType = "application/xml";
+      var charSet = "charset=" + encoding.HeaderName;
+      responseMessage.Content.Headers.Add("content-type", $"{mediaType}; {charSet}");
+    }
 
     var mockMessageHandler = new Mock<HttpMessageHandler>();
     mockMessageHandler.Protected()

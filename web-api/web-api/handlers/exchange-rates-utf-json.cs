@@ -10,9 +10,10 @@ namespace Handlers;
 
 public class ExchangeRatesUtfJsonHandler {
   private static ExchangeRates ConvertToExchangeRates(CbrExchangeRates rates) {
-    var result = new ExchangeRates(
-      DateTime.ParseExact(rates?.Date ?? "", "d.M.yyyy", CultureInfo.InvariantCulture)
-    );
+    var exchangeRatesDate = String.IsNullOrEmpty(rates?.Date)
+      ? DateTime.MinValue
+      : DateTime.ParseExact(rates?.Date ?? "", "d.M.yyyy", CultureInfo.InvariantCulture);
+    var result = new ExchangeRates(exchangeRatesDate);
     result.Items.AddRange(
       (rates ?? new CbrExchangeRates()).Items
         .Where(item =>
