@@ -1,6 +1,7 @@
 [![Run `Console Converter` tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml/badge.svg?branch=master)](https://github.com/IgnatovDan/currency-converter/actions/workflows/console-run-tests.yml)
 [![Run `React Converter` tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/react-run-tests.yml/badge.svg?branch=master)](https://github.com/IgnatovDan/currency-converter/actions/workflows/react-run-tests.yml)
 [![Run `Vue Converter` tests](https://github.com/IgnatovDan/currency-converter/actions/workflows/vue-run-tests.yml/badge.svg?branch=master)](https://github.com/IgnatovDan/currency-converter/actions/workflows/vue-run-tests.yml)
+[![Run `Converter web-api tests`](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml/badge.svg)](https://github.com/IgnatovDan/currency-converter/actions/workflows/web-api-tests.yml)
 
 # Currency Converter applications
 Applications allow to select source currency, enter amount, select the target currency and then it will show the target amount.
