@@ -3,9 +3,10 @@ using Handlers;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<ICbrHttpClientFactory, CbrHttpClientFactory>(); // one instance for all requests
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello world!");
+app.MapGet("/", () => "Use '/exchange-rates-1251.xml' or '/exchange-rates-utf.json' addresses");
 
 const string cbrXmlDailyUrl = "https://www.cbr.ru/scripts/XML_daily.asp";
 
