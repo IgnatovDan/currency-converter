@@ -30,7 +30,7 @@ public class ExchangeRatesUtfJsonHandler {
     );
     return result;
   }
-  private static async Task<CbrExchangeRates> ReadCbrExchangeRates(ICbrHttpClientFactory cbrHttpClientFactory, string cbrXmlDailyUrl) {
+  private static async Task<CbrExchangeRates> LoadCbrExchangeRates(ICbrHttpClientFactory cbrHttpClientFactory, string cbrXmlDailyUrl) {
     using (var client = cbrHttpClientFactory.CreateHttpClient()) {
       client.DefaultRequestHeaders.Clear();
 
@@ -65,7 +65,7 @@ public class ExchangeRatesUtfJsonHandler {
   }
 
   public static async Task Handle(HttpContext context, ICbrHttpClientFactory cbrHttpClientFactory, string cbrXmlDailyUrl) {
-    CbrExchangeRates cbrRates = await ReadCbrExchangeRates(cbrHttpClientFactory, cbrXmlDailyUrl);
+    CbrExchangeRates cbrRates = await LoadCbrExchangeRates(cbrHttpClientFactory, cbrXmlDailyUrl);
     ExchangeRates exchangeRates = ConvertToExchangeRates(cbrRates);
     await context.Response.WriteAsJsonAsync(
       exchangeRates,
