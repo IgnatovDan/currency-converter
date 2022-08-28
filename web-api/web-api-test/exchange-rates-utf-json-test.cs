@@ -14,7 +14,7 @@ public class ExchangeRatesUtfJsonTests {
   [Theory]
   [InlineData(1251)] // windows-1251 code page
   [InlineData(65001)] // Encoding.UTF8 code page
-  public async void Test_OneCorrectEntry(int responseEncodingCodePage) {
+  public async void Test_OneCorrectEntryFromCbr(int responseEncodingCodePage) {
     string cbrResponseMessageContent =
 @"<?xml version=""1.0"" encoding=""windows-1251""?>
 <ValCurs Date=""27.08.2022"" name=""Foreign Currency Market"">
@@ -66,7 +66,7 @@ public class ExchangeRatesUtfJsonTests {
   }
 
   [Fact]
-  public async void Test_NoContent() {
+  public async void Test_NoContentFromCbr() {
     await using var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder => {
       builder.ConfigureTestServices(services => {
         services.AddSingleton<ICbrHttpClientFactory>(
@@ -96,7 +96,26 @@ public class ExchangeRatesUtfJsonTests {
   }
 
   [Fact]
-  public async void Test_NoRequiredValues() {
+  public async void Test_BadRequestFromCbr() {
+    await using var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder => {
+      builder.ConfigureTestServices(services => {
+        services.AddSingleton<ICbrHttpClientFactory>(
+          (IServiceProvider provider) => new TestCbrHttpClientFactory(
+            new HttpResponseMessage() { StatusCode = HttpStatusCode.BadRequest }
+          )
+        );
+      });
+    });
+
+    using var client = application.CreateClient();
+
+    var response = await client.GetAsync("/exchange-rates-utf.json");
+
+    Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+  }
+
+  [Fact]
+  public async void Test_NoRequiredValuesFromCbr() {
     string cbrResponseMessageContent =
 @"<?xml version=""1.0"" encoding=""windows-1251""?>
 <ValCurs Date=""27.08.2022"" name=""Foreign Currency Market"">
