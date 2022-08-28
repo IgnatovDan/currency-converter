@@ -29,7 +29,7 @@ public class ExchangeRates1251XmlTests {
     await using var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder => {
       builder.ConfigureTestServices(services => {
         services.AddSingleton<ICbrHttpClientFactory>(
-          (IServiceProvider provider) => new TestCbrHttpClientFactory(cbrResponseMessageContent)
+          (IServiceProvider provider) => new TestCbrHttpClientFactory(1251, cbrResponseMessageContent)
         );
       });
     });

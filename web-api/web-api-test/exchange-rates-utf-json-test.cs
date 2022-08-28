@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Net;
 using System.Text;
 
 using Handlers;
@@ -11,8 +12,8 @@ namespace web_api_test;
 
 public class ExchangeRatesUtfJsonTests {
   [Theory]
-  [InlineData(1251)]
-  [InlineData(65001)]
+  [InlineData(1251)] // windows-1251 code page
+  [InlineData(65001)] // Encoding.UTF8 code page
   public async void Test_OneCorrectEntry(int responseEncodingCodePage) {
     string cbrResponseMessageContent =
 @"<?xml version=""1.0"" encoding=""windows-1251""?>
@@ -29,7 +30,10 @@ public class ExchangeRatesUtfJsonTests {
     await using var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder => {
       builder.ConfigureTestServices(services => {
         services.AddSingleton<ICbrHttpClientFactory>(
-          (IServiceProvider provider) => new TestCbrHttpClientFactory(cbrResponseMessageContent, responseEncodingCodePage)
+          (IServiceProvider provider) => {
+            return new TestCbrHttpClientFactory(responseEncodingCodePage, cbrResponseMessageContent);
+            //new TestCbrHttpClientFactory(cbrResponseMessageContent, responseEncodingCodePage)
+          }
 
           // Uncomment to run test on response from CBR site
           // (IServiceProvider provider) => new CbrHttpClientFactory()
@@ -66,7 +70,9 @@ public class ExchangeRatesUtfJsonTests {
     await using var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder => {
       builder.ConfigureTestServices(services => {
         services.AddSingleton<ICbrHttpClientFactory>(
-          (IServiceProvider provider) => new TestCbrHttpClientFactory(null)
+          (IServiceProvider provider) => new TestCbrHttpClientFactory(
+            new HttpResponseMessage() { StatusCode = HttpStatusCode.NoContent }
+          )
         );
       });
     });
@@ -89,7 +95,7 @@ public class ExchangeRatesUtfJsonTests {
 }", actualResponseString);
   }
 
-   [Fact]
+  [Fact]
   public async void Test_NoRequiredValues() {
     string cbrResponseMessageContent =
 @"<?xml version=""1.0"" encoding=""windows-1251""?>
@@ -111,7 +117,9 @@ public class ExchangeRatesUtfJsonTests {
     await using var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder => {
       builder.ConfigureTestServices(services => {
         services.AddSingleton<ICbrHttpClientFactory>(
-          (IServiceProvider provider) => new TestCbrHttpClientFactory(cbrResponseMessageContent)
+          (IServiceProvider provider) => {
+            return new TestCbrHttpClientFactory(1251, cbrResponseMessageContent);
+          }
         );
       });
     });
