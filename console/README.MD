@@ -16,6 +16,3 @@ Available Scripts
 .NET Core 6, webapi, http, xml, json, serialization, GitHub workflows, TDD
 
 This is a .NET Core application, project was bootstrapped by [Create a .NET class library using Visual Studio Code](https://docs.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio-code?pivots=dotnet-6-0), [Develop libraries with the .NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries) and [Unit testing C# in .NET Core using dotnet test and xUnit](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test) topics.
-
-#### TODO:
-- add unit tests - in progress

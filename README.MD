@@ -47,4 +47,8 @@ Applications:
 - finish date: 28.08.2022
 ---
 #### Long time TODO:
-- other TODOs in README.MD files in each project
+- other TODOs in README.MD files in each project:
+  - [Console readme](https://github.com/IgnatovDan/currency-converter/tree/master/console#readme)
+  - [React readme](https://github.com/IgnatovDan/currency-converter/tree/master/react#readme)
+  - [Vue readme](https://github.com/IgnatovDan/currency-converter/tree/master/vue#readme)
+  - [VanillaJS readme](https://github.com/IgnatovDan/currency-converter/tree/master/vanilla-js#readme)
