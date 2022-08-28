@@ -42,10 +42,11 @@ public class ExchangeRatesUtfJsonHandler {
       }
       else {
         if (response.IsSuccessStatusCode) {
-          // for 'Encoding.GetEncoding': System.ArgumentException: 'windows-1251' is not a supported encoding name.
-          System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
           var charset = response.Content.Headers.ContentType?.CharSet;
+          if (charset == "windows-1251") {
+            // for 'Encoding.GetEncoding': System.ArgumentException: 'windows-1251' is not a supported encoding name.
+            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+          }
           var encoding = (charset != null) ? Encoding.GetEncoding(charset) : Encoding.UTF8;
 
           var bytes = await response.Content.ReadAsByteArrayAsync();
