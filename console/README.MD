@@ -6,7 +6,7 @@ Pass your currency name ([USD/EUR/RUB](https://en.wikipedia.org/wiki/ISO_4217)),
 Application uses exchange rates from www.cbr.ru (https://www.cbr.ru/scripts/XML_daily.asp)
 
 Available Scripts
-- ``
+- `dotnet build` - build sources
 - `dotnet run --project currency-converter USD 4000 RUB` - run application with args `USD 4000 RUB` to convert $4000 to RUB and show it in console
 - `dotnet run --project currency-converter USD 4000 RUB web-api-proxy` - will use `web-api-proxy` to get exchange rates. Available rate sources: [`cbr`, `web-api-proxy`, `web-api-json`]). `cbr` is default. For `web-api-proxy`/`web-api-json` values build and run 'https://github.com/IgnatovDan/currency-converter/tree/master/web-api'.
 - `dotnet test` - to run tests
